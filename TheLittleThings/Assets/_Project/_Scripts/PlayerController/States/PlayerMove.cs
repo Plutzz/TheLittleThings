@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMove : State
 {
+    private float speed = 5;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -14,4 +15,10 @@ public class PlayerMove : State
     {
         base.DoExitLogic();
     }
+    public override void DoUpdateState()
+    {
+        float xinput = Input.GetAxis("Horizontal");
+        rb.velocity = Vector2.right * xinput * speed;
+    }
+
 }

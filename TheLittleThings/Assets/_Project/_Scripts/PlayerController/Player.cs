@@ -13,11 +13,13 @@ public class Player : StateMachineCore
     {
         SetupInstances();
         stateMachine.SetState(idle);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        stateMachine.currentState.DoUpdateBranch();
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
 
