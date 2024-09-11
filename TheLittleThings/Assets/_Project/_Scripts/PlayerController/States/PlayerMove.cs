@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMove : State
 {
     private float speed = 5;
+    [SerializeField] private PlayerInput playerInput;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -17,8 +18,7 @@ public class PlayerMove : State
     }
     public override void DoUpdateState()
     {
-        float xinput = Input.GetAxis("Horizontal");
-        rb.velocity = Vector2.right * xinput * speed;
+        rb.velocity = Vector2.right * playerInput.xInput * speed;
     }
 
 }
