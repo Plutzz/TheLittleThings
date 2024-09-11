@@ -21,7 +21,6 @@ public class Player : StateMachineCore
     {
         stateMachine.currentState.DoUpdateBranch();
         float xInput = Input.GetAxisRaw("Horizontal");
-        float yInput = Input.GetAxisRaw("Vertical");
 
         if (xInput != 0 && stateMachine.currentState != airborne)
         {
@@ -33,6 +32,15 @@ public class Player : StateMachineCore
             stateMachine.SetState(idle);
         }
 
-        transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
+
+        if(xInput > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (xInput < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        
     }
 }
