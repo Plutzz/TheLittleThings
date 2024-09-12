@@ -7,13 +7,9 @@ using UnityEngine;
 public class HealthTracker : MonoBehaviour
 {
     public float MaxHP;
-    private float m_currentHP;
     public float CurrentHP
     {
-        get
-        {
-            return m_currentHP;
-        }
+        get; private set;
     }
 
     public bool IsVulnerable;
@@ -26,7 +22,7 @@ public class HealthTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_currentHP = MaxHP;
+        CurrentHP = MaxHP;
         m_localIFrames = new Dictionary<string, int>();
     }
 
@@ -41,11 +37,11 @@ public class HealthTracker : MonoBehaviour
 
         OnBeforeEntityDamaged?.Invoke(ref amount, ref damageSource, ref localIFrameAddAmount);
 
-        m_currentHP -= amount;
+        CurrentHP -= amount;
 
-        if (m_currentHP < 0)
+        if (CurrentHP <= 0)
         {
-            m_currentHP = 0;
+            CurrentHP = 0;
             OnEntityKilled?.Invoke(amount, damageSource, localIFrameAddAmount);
         }
 
