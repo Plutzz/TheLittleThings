@@ -115,8 +115,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 63
-        height: 31
+        width: 64
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,10 +134,10 @@ TextureImporter:
       name: TLT_WolfBite_1
       rect:
         serializedVersion: 2
-        x: 65
+        x: 64
         y: 0
-        width: 60
-        height: 31
+        width: 64
+        height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,7 +157,7 @@ TextureImporter:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 191
+        width: 64
         height: 32
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -168,6 +168,48 @@ TextureImporter:
       bones: []
       spriteID: f932e2559f22e674c8e64db1bc8b8339
       internalID: 2053131997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TLT_WolfBite_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65056a05b128f9840801cd915cb11759
+      internalID: -1387393592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TLT_WolfBite_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 32
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d1899634d7bc44e86ea6d83de0adc1
+      internalID: 1043349271
       vertices: []
       indices: 
       edges: []
@@ -186,6 +228,8 @@ TextureImporter:
       TLT_WolfBite_0: -267508410
       TLT_WolfBite_1: -1306632829
       TLT_WolfBite_2: 2053131997
+      TLT_WolfBite_3: -1387393592
+      TLT_WolfBite_4: 1043349271
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
