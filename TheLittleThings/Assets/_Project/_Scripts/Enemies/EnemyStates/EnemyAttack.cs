@@ -2,17 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack : State
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private List<State> enemyAttackStates;
+    private State state;
+    public override void DoEnterLogic()
     {
-        
+        base.DoEnterLogic();
+        state = enemyAttackStates[Random.Range(0, enemyAttackStates.Count)];
+        stateMachine.SetState(state, true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void DoUpdateState()
     {
-        
+        base.DoUpdateState();
+        if (state.isComplete)
+        {
+            isComplete = true;
+        }
     }
 }

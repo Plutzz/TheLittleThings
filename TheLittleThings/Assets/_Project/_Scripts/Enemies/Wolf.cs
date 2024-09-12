@@ -19,6 +19,20 @@ public class Wolf : StateMachineCore
     void Update()
     {
         stateMachine.currentState.DoUpdateBranch();
+
+        if(stateMachine.currentState.isComplete)
+        {
+            if (stateMachine.currentState == patrol)
+            {
+                stateMachine.SetState(attack);
+            }
+            else if(stateMachine.currentState == attack)
+            {
+                stateMachine.SetState(patrol);
+            }
+        }
+            
+
     }
 
 

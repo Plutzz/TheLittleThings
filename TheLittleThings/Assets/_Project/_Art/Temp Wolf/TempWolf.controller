@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
+  m_Name: Wolf_Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -55,7 +55,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Run
+  m_Name: Wolf_Run
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -81,7 +81,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bite
+  m_Name: Wolf_Bite
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -107,7 +107,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Howl
+  m_Name: Wolf_Howl
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -167,7 +167,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Walk
+  m_Name: Wolf_Walk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

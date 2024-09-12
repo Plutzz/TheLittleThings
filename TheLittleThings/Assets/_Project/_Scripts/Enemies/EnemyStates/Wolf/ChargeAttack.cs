@@ -1,31 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal.Internal;
 
-public class IdleState : State
+public class ChargeAttack : State
 {
-    public float IdleTime = 2f;
     [SerializeField] private AnimationClip animClip;
+    [SerializeField] private float chargeSpeed;
+    [SerializeField] private float chargeTime = 2f;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        Debug.Log("Enter Charge");
         animator.Play(animClip.name);
     }
-    public override void CheckTransitions()
-    {
-        base.CheckTransitions();
 
-        if (stateUptime > animClip.length)
-        {
-            isComplete = true;
-        }
-
-    }
     public override void DoUpdateState()
     {
         base.DoUpdateState();
+        rb.velocity = new Vector2(chargeSpeed * Mathf.Sign(core.transform.localScale.x), rb.velocity.y);
     }
 
+    public override void CheckTransitions()
+    {
+        base.CheckTransitions();
+        if(stateUptime > chargeTime)
+        {
+            isComplete = true;
+        }
+    }
 }

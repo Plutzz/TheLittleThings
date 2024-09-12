@@ -14,10 +14,12 @@ public class NavigateState : State
     // Generic animation state?
     // public State animation
 
+    [SerializeField] private AnimationClip animClip;
+
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.Play("Walk");
+        animator.Play(animClip.name);
     }
 
 

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PatrolState : State
 {
-    public IdleState idleState;
-    public NavigateState navigateState;
-    public Transform anchor1, anchor2;
+    [SerializeField] private IdleState idleState;
+    [SerializeField] private NavigateState navigateState;
+    [SerializeField] private Transform anchor1, anchor2;
+    [SerializeField] private float patrolTime = 2f;
 
     private void GoToNextDestination()
     {
@@ -26,6 +27,13 @@ public class PatrolState : State
     public override void CheckTransitions()
     {
         base.CheckTransitions();
+
+        if (stateUptime > patrolTime)
+        {
+            isComplete = true;
+            return;
+        }
+
         if (!currentState.isComplete) return;
         if(currentState == idleState)
         {
@@ -35,6 +43,7 @@ public class PatrolState : State
         {
             stateMachine.SetState(idleState);
         }
+
     }
 
 
