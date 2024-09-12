@@ -7,11 +7,14 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerIdle idle;
     [SerializeField] private PlayerMove move;
     [SerializeField] private PlayerAirborne airborne;
+    [SerializeField] private GroundSensor groundSensor;
 
     [SerializeField] private PlayerInput playerInput;
 
+    public float NoInputDampenForce = 0.2f;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SetupInstances();
         stateMachine.SetState(idle);
@@ -23,12 +26,15 @@ public class Player : StateMachineCore
         stateMachine.currentState.DoUpdateBranch();
         float xInput = playerInput.xInput;
 
-        if (xInput != 0 && stateMachine.currentState != airborne)
+        if (!groundSensor.grounded)
+        {
+            stateMachine.SetState(airborne);
+        }
+        else if (xInput != 0)
         {
             stateMachine.SetState(move);
         }
-
-        if(xInput == 0 && stateMachine.currentState != airborne)
+        else if(xInput == 0)
         {
             stateMachine.SetState(idle);
         }

@@ -12,7 +12,6 @@ public class DamageHitbox : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log(collision + " Trigger");
         if(collision.gameObject.TryGetComponent(out HealthTracker hp))
             hp.DamageEntity(DamageAmount, DamageSource, LocalIFrameAddAmount);
     }

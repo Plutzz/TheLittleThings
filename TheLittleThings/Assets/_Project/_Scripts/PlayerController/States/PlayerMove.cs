@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : State
 {
-    private float speed = 5;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerStats playerStats;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -18,7 +19,15 @@ public class PlayerMove : State
     }
     public override void DoUpdateState()
     {
-        rb.velocity = Vector2.right * playerInput.xInput * speed;
+        if (playerInput.xInput == 0)
+        {
+            rb.AddForce(new Vector2(-rb.velocity.x * playerStats.NoInputDeceleration, 0), ForceMode2D.Impulse);
+        }
+        if (Math.Abs(rb.velocity.x) < playerStats.MaxSpeed)
+        {
+            float diff = playerStats.MaxSpeed - Math.Abs(rb.velocity.x);
+            rb.AddForce(new Vector2(playerInput.xInput * diff, 0), ForceMode2D.Impulse);
+        }
     }
 
 }

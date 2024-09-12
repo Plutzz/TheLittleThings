@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerIdle : State
 {
+    [SerializeField] private PlayerStats playerStats;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -13,5 +14,10 @@ public class PlayerIdle : State
     public override void CheckTransitions()
     {
         base.CheckTransitions();
+    }
+
+    public override void DoUpdateState()
+    {
+        rb.AddForce(new Vector2(-rb.velocity.x * playerStats.NoInputDeceleration, 0), ForceMode2D.Impulse);
     }
 }

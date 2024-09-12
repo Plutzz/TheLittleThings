@@ -33,8 +33,6 @@ public class HealthTracker : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{amount} {damageSource} {localIFrameAddAmount}");
-
         OnBeforeEntityDamaged?.Invoke(ref amount, ref damageSource, ref localIFrameAddAmount);
 
         CurrentHP -= amount;
