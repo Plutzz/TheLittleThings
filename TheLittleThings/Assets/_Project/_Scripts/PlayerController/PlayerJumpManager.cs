@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerJumpManager : MonoBehaviour
 {
-    public float JumpForce;
+    
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Player player;
-    public uint FrameBufferNum;
+    [SerializeField] private PlayerStats playerStats;
 
-    private uint m_ticksSinceLastSpacebar, m_ticksSinceOnGround;
+    float FrameBufferNum => playerStats.FrameBufferNum;
+    float JumpForce => playerStats.JumpForce;
+
+    private int m_ticksSinceLastSpacebar, m_ticksSinceOnGround;
 
     private void Awake()
     {
-        m_ticksSinceLastSpacebar = FrameBufferNum; // ensure player doesn't jump on start
-        m_ticksSinceOnGround = FrameBufferNum;
+        m_ticksSinceLastSpacebar = (int)FrameBufferNum; // ensure player doesn't jump on start
+        m_ticksSinceOnGround = (int)FrameBufferNum;
     }
 
     // Update is called once per frame
@@ -51,8 +54,8 @@ public class PlayerJumpManager : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
 
-            m_ticksSinceLastSpacebar = FrameBufferNum; // ensure two jumps don't happen off one input
-            m_ticksSinceOnGround = FrameBufferNum;
+            m_ticksSinceLastSpacebar = (int)FrameBufferNum; // ensure two jumps don't happen off one input
+            m_ticksSinceOnGround = (int)FrameBufferNum;
         }
 
         

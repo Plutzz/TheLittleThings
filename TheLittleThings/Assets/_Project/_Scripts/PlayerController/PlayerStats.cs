@@ -6,4 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     public float MaxSpeed;
     public float NoInputDeceleration;
+    public float JumpForce;
+    public uint FrameBufferNum;
+
 }
