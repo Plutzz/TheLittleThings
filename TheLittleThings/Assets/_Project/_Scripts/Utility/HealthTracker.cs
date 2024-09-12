@@ -39,14 +39,14 @@ public class HealthTracker : MonoBehaviour
 
         Debug.Log($"{amount} {damageSource} {localIFrameAddAmount}");
 
-        OnBeforeEntityDamaged.Invoke(ref amount, ref damageSource, ref localIFrameAddAmount);
+        OnBeforeEntityDamaged?.Invoke(ref amount, ref damageSource, ref localIFrameAddAmount);
 
         m_currentHP -= amount;
 
         if (m_currentHP < 0)
         {
             m_currentHP = 0;
-            OnEntityKilled.Invoke(amount, damageSource, localIFrameAddAmount);
+            OnEntityKilled?.Invoke(amount, damageSource, localIFrameAddAmount);
         }
 
         m_localIFrames.Add(damageSource, localIFrameAddAmount);

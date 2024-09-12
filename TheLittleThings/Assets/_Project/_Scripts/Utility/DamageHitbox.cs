@@ -1,36 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DamageHitbox : MonoBehaviour
 {
-    public List<Collider2D> ActiveColliders;
-
-    public bool IsActive;
-
+    //public List<Collider2D> ActiveColliders;
     public float DamageAmount;
     public string DamageSource;
     public int LocalIFrameAddAmount;
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (ActiveColliders.Contains(collision.collider) && IsActive)
-        {
-            HealthTracker hp = collision.gameObject.GetComponent<HealthTracker>();
-
+        Debug.Log(collision + " Trigger");
+        if(collision.gameObject.TryGetComponent(out HealthTracker hp))
             hp.DamageEntity(DamageAmount, DamageSource, LocalIFrameAddAmount);
-        }
     }
 }

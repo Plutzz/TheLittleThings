@@ -14,6 +14,6 @@ public class DemoPlayer : MonoBehaviour
     void Update()
     {
         float xInput = Input.GetAxis("Horizontal");
-        transform.position += new Vector3(xInput * speed, 0, 0);
+        transform.position += new Vector3(xInput * speed * Time.deltaTime, 0, 0);
     }
 }

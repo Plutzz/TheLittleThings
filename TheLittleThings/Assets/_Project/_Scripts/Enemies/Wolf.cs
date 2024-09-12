@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class Wolf : StateMachineCore
@@ -10,7 +11,8 @@ public class Wolf : StateMachineCore
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetupInstances();
+        stateMachine.SetState(patrol);
     }
 
     // Update is called once per frame
@@ -18,4 +20,13 @@ public class Wolf : StateMachineCore
     {
         stateMachine.currentState.DoUpdateBranch();
     }
+
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.transform.TryGetComponent(out HealthTracker other))
+    //    {
+    //        other.DamageEntity(10f, "Wolf", 5);
+    //    }
+    //}
 }
