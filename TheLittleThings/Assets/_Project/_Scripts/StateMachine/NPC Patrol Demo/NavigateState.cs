@@ -17,7 +17,7 @@ public class NavigateState : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.Play("Run");
+        animator.Play("Walk");
     }
 
 
@@ -28,7 +28,7 @@ public class NavigateState : State
         {
             isComplete = true;
         }
-        core.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x) * 2f, core.transform.localScale.y, 1);
+        core.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), core.transform.localScale.y, 1);
     }
 
     public override void DoFixedUpdateState()
