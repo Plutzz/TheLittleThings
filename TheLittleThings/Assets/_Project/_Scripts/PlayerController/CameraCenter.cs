@@ -16,11 +16,6 @@ public class CameraCenter : MonoBehaviour
     {
         gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, gameObject.transform.position.z);
 
-        else if (gameObject.transform.rotation.eulerAngles.z > 359)
-        {
-            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Time.timeScale = 1 / 10f;
