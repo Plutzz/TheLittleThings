@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : StateMachineCore
 {
     [SerializeField] private PlayerIdle idle;
-    [SerializeField] private DavidPlayerMove move;
+    [SerializeField] private PlayerMove move;
     [SerializeField] private PlayerAirborne airborne;
 
     // Start is called before the first frame update
