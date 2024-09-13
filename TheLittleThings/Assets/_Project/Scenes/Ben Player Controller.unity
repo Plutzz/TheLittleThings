@@ -669,6 +669,7 @@ GameObject:
   - component: {fileID: 1583982070}
   - component: {fileID: 1583982072}
   - component: {fileID: 1583982071}
+  - component: {fileID: 1583982073}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -700,7 +701,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1583982067}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc995e874751b4e4bb0b0c17e50d8ac1, type: 3}
   m_Name: 
@@ -782,6 +783,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1583982073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583982067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d67a891275892b4bb25e044a63c3284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1583982072}
 --- !u!1 &1923257288
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,9 +881,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1958851911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63d841cc24bb6864cb3a1285e77a18a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 638db7b513cc3544c9517064b3f19ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceleration: 30
+  maxSpeed: 8
+  jumpForce: 5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
