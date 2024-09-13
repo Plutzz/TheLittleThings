@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class HealthTracker : MonoBehaviour
@@ -22,6 +23,10 @@ public class HealthTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ResetHP();
+    }
+    public void ResetHP()
+    {
         CurrentHP = MaxHP;
         m_localIFrames = new Dictionary<string, int>();
     }
@@ -41,6 +46,7 @@ public class HealthTracker : MonoBehaviour
         {
             CurrentHP = 0;
             OnEntityKilled?.Invoke(amount, damageSource, localIFrameAddAmount);
+            return;
         }
 
         m_localIFrames.Add(damageSource, localIFrameAddAmount);
@@ -51,10 +57,32 @@ public class HealthTracker : MonoBehaviour
         for (int i = m_localIFrames.Count - 1; i >= 0; i--)
         {
             int iframeAmount = m_localIFrames[m_localIFrames.ElementAt(i).Key]--;
-            if (iframeAmount < 0)
+            if (iframeAmount <= 0)
             {
                 m_localIFrames.Remove(m_localIFrames.ElementAt(i).Key);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        #if UNITY_EDITOR
+        if (Application.isPlaying)
+        {
+            GUIStyle style = new GUIStyle();
+            style.alignment = TextAnchor.MiddleCenter;
+            style.normal.textColor = Color.white;
+            
+            StringBuilder b = new StringBuilder($"HP: {CurrentHP} IFrames: ");
+
+            foreach (var iframeNum in m_localIFrames)
+            {
+                b.Append($"{iframeNum.Key}:{iframeNum.Value} ");
+            }
+
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2f, b.ToString(), style);
+
+        }
+        #endif
     }
 }

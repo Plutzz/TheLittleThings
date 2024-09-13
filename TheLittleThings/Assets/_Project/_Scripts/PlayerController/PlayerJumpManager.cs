@@ -7,9 +7,11 @@ public class PlayerJumpManager : MonoBehaviour
     
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Player player;
+    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private GroundSensor groundSensor;
 
-    float FrameBufferNum => playerStats.FrameBufferNum;
+    float FrameBufferNum => playerStats.JumpFrameBufferAmount;
     float JumpForce => playerStats.JumpForce;
 
     private int m_ticksSinceLastSpacebar, m_ticksSinceOnGround;
@@ -23,15 +25,20 @@ public class PlayerJumpManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (playerInput.jumpPressedThisFrame)
         {
             m_ticksSinceLastSpacebar = 0;
         }
+        
     }
 
     void FixedUpdate()
     {
-        if (!(player.stateMachine.currentState is PlayerAirborne))
+        if (m_ticksSinceOnGround == -1)
+        {
+            m_ticksSinceOnGround = (int)FrameBufferNum;
+        }
+        else if (!(player.stateMachine.currentState is PlayerAirborne) && groundSensor.grounded)
         {
             m_ticksSinceOnGround = 0;
         }
@@ -55,9 +62,21 @@ public class PlayerJumpManager : MonoBehaviour
             rb.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
 
             m_ticksSinceLastSpacebar = (int)FrameBufferNum; // ensure two jumps don't happen off one input
-            m_ticksSinceOnGround = (int)FrameBufferNum;
+            m_ticksSinceOnGround = -1; // magic™ (look at fixed update)
         }
+    }
 
-        
+    private void OnDrawGizmos()
+    {
+        #if UNITY_EDITOR
+        if (Application.isPlaying)
+        {
+            GUIStyle style = new GUIStyle();
+            style.alignment = TextAnchor.MiddleCenter;
+            style.normal.textColor = Color.white;
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, $"Ticks since: Spacebar: {m_ticksSinceLastSpacebar} Ground: {m_ticksSinceOnGround}", style);
+
+        }
+        #endif
     }
 }
