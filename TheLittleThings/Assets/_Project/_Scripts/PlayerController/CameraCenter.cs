@@ -15,14 +15,5 @@ public class CameraCenter : MonoBehaviour
     void Update()
     {
         gameObject.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, gameObject.transform.position.z);
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Time.timeScale = 1 / 10f;
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
     }
 }

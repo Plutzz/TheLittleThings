@@ -9,6 +9,8 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerAirborne airborne;
     [SerializeField] private GroundSensor groundSensor;
 
+    [SerializeField] public PlayerStats stats;
+
     public HealthTracker playerHP;
     [SerializeField] private PlayerInput playerInput;
 
