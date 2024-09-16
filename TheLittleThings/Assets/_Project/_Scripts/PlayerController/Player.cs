@@ -69,7 +69,7 @@ public class Player : StateMachineCore
         rb.velocity = Vector3.zero;
         rb.transform.position = new Vector3(0, -3, 0);
 
-        playerHP.ResetHP();
+        playerHP?.ResetHP();
     }
 
     private void OnDrawGizmos()
