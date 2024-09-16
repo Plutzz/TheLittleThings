@@ -51,7 +51,7 @@ public abstract class StateMachineCore : MonoBehaviour
         stateMachine.currentState.DoFixedUpdateBranch();
     }
 
-    private void OnDrawGizmos()
+    public virtual void OnDrawGizmos()
     {
         #if UNITY_EDITOR
         if (Application.isPlaying)

@@ -41,7 +41,7 @@ public class Player : StateMachineCore
 
         if (!groundSensor.grounded)
         {
-            stateMachine.SetState(airborne, true);
+            stateMachine.SetState(airborne);
         }
         else if (xInput != 0)
         {
@@ -72,8 +72,9 @@ public class Player : StateMachineCore
         playerHP?.ResetHP();
     }
 
-    private void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
+        base.OnDrawGizmos();
 #if UNITY_EDITOR
         if (Application.isPlaying)
         {

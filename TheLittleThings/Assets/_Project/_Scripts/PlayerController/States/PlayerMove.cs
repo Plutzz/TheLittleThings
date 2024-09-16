@@ -7,6 +7,8 @@ public class PlayerMove : State
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] private float acceleration = 5f;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -19,29 +21,31 @@ public class PlayerMove : State
     }
     public override void DoFixedUpdateState()
     {
-        if (playerInput.xInput == 0)
+        //if velocity is less than maxspeed
+        if (Mathf.Abs(rb.velocity.x) < maxSpeed)
         {
-            rb.AddForce(new Vector2(-rb.velocity.x * playerStats.NoInputDeceleration, 0), ForceMode2D.Impulse);
+            ////movement on wall if the wall is on the right, doesn't let player add force against wall because then they will stop moving since the wall has a friction of 0.4
+            //if (onWall && wallJumpForce < 0)
+            //{
+            //    rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
+            //}
+            ////movement on the wall if the wall is on the left
+            //else if (onWall && wallJumpForce > 0)
+            //{
+            //    rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
+            //}
+            rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
         }
-
-        float inputDir = 0;
-
-        if (playerInput.xInput > 0)
+        else //if at max speed, set velocity to max speed for consistent movement
         {
-            inputDir = 1;
-        }
-        else if (playerInput.xInput < 0)
-        {
-            inputDir = -1;
-        }
-
-        if (inputDir * rb.velocity.x < playerStats.MaxSpeed)
-        {
-            float diff = Math.Abs(inputDir * playerStats.MaxSpeed - rb.velocity.x);
-
-            //Debug.Log($"dir: {inputDir}\tspd: {playerStats.MaxSpeed}\tvel: {rb.velocity.x}\tdiff: {diff}");
-
-            rb.AddForce(new Vector2(playerInput.xInput * diff, 0), ForceMode2D.Impulse);
+            if (rb.velocity.x < -maxSpeed)
+            {
+                rb.velocity = new Vector2(Mathf.Clamp(-maxSpeed, -maxSpeed, 0), rb.velocity.y);
+            }
+            else if (rb.velocity.x > maxSpeed)
+            {
+                rb.velocity = new Vector2(Mathf.Clamp(maxSpeed, 0, maxSpeed), rb.velocity.y);
+            }
         }
     }
 

@@ -75,35 +75,6 @@ public class DavidPlayerMove : MonoBehaviour
                 rb.velocity = new Vector2(0, rb.velocity.y);
             }
         }
-
-        //if velocity is less than maxspeed
-        if (Mathf.Abs(rb.velocity.x) < maxSpeed)
-        {
-            //movement on wall if the wall is on the right, doesn't let player add force against wall because then they will stop moving since the wall has a friction of 0.4
-            if (onWall && wallJumpForce < 0)
-            {
-                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
-            }
-            //movement on the wall if the wall is on the left
-            else if (onWall && wallJumpForce > 0)
-            {
-                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
-            }
-            else //movement on the ground
-            {
-                rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
-            }
-        }
-        else //if at max speed, set velocity to max speed for consistent movement
-        {
-            if(rb.velocity.x < -maxSpeed)
-            {
-                rb.velocity = new Vector2(Mathf.Clamp(-maxSpeed, -maxSpeed, 0), rb.velocity.y);
-            } else if (rb.velocity.x > maxSpeed)
-            {
-                rb.velocity = new Vector2(Mathf.Clamp(maxSpeed, 0, maxSpeed), rb.velocity.y);
-            }
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

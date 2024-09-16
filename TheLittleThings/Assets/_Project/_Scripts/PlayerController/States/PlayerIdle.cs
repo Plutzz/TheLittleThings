@@ -18,6 +18,5 @@ public class PlayerIdle : State
 
     public override void DoUpdateState()
     {
-        rb.AddForce(new Vector2(-rb.velocity.x * playerStats.NoInputDeceleration, 0), ForceMode2D.Impulse);
     }
 }
