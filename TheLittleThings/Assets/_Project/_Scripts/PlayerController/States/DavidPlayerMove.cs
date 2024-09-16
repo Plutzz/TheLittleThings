@@ -52,7 +52,6 @@ public class DavidPlayerMove : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(wallJumpForce, jumpForce / 1.5f), ForceMode2D.Impulse);
-            Debug.Log("walljump");
         }
     }
 
@@ -63,9 +62,29 @@ public class DavidPlayerMove : MonoBehaviour
 
     private void Movement()
     {
+        if (!grounded && rb.velocity.x != 0)
+        {
+            if(Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
+            {
+                Debug.Log("Strafe");
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
+
         if (Mathf.Abs(rb.velocity.x) < (maxSpeed))
         {
-            xMove();
+            if (onWall && wallJumpForce < 0)
+            {
+                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
+            }
+            else if (onWall && wallJumpForce > 0)
+            {
+                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
+            }
+            else
+            {
+                rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
+            }
         }
         else
         {
@@ -73,19 +92,27 @@ public class DavidPlayerMove : MonoBehaviour
         }
     }
 
-    private void xMove()
-    {
-        if (onWall && wallJumpForce < 0)
-        {
-            rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
-        } else if(onWall && wallJumpForce > 0)
-        {
-            rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
-        } else
-        {
-            rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
-        }
-    }
+    //private void xMove()
+    //{
+
+    //    if (onWall && wallJumpForce < 0)
+    //    {
+    //        rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
+    //    } else if(onWall && wallJumpForce > 0)
+    //    {
+    //        rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
+    //    } else
+    //    {
+    //        if (!grounded && !strafe)
+    //        {
+    //            Debug.Log("Strafe");
+    //            strafe = true;
+    //            rb.velocity = new Vector2(0, rb.velocity.y);
+    //        }
+
+    //        rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
