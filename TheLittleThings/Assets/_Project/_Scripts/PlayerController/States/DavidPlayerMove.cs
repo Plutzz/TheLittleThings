@@ -5,17 +5,21 @@ using UnityEngine;
 public class DavidPlayerMove : MonoBehaviour
 {
     public float acceleration = 20f;
+    public float airAcceleration = 50f;
     public float maxSpeed = 10f;
-    public float jumpForce = 6f;
+    public float jumpForce = 10f;
     public float gravityOnWall = 1f;
     public float normalGravity = 5f;
     public float wallJumpMagnitude = 3f;
-
+    public float downwardForce = 5f;
+    public bool wallJump = false;
+    
     private bool onWall = false;
     public bool jumpReady = true;
     private float wallJumpForce = 0f;
     private Rigidbody2D rb;
     private bool grounded = true;
+    private bool jumping = false;
 
     private void Start()
     {
@@ -26,16 +30,29 @@ public class DavidPlayerMove : MonoBehaviour
     {
         if (jumpReady == true && Input.GetKeyDown(KeyCode.Space))
         {
-            jumpReady = false;
+            jumping = true;
+            Jump();
+        }
 
-            if(grounded || !onWall)
-            {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        if(jumping && !Input.GetKey(KeyCode.Space))
+        {
+            rb.AddForce(-Vector2.up * downwardForce);
+        }
+    }
 
-            } else
-            {
-                rb.AddForce(new Vector2 (wallJumpForce/2f, jumpForce), ForceMode2D.Impulse);
-            }
+    private void Jump()
+    {
+        jumpReady = false;
+
+        if (grounded || !onWall)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(wallJumpForce, jumpForce / 1.5f), ForceMode2D.Impulse);
         }
     }
 
@@ -46,9 +63,30 @@ public class DavidPlayerMove : MonoBehaviour
 
     private void Movement()
     {
+        //air strafe handling
+        if (!grounded && !onWall && rb.velocity.x != 0 && !wallJump)
+        {
+            if(Input.GetAxisRaw("Horizontal") != 0 && Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
+            {
+                Debug.Log("Strafe");
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
+
         if (Mathf.Abs(rb.velocity.x) < (maxSpeed))
         {
-            xMove();
+            if (onWall && wallJumpForce < 0)
+            {
+                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
+            }
+            else if (onWall && wallJumpForce > 0)
+            {
+                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
+            }
+            else
+            {
+                rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
+            }
         }
         else
         {
@@ -56,36 +94,46 @@ public class DavidPlayerMove : MonoBehaviour
         }
     }
 
-    private void xMove()
-    {
-        if (onWall && wallJumpForce < -0.2)
-        {
-            rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
-        } else if(onWall && wallJumpForce > 0.2)
-        {
-            rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
-        } else
-        {
-            rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
-        }
-    }
+    //private void xMove()
+    //{
+
+    //    if (onWall && wallJumpForce < 0)
+    //    {
+    //        rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
+    //    } else if(onWall && wallJumpForce > 0)
+    //    {
+    //        rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
+    //    } else
+    //    {
+    //        if (!grounded && !strafe)
+    //        {
+    //            Debug.Log("Strafe");
+    //            strafe = true;
+    //            rb.velocity = new Vector2(0, rb.velocity.y);
+    //        }
+
+    //        rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
         if (collision.gameObject.CompareTag("Ground"))
         {
+            jumpReady = true;
             grounded = true;
             rb.gravityScale = 5f;
+            jumping = false;
+            wallJump = false;
         }
-
-        jumpReady = true;
 
         if (collision.gameObject.CompareTag("Wall"))
         {
             rb.velocity = Vector2.right * rb.velocity.x;
 
             jumpReady = true;
+            jumping = false;
 
             float wallSide = transform.position.x - collision.gameObject.transform.position.x;
 
@@ -116,6 +164,7 @@ public class DavidPlayerMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            wallJump = true;
             onWall = false;
             rb.gravityScale = 5f;
         }
