@@ -12,6 +12,7 @@ public class DavidPlayerMove : MonoBehaviour
     public float normalGravity = 5f;
     public float wallJumpMagnitude = 3f;
     public float downwardForce = 5f;
+    public bool wallJump = false;
     
     private bool onWall = false;
     public bool jumpReady = true;
@@ -62,9 +63,10 @@ public class DavidPlayerMove : MonoBehaviour
 
     private void Movement()
     {
-        if (!grounded && rb.velocity.x != 0)
+        //air strafe handling
+        if (!grounded && !onWall && rb.velocity.x != 0 && !wallJump)
         {
-            if(Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
+            if(Input.GetAxisRaw("Horizontal") != 0 && Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
             {
                 Debug.Log("Strafe");
                 rb.velocity = new Vector2(0, rb.velocity.y);
@@ -123,6 +125,7 @@ public class DavidPlayerMove : MonoBehaviour
             grounded = true;
             rb.gravityScale = 5f;
             jumping = false;
+            wallJump = false;
         }
 
         if (collision.gameObject.CompareTag("Wall"))
@@ -161,6 +164,7 @@ public class DavidPlayerMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            wallJump = true;
             onWall = false;
             rb.gravityScale = 5f;
         }
