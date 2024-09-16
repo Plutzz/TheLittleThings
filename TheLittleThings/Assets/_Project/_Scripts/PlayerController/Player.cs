@@ -8,22 +8,23 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerMove move;
     [SerializeField] private PlayerAirborne airborne;
 
-    [SerializeField] private PlayerInput playerInput;
-
     // Start is called before the first frame update
     void Start()
     {
         SetupInstances();
         stateMachine.SetState(idle);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         stateMachine.currentState.DoUpdateBranch();
-        float xInput = playerInput.xInput;
+        float xInput = Input.GetAxisRaw("Horizontal");
+        float yInput = Input.GetAxisRaw("Vertical");
+        Debug.Log(stateMachine.currentState);
 
-        if (xInput != 0 && stateMachine.currentState != airborne)
+        if(xInput != 0 && stateMachine.currentState != airborne)
         {
             stateMachine.SetState(move);
         }
@@ -33,14 +34,8 @@ public class Player : StateMachineCore
             stateMachine.SetState(idle);
         }
 
-        if(xInput > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if (xInput < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        
+        //transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), 1, 1);
     }
+
+    void FixedUpdate() { stateMachine.currentState.DoFixedUpdateBranch(); }
 }
