@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerIdle : State
 {
-    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private Player player;
+    private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();

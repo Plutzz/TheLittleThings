@@ -6,10 +6,16 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject
 {
     public float MaxSpeed;
+    public float Acceleration;
+    public float NormalGravity;
+    public float WallGravity;
     public float NoInputDeceleration;
+
     public float JumpForce;
     public uint JumpFrameBufferAmount;
 
+
     public float Damage;
     public float AttackSpeedMult;
+    
 }

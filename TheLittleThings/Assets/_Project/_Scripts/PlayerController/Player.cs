@@ -25,7 +25,7 @@ public class Player : StateMachineCore
     {
         SetupInstances();
         ResetPlayer();
-
+        rb.gravityScale = stats.NormalGravity;
         playerHP.OnEntityKilled += PlayerHP_OnEntityKilled;
     }
 

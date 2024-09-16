@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   MaxSpeed: 5
+  Acceleration: 10
+  NormalGravity: 4
+  WallGravity: 1
   NoInputDeceleration: 1
-  JumpForce: 7
+  JumpForce: 15
   JumpFrameBufferAmount: 7
   Damage: 1
   AttackSpeedMult: 4

@@ -262,10 +262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 5665812048427875500}
+  player: {fileID: 5665812048427875503}
   wallSensor: {fileID: 1865397272}
-  gravityOnWall: 0.5
-  maxSpeed: 10
-  acceleration: 50
 --- !u!1 &1067607450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1369,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1473361956777208793, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5665812048427875503}
+    - target: {fileID: 1473361956777208793, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 11400000, guid: 375090d2f820b7d4cae7fc60435feb89, type: 2}
@@ -1426,6 +1428,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4940713817908270570, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5665812048427875503}
+    - target: {fileID: 4940713817908270570, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 5665812048427875500}
     - target: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1446,6 +1456,10 @@ PrefabInstance:
       propertyPath: m_LinearDrag
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8812925399064479836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 5665812048427875503}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
