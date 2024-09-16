@@ -85,4 +85,6 @@ public class Player : StateMachineCore
         }
 #endif
     }
+
+    void FixedUpdate() { stateMachine.currentState.DoFixedUpdateBranch(); }
 }
