@@ -652,6 +652,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1492900735}
+    - targetCorrespondingSourceObject: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1492900736}
   m_SourcePrefab: {fileID: 100100000, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
 --- !u!1 &967014539 stripped
 GameObject:
@@ -684,6 +687,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5227865881258118277, guid: 734a43d8b22e46445ab1c63ba9842717, type: 3}
   m_PrefabInstance: {fileID: 1080590987}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &967014544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967014539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1de48bcbce5b414f9b7d51bac369397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHP: 10
+  IsVulnerable: 1
+--- !u!114 &967014545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967014539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328533fc79db6bd49b49586bd9fb293b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashTime: 0.25
+  material: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  healthTracker: {fileID: 967014544}
 --- !u!1001 &1080590987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -818,6 +851,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7734262926888694178, guid: 734a43d8b22e46445ab1c63ba9842717, type: 3}
       insertIndex: -1
       addedObject: {fileID: 967014540}
+    - targetCorrespondingSourceObject: {fileID: 7734262926888694178, guid: 734a43d8b22e46445ab1c63ba9842717, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 967014545}
+    - targetCorrespondingSourceObject: {fileID: 7734262926888694178, guid: 734a43d8b22e46445ab1c63ba9842717, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 967014544}
     - targetCorrespondingSourceObject: {fileID: 6833683069453174627, guid: 734a43d8b22e46445ab1c63ba9842717, type: 3}
       insertIndex: -1
       addedObject: {fileID: 63678795}
@@ -1263,6 +1302,22 @@ MonoBehaviour:
   JumpFrameBufferAmount: 7
   Damage: 4
   AttackSpeedMult: 1
+--- !u!114 &1492900736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492900726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 328533fc79db6bd49b49586bd9fb293b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashColor: {r: 1, g: 1, b: 1, a: 1}
+  flashTime: 0.25
+  material: {fileID: 2100000, guid: 782dab592d179f94fbdba4d3285ad793, type: 2}
+  healthTracker: {fileID: 1492900727}
 --- !u!114 &1495319171 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4940713817908270570, guid: cc017152a28179a4a8a4914fbf759744, type: 3}

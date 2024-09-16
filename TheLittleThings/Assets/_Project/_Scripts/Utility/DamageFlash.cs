@@ -34,6 +34,7 @@ public class DamageFlash : MonoBehaviour
 
     public void CallDamageFlash(ref float amount, ref string damageSource, ref int localIFrameAddAmount)
     {
+        Debug.Log("a");
        StopAllCoroutines();
        StartCoroutine(DamageFlasher());
     }
