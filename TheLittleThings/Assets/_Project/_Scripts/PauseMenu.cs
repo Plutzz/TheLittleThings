@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject GUI;
-    [SerializeField] private Image BlackOutImage;
     public bool IsPaused;
 
     // Start is called before the first frame update
@@ -28,10 +27,6 @@ public class PauseMenu : MonoBehaviour
     {
         IsPaused = !IsPaused;
         GUI.SetActive(IsPaused);
-        if (BlackOutImage != null )
-        {
-            BlackOutImage.enabled = IsPaused;
-        }
         
         if (IsPaused)
         {
