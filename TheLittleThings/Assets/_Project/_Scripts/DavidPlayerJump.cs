@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DavidPlayerMove : MonoBehaviour
+public class DavidPlayerJump : MonoBehaviour
 {
     public float acceleration = 20f;
-    public float airAcceleration = 50f;
-    public float maxSpeed = 10f;
-    public float jumpForce = 10f;
+    public float jumpForce = 20f;
     public float gravityOnWall = 1f;
     public float normalGravity = 5f;
     public float wallJumpMagnitude = 3f;
     public float downwardForce = 5f;
     public bool wallJump = false;
-    
+
     private bool onWall = false;
     public bool jumpReady = true;
     private float wallJumpForce = 0f;
@@ -34,7 +32,7 @@ public class DavidPlayerMove : MonoBehaviour
         }
 
         //creates variable jump, adds downward force if player lets go of space making character fall faster leading to smaler jump
-        if(jumping && !Input.GetKey(KeyCode.Space))
+        if (jumping && !Input.GetKey(KeyCode.Space))
         {
             rb.AddForce(-Vector2.up * downwardForce);
         }
@@ -57,44 +55,6 @@ public class DavidPlayerMove : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        Movement();
-    }
-
-    private void Movement()
-    {
-        //air strafe handling
-        if (!grounded && !onWall && rb.velocity.x != 0 && !wallJump)
-        {
-            if(Input.GetAxisRaw("Horizontal") != 0 && Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
-            {
-                Debug.Log("Strafe");
-                rb.velocity = new Vector2(0, rb.velocity.y);
-            }
-        }
-
-        if (Mathf.Abs(rb.velocity.x) < (maxSpeed))
-        {
-            if (onWall && wallJumpForce < 0)
-            {
-                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
-            }
-            else if (onWall && wallJumpForce > 0)
-            {
-                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
-            }
-            else
-            {
-                rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
-            }
-        }
-        else
-        {
-            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -102,6 +62,7 @@ public class DavidPlayerMove : MonoBehaviour
         {
             jumpReady = true;
             grounded = true;
+            rb.gravityScale = 5f;
             jumping = false;
             wallJump = false;
         }
@@ -115,10 +76,11 @@ public class DavidPlayerMove : MonoBehaviour
 
             float wallSide = transform.position.x - collision.gameObject.transform.position.x;
 
-            if(wallSide < 0)
+            if (wallSide < 0)
             {
                 wallJumpForce = -wallJumpMagnitude;
-            } else
+            }
+            else
             {
                 wallJumpForce = wallJumpMagnitude;
             }

@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 611123637}
   - component: {fileID: 611123635}
   - component: {fileID: 611123640}
+  - component: {fileID: 611123641}
   m_Layer: 0
   m_Name: Capsule Player
   m_TagString: Untagged
@@ -289,7 +290,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611123634}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 638db7b513cc3544c9517064b3f19ccc, type: 3}
   m_Name: 
@@ -302,6 +303,7 @@ MonoBehaviour:
   normalGravity: 5
   wallJumpMagnitude: 15
   downwardForce: 1.5
+  wallJump: 0
   jumpReady: 1
 --- !u!50 &611123637
 Rigidbody2D:
@@ -391,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 611123634}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -0.78, z: 0}
+  m_LocalPosition: {x: 5.45, y: -2.44, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -433,6 +435,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &611123641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611123634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e17110a04a34f41b42a833c5306eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 20
+  jumpForce: 20
+  gravityOnWall: 1
+  normalGravity: 5
+  wallJumpMagnitude: 3
+  downwardForce: 5
+  wallJump: 0
+  jumpReady: 1
 --- !u!1 &799956247
 GameObject:
   m_ObjectHideFlags: 0
