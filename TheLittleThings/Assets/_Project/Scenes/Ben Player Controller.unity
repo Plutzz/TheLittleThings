@@ -296,10 +296,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 100
   maxSpeed: 11
-  jumpForce: 15
+  jumpForce: 10
   gravityOnWall: 1
   normalGravity: 5
   wallJumpMagnitude: 15
+  holdJumpSeconds: 0.1
   jumpReady: 1
 --- !u!50 &611123637
 Rigidbody2D:
