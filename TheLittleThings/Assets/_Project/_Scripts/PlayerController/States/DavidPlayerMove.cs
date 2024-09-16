@@ -11,10 +11,8 @@ public class DavidPlayerMove : MonoBehaviour
     public float gravityOnWall = 1f;
     public float normalGravity = 5f;
     public float wallJumpMagnitude = 3f;
-    public float holdJumpSeconds = 1f;
-    public bool strafe = false;
+    public float downwardForce = 5f;
     
-    private float holdJumpTimer = 0f;
     private bool onWall = false;
     public bool jumpReady = true;
     private float wallJumpForce = 0f;
@@ -32,16 +30,12 @@ public class DavidPlayerMove : MonoBehaviour
         if (jumpReady == true && Input.GetKeyDown(KeyCode.Space))
         {
             jumping = true;
+            Jump();
         }
 
-        if(jumping && Input.GetKey(KeyCode.Space))
+        if(jumping && !Input.GetKey(KeyCode.Space))
         {
-            Mathf.Clamp(holdJumpTimer += Time.deltaTime, 0, holdJumpSeconds + 0.5f);
-
-            if(holdJumpTimer < holdJumpSeconds)
-            {
-                Jump();
-            }
+            rb.AddForce(-Vector2.up * downwardForce);
         }
     }
 
@@ -51,12 +45,14 @@ public class DavidPlayerMove : MonoBehaviour
 
         if (grounded || !onWall)
         {
-            rb.AddForce(Vector2.up * jumpForce);
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         }
         else
         {
-            rb.AddForce(new Vector2(wallJumpForce / 2f, jumpForce));
+            rb.velocity = Vector2.zero;
+            rb.AddForce(new Vector2(wallJumpForce, jumpForce / 1.5f), ForceMode2D.Impulse);
+            Debug.Log("walljump");
         }
     }
 
@@ -67,16 +63,13 @@ public class DavidPlayerMove : MonoBehaviour
 
     private void Movement()
     {
-        if(grounded || rb.velocity.x == 0)
+        if (Mathf.Abs(rb.velocity.x) < (maxSpeed))
         {
-            if (Mathf.Abs(rb.velocity.x) < (maxSpeed))
-            {
-                xMove();
-            }
-            else
-            {
-                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
-            }
+            xMove();
+        }
+        else
+        {
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
         }
     }
 
@@ -103,7 +96,6 @@ public class DavidPlayerMove : MonoBehaviour
             grounded = true;
             rb.gravityScale = 5f;
             jumping = false;
-            holdJumpTimer = 0;
         }
 
         if (collision.gameObject.CompareTag("Wall"))
@@ -112,7 +104,6 @@ public class DavidPlayerMove : MonoBehaviour
 
             jumpReady = true;
             jumping = false;
-            holdJumpTimer = 0;
 
             float wallSide = transform.position.x - collision.gameObject.transform.position.x;
 
