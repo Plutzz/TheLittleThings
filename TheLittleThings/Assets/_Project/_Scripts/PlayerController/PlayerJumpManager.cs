@@ -14,12 +14,12 @@ public class PlayerJumpManager : MonoBehaviour
     float FrameBufferNum => playerStats.JumpFrameBufferAmount;
     float JumpForce => playerStats.JumpForce;
 
-    private int m_ticksSinceLastSpacebar, m_ticksSinceOnGround;
+    private int framesSinceLastSpacebar, framesSinceOnGround;
 
     private void Awake()
     {
-        m_ticksSinceLastSpacebar = (int)FrameBufferNum; // ensure player doesn't jump on start
-        m_ticksSinceOnGround = (int)FrameBufferNum;
+        framesSinceLastSpacebar = (int)FrameBufferNum; // ensure player doesn't jump on start
+        framesSinceOnGround = (int)FrameBufferNum;
     }
 
     // Update is called once per frame
@@ -27,28 +27,28 @@ public class PlayerJumpManager : MonoBehaviour
     {
         if (playerInput.jumpPressedThisFrame)
         {
-            m_ticksSinceLastSpacebar = 0;
+            framesSinceLastSpacebar = 0;
         }
         
     }
 
     void FixedUpdate()
     {
-        if (m_ticksSinceOnGround == -1)
+        if (framesSinceOnGround == -1)
         {
-            m_ticksSinceOnGround = (int)FrameBufferNum;
+            framesSinceOnGround = (int)FrameBufferNum;
         }
         else if (!(player.stateMachine.currentState is PlayerAirborne) && groundSensor.grounded)
         {
-            m_ticksSinceOnGround = 0;
+            framesSinceOnGround = 0;
         }
         else
         {
-            m_ticksSinceOnGround++;
+            framesSinceOnGround++;
         }
-        m_ticksSinceLastSpacebar++;
+        framesSinceLastSpacebar++;
 
-        if (m_ticksSinceLastSpacebar < FrameBufferNum)
+        if (framesSinceLastSpacebar < FrameBufferNum)
         {
             AttemptJump();
         }
@@ -56,13 +56,13 @@ public class PlayerJumpManager : MonoBehaviour
 
     void AttemptJump()
     {
-        if (m_ticksSinceOnGround < FrameBufferNum)
+        if (framesSinceOnGround < FrameBufferNum)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
 
-            m_ticksSinceLastSpacebar = (int)FrameBufferNum; // ensure two jumps don't happen off one input
-            m_ticksSinceOnGround = -1; // magic™ (look at fixed update)
+            framesSinceLastSpacebar = (int)FrameBufferNum; // ensure two jumps don't happen off one input
+            framesSinceOnGround = -1; // magic™ (look at fixed update)
         }
     }
 
@@ -74,7 +74,7 @@ public class PlayerJumpManager : MonoBehaviour
             GUIStyle style = new GUIStyle();
             style.alignment = TextAnchor.MiddleCenter;
             style.normal.textColor = Color.white;
-            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, $"Ticks since: Spacebar: {m_ticksSinceLastSpacebar} Ground: {m_ticksSinceOnGround}", style);
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, $"Ticks since: Spacebar: {framesSinceLastSpacebar} Ground: {framesSinceOnGround}", style);
 
         }
         #endif
