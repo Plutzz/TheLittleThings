@@ -139,11 +139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f587c70e60e72954ba263fa04375e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &191800125 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1532253021812918690, guid: e4974cc5892818e4db03fcfd4853c2aa, type: 3}
-  m_PrefabInstance: {fileID: 1597212892}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &233474072
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,7 +1624,7 @@ PrefabInstance:
     - target: {fileID: 7510965975039650232, guid: e4974cc5892818e4db03fcfd4853c2aa, type: 3}
       propertyPath: GUI
       value: 
-      objectReference: {fileID: 191800125}
+      objectReference: {fileID: 0}
     - target: {fileID: 8877536016978368267, guid: e4974cc5892818e4db03fcfd4853c2aa, type: 3}
       propertyPath: m_Name
       value: PauseMenu
