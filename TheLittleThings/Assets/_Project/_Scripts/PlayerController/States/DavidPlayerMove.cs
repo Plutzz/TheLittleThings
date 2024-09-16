@@ -68,6 +68,16 @@ public class DavidPlayerMove : MonoBehaviour
         {
             rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
         }
+
+        // Change localScale to flip sprite
+        if (Input.GetAxisRaw("Horizontal") < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
