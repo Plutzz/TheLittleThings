@@ -13,6 +13,7 @@ public class PlayerMove : State
     {
         base.DoEnterLogic();
         animator.Play("Run");
+        rb.drag = 4;
     }
 
     public override void DoExitLogic()

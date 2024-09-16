@@ -9,6 +9,7 @@ public class PlayerIdle : State
     {
         base.DoEnterLogic();
         animator.Play("Idle");
+        rb.drag = 4;
     }
 
     public override void CheckTransitions()

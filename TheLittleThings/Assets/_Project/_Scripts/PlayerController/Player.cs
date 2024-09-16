@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Player : StateMachineCore
 {
+    [Header("States")]
     [SerializeField] private PlayerIdle idle;
     [SerializeField] private PlayerMove move;
     [SerializeField] private PlayerAirborne airborne;
+    [SerializeField] private PlayerWall wall;
+    [Space]
     [SerializeField] private GroundSensor groundSensor;
+    [SerializeField] private WallSensor wallSensor;
 
     [SerializeField] public PlayerStats stats;
 
@@ -41,9 +45,18 @@ public class Player : StateMachineCore
             ResetPlayer();
         }
 
+        // transitions
         if (!groundSensor.grounded)
         {
-            stateMachine.SetState(airborne);
+            if(wallSensor.wallLeft || wallSensor.wallRight)
+            {
+                stateMachine.SetState(wall);
+            }
+            else
+            {
+                stateMachine.SetState(airborne);
+            }
+            
         }
         else if (xInput != 0)
         {
@@ -54,14 +67,14 @@ public class Player : StateMachineCore
             stateMachine.SetState(idle);
         }
 
-        if(xInput > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        else if (xInput < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
+        //if(xInput > 0)
+        //{
+        //    transform.localScale = new Vector3(1, 1, 1);
+        //}
+        //else if (xInput < 0)
+        //{
+        //    transform.localScale = new Vector3(-1, 1, 1);
+        //}
         
     }
 
