@@ -8,7 +8,7 @@ public class PlayerJumpManager : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Player player;
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private PlayerStats playerStats;
+    private PlayerStats playerStats => player.stats;
     [SerializeField] private GroundSensor groundSensor;
 
     float FrameBufferNum => playerStats.JumpFrameBufferAmount;
