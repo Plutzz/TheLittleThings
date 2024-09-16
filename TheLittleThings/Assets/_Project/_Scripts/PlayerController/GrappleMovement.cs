@@ -12,17 +12,12 @@ public class GrappleMovement : MonoBehaviour
     private Vector3 grapplePoint;
     private DistanceJoint2D joint;
     private Vector2 grappleDir;
-    private RaycastHit2D hit;
     #endregion
 
     #region Grapple Variables
-    [SerializeField] private float grappleLength;
     [SerializeField] private LayerMask grappleLayer;
-    private bool grappleReady = true;
     public float grappleSpeed = 10f;
-    public float grappleCooldown = 1f;
     public float grappleAngle = 45f;
-    private float originalSpeed;
     public float chainPullSpeed = 105f;
     #endregion
 
@@ -37,21 +32,9 @@ public class GrappleMovement : MonoBehaviour
 
     void Update()
     {
-        if (grappleReady && Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            grappleReady = false;
             StartGrapple();
-        }
-
-        // Reset grapple cooldown
-        if (!grappleReady)
-        {
-            grappleCooldown -= Time.deltaTime;
-            if (grappleCooldown <= 0)
-            {
-                grappleReady = true;
-                grappleCooldown = 1f;
-            }
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
