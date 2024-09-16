@@ -8,6 +8,10 @@ public class NavigateState : State
 {
     public Vector2 destination;
 
+    public Transform player;
+
+    public float detectionRadius = 10f;
+
     public float speed = 1;
     public float threshold = 0.1f;
 
@@ -26,11 +30,24 @@ public class NavigateState : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        if(Vector2.Distance(core.transform.position, destination) < threshold)
+        if(Vector2.Distance(core.transform.position, player.position) <= detectionRadius)
         {
-            isComplete = true;
+            destination = player.position;
         }
-        core.transform.localScale = new Vector3(Mathf.Sign(rb.velocity.x), core.transform.localScale.y, 1);
+        else
+        {
+            isComplete = true; 
+            return;
+        }
+        if (Vector2.Distance(core.transform.position, destination) < threshold)
+        {
+            rb.velocity = Vector2.zero;  
+            isComplete = true;
+            return;
+        }
+
+        Vector2 direction = (destination - (Vector2)core.transform.position).normalized;
+        core.transform.localScale = new Vector3(Mathf.Sign(direction.x), core.transform.localScale.y, core.transform.localScale.z);
     }
 
     public override void DoFixedUpdateState()
