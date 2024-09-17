@@ -32,12 +32,6 @@ public class DavidPlayerMove : MonoBehaviour
         {
             Jump();
         }
-
-        //creates variable jump, adds downward force if player lets go of space making character fall faster leading to smaler jump
-        if(jumping && !Input.GetKey(KeyCode.Space))
-        {
-            rb.AddForce(-Vector2.up * downwardForce);
-        }
     }
 
     private void Jump()
@@ -45,17 +39,7 @@ public class DavidPlayerMove : MonoBehaviour
         jumping = true; //airborne
         jumpReady = false;
 
-        //normall jump
-        if (grounded || !onWall)
-        {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-        else //walljump
-        {
-            rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
-            
-            rb.AddForce(new Vector2(wallJumpForce, jumpForce / 1.5f), ForceMode2D.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
-        }
+       
     }
 
     private void FixedUpdate()

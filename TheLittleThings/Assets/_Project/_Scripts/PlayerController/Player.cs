@@ -12,6 +12,7 @@ public class Player : StateMachineCore
     [Space]
     [SerializeField] private GroundSensor groundSensor;
     [SerializeField] private WallSensor wallSensor;
+    [SerializeField] private Transform graphics;
 
     [SerializeField] public PlayerStats stats;
 
@@ -67,15 +68,15 @@ public class Player : StateMachineCore
             stateMachine.SetState(idle);
         }
 
-        //if(xInput > 0)
-        //{
-        //    transform.localScale = new Vector3(1, 1, 1);
-        //}
-        //else if (xInput < 0)
-        //{
-        //    transform.localScale = new Vector3(-1, 1, 1);
-        //}
-        
+        if (xInput > 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        {
+            graphics.localScale = new Vector3(1, 1, 1);
+        }
+        else if (xInput < 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        {
+            graphics.localScale = new Vector3(-1, 1, 1);
+        }
+
     }
 
     private void ResetPlayer()

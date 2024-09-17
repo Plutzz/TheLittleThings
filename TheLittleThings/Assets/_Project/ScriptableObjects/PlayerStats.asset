@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776ca0e117f443146a8bc385816f1597, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  MaxSpeed: 5
-  Acceleration: 10
+  MaxSpeed: 7
+  Acceleration: 100
   NormalGravity: 4
   WallGravity: 1
   NoInputDeceleration: 1

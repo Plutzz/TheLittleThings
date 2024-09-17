@@ -10,11 +10,14 @@ public class PlayerJumpManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     private PlayerStats playerStats => player.stats;
     [SerializeField] private GroundSensor groundSensor;
+    [SerializeField] private WallSensor wallSensor;
 
     float FrameBufferNum => playerStats.JumpFrameBufferAmount;
     float JumpForce => playerStats.JumpForce;
+    float downwardForce = 5f;
 
     private int framesSinceLastSpacebar, framesSinceOnGround;
+    private bool jumping;
 
     private void Awake()
     {
@@ -29,7 +32,18 @@ public class PlayerJumpManager : MonoBehaviour
         {
             framesSinceLastSpacebar = 0;
         }
-        
+
+        //creates variable jump, adds downward force if player lets go of space making character fall faster leading to smaler jump
+        if (jumping && !Input.GetKey(KeyCode.Space))
+        {
+            rb.AddForce(-Vector2.up * downwardForce);
+        }
+
+        if(groundSensor.groundCheck && rb.velocity.y < 0)
+        {
+            jumping = false;
+        }
+
     }
 
     void FixedUpdate()
@@ -38,7 +52,7 @@ public class PlayerJumpManager : MonoBehaviour
         {
             framesSinceOnGround = (int)FrameBufferNum;
         }
-        else if (!(player.stateMachine.currentState is PlayerAirborne) && groundSensor.grounded)
+        else if (player.stateMachine.currentState is not PlayerAirborne && (groundSensor.grounded || wallSensor.wallRight || wallSensor.wallLeft))
         {
             framesSinceOnGround = 0;
         }
@@ -58,8 +72,25 @@ public class PlayerJumpManager : MonoBehaviour
     {
         if (framesSinceOnGround < FrameBufferNum)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(new Vector2(0f, JumpForce), ForceMode2D.Impulse);
+            //normall jump
+            if (!wallSensor.wallLeft && !wallSensor.wallRight)
+            {
+                rb.AddForce(Vector2.up * playerStats.JumpForce, ForceMode2D.Impulse);
+            }
+            else if(wallSensor.wallLeft) //walljump
+            {
+                rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
+
+                rb.AddForce(new Vector2(playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode2D.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
+            }
+            else
+            {
+                rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
+
+                rb.AddForce(new Vector2(-playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode2D.Impulse);
+            }
+
+            jumping = true;
 
             framesSinceLastSpacebar = (int)FrameBufferNum; // ensure two jumps don't happen off one input
             framesSinceOnGround = -1; // magic™ (look at fixed update)

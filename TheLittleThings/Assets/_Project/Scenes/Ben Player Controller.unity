@@ -1193,6 +1193,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!4 &1876700346 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5876813793830749314, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+  m_PrefabInstance: {fileID: 5665812048427875498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1942010294 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
@@ -1353,6 +1358,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 375090d2f820b7d4cae7fc60435feb89, type: 2}
     - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: graphics
+      value: 
+      objectReference: {fileID: 1876700346}
+    - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: playerHP
       value: 
       objectReference: {fileID: 1942010300}
@@ -1456,6 +1465,10 @@ PrefabInstance:
       propertyPath: m_LinearDrag
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8771379447097709575, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8812925399064479836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: player
       value: 
@@ -1528,6 +1541,7 @@ MonoBehaviour:
   player: {fileID: 5665812048427875503}
   playerInput: {fileID: 5665812048427875500}
   groundSensor: {fileID: 1300655560}
+  wallSensor: {fileID: 1865397272}
 --- !u!1001 &5849514126590485389
 PrefabInstance:
   m_ObjectHideFlags: 0
