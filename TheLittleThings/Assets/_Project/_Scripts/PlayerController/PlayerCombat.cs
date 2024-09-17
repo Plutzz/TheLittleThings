@@ -2,21 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : State
 {
-
-    public Animator animator;
+    public AnimationClip attackAnimation;
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
-   
-    void Update()
+
+    public override void DoEnterLogic()
     {
-        if (Input.GetMouseButtonDown(0))
+        base.DoEnterLogic();
+        Attack();
+    }
+
+    public override void DoUpdateState()
+    {
+        base.DoUpdateState();
+        if(stateUptime > attackAnimation.length)
         {
-            Attack();
+            isComplete = true;
         }
     }
+
     void Attack()
     {
         animator.Play("Attack1");

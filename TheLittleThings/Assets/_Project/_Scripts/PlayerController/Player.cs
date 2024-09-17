@@ -11,6 +11,7 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerMove move;
     [SerializeField] private PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
+    [SerializeField] private PlayerCombat attack;
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
@@ -51,7 +52,7 @@ public class Player : StateMachineCore
         // transitions
         if (!groundSensor.grounded)
         {
-            if(wallSensor.wallLeft || wallSensor.wallRight)
+            if((wallSensor.wallLeft && xInput < 0) || (wallSensor.wallRight && xInput > 0))
             {
                 stateMachine.SetState(wall);
             }
@@ -61,11 +62,11 @@ public class Player : StateMachineCore
             }
             
         }
-        else if (xInput != 0)
+        else if (xInput != 0 && (stateMachine.currentState != attack || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
         }
-        else if(xInput == 0)
+        else if(xInput == 0 && (stateMachine.currentState != attack || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
@@ -77,6 +78,11 @@ public class Player : StateMachineCore
         else if (xInput < 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             graphics.localScale = new Vector3(-1, 1, 1);
+        }
+
+        if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
+        {
+            stateMachine.SetState(attack);
         }
 
     }
