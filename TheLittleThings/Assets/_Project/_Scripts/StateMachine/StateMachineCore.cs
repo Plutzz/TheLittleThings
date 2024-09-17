@@ -7,6 +7,7 @@ public abstract class StateMachineCore : MonoBehaviour
     /// <summary>
     /// Dictonary used to hold states that are NOT a part of a heirarchical state machine.
     /// </summary>
+    [Header("StateMachineCore Variables")]
     public Rigidbody2D rb;
     public Animator animator;
     public StateMachine stateMachine { get; private set; }

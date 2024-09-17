@@ -1,14 +1,17 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerJumpManager : MonoBehaviour
 {
-    
+    [Header("Player Components")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Player player;
     [SerializeField] private PlayerInput playerInput;
     private PlayerStats playerStats => player.stats;
+    [HorizontalLine]
+    [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
     [SerializeField] private WallSensor wallSensor;
 
@@ -34,7 +37,7 @@ public class PlayerJumpManager : MonoBehaviour
         }
 
         //creates variable jump, adds downward force if player lets go of space making character fall faster leading to smaler jump
-        if (jumping && !Input.GetKey(KeyCode.Space))
+        if (jumping && !playerInput.jumpHeld)
         {
             rb.AddForce(-Vector2.up * downwardForce);
         }
@@ -72,22 +75,22 @@ public class PlayerJumpManager : MonoBehaviour
     {
         if (framesSinceOnGround < FrameBufferNum)
         {
-            //normall jump
-            if (!wallSensor.wallLeft && !wallSensor.wallRight)
-            {
-                rb.AddForce(Vector2.up * playerStats.JumpForce, ForceMode2D.Impulse);
-            }
-            else if(wallSensor.wallLeft) //walljump
+
+            if (wallSensor.wallLeft && !groundSensor.grounded) //walljump
             {
                 rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
 
                 rb.AddForce(new Vector2(playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode2D.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
             }
-            else
+            else if (wallSensor.wallRight && !groundSensor.grounded)
             {
                 rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
 
                 rb.AddForce(new Vector2(-playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * playerStats.JumpForce, ForceMode2D.Impulse);
             }
 
             jumping = true;

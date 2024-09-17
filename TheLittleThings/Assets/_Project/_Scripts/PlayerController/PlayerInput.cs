@@ -7,6 +7,7 @@ public class PlayerInput : MonoBehaviour
 {
     public float xInput { get;  private set; }
     public bool jumpPressedThisFrame { get; private set; }
+    public bool jumpHeld { get; private set; }
 
     public bool ResetInput
     {
@@ -15,8 +16,9 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        xInput = Input.GetAxis("Horizontal");
+        xInput = Input.GetAxisRaw("Horizontal");
         jumpPressedThisFrame = Input.GetKeyDown(KeyCode.Space);
+        jumpHeld = Input.GetKey(KeyCode.Space);
         ResetInput = Input.GetKeyDown(R);
     }
 }

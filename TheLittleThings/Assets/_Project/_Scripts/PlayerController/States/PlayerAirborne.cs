@@ -21,7 +21,7 @@ public class PlayerAirborne : State
         // NOTE: feels a little touchy, maybe instead of instantly setting velo to 0 we make it so that
         // if the player isn't holding the direction they are moving in we add a decel force
         // (so if you aren't pressing an input then the player will start heading towards 0 velocity)
-        if (rb.velocity.x != 0 && Input.GetAxisRaw("Horizontal") != 0 && Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
+        if (rb.velocity.x != 0 && playerInput.xInput != 0 && Mathf.Sign(rb.velocity.x) != playerInput.xInput)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
         }
@@ -29,7 +29,7 @@ public class PlayerAirborne : State
         //if velocity is less than maxspeed
         if (Mathf.Abs(rb.velocity.x) < stats.MaxSpeed)
         {
-            rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * stats.Acceleration);
+            rb.AddForce(Vector2.right * playerInput.xInput * stats.Acceleration);
         }
         else //if at max speed, set velocity to max speed for consistent movement
         {

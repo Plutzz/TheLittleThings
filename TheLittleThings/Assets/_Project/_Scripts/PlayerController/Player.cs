@@ -1,25 +1,27 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : StateMachineCore
 {
+    [HorizontalLine(color: EColor.Gray)]
     [Header("States")]
     [SerializeField] private PlayerIdle idle;
     [SerializeField] private PlayerMove move;
     [SerializeField] private PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
-    [Space]
+    [HorizontalLine(color: EColor.Gray)]
+    [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
     [SerializeField] private WallSensor wallSensor;
     [SerializeField] private Transform graphics;
-
+    [HorizontalLine(color: EColor.Gray)]
+    [Header("Player Components")]
+    [Expandable]
     [SerializeField] public PlayerStats stats;
-
-    public HealthTracker playerHP;
     [SerializeField] private PlayerInput playerInput;
-
-    public float NoInputDampenForce = 0.2f;
+    public HealthTracker playerHP;
 
     // Start is called before the first frame update
     void Awake()
