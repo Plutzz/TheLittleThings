@@ -7,7 +7,6 @@ public class PlayerAirborne : State
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
-    public float decceleration = 10;
     private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
@@ -18,6 +17,8 @@ public class PlayerAirborne : State
 
     public override void DoFixedUpdateState()
     {
+        rb.velocity = (new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -stats.FallSpeedLimit, stats.FallSpeedLimit)));
+
         //checks if player wants to move in the opposite direction of velocity
         // NOTE: feels a little touchy, maybe instead of instantly setting velo to 0 we make it so that
         // if the player isn't holding the direction they are moving in we add a decel force
@@ -30,7 +31,7 @@ public class PlayerAirborne : State
         else if (rb.velocity.x != 0 && playerInput.xInput == 0)
         {
             Debug.Log("Decceleration");
-            rb.AddForce(Vector2.right * -Mathf.Sign(rb.velocity.x) * decceleration);
+            rb.AddForce(Vector2.right * -Mathf.Sign(rb.velocity.x) * stats.NoInputDeceleration);
         }
 
         //if velocity is less than maxspeed

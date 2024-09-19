@@ -16,8 +16,9 @@ MonoBehaviour:
   Acceleration: 100
   NormalGravity: 4
   WallGravity: 1
-  NoInputDeceleration: 1
+  NoInputDeceleration: 10
   JumpForce: 15
   JumpFrameBufferAmount: 7
+  FallSpeedLimit: 100
   Damage: 1
   AttackSpeedMult: 4
