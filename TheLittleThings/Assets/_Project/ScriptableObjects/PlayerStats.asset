@@ -19,6 +19,6 @@ MonoBehaviour:
   NoInputDeceleration: 10
   JumpForce: 15
   JumpFrameBufferAmount: 7
-  FallSpeedLimit: 100
+  FallSpeedLimit: 50
   Damage: 1
   AttackSpeedMult: 4
