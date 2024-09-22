@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3963a7400ba851745bb6cfe563584ad7, type: 3}
+  m_Name: test_resource_3
+  m_EditorClassIdentifier: 
+  TypeID: test_resource_3
+  DisplayName: Briefing
+  DisplayDescription: "# INTRO 00 *The official looking man clears his throat as
+    a small chime rings out within the bar, and begins speaking.*  > \"Welcome contractors,
+    to PRA Hub Station WZ02. I am Executive Officer Victor O'Connor, and will be
+    your handler for the duration of your contract. Anyways, onto the mission at
+    hand.\"  *The holo table flares to life with a map of the region along with various
+    briefings.*  > \u201CIntel suggests that there is a resource rich asteroid field
+    present at the coordinates below, capable of supplying our assets in the vicinity.\"
+    >  > \"Your mission will be to secure as many resource rich asteroids as possible,
+    by safely deploying scanning probes in the AO near rare ore-rich asteroids. *Do
+    not modify the probes.* Each asteroid secured will net the whole team 20k SC.
+    We will provide you with updated intel on their positions once you arrive at
+    the AO.\" >  > \"Forward scouts in the region report likely resistance from opposing
+    corporations. Ensure they do not interfere with this operation.\" >  > \"Our
+    logistics network has not extended this far yet. You will have to make do with
+    what you bring; there will be no resupply in the field.\""
+  Sprite: {fileID: 0}
