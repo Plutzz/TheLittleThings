@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : State
+// This state randomly chooses from a list of child states
+// Ex: Choose randomly from a list of attacks
+public class EnemyChooseRandom : State
 {
     [SerializeField] private List<State> enemyAttackStates;
     private State state;
