@@ -9,6 +9,8 @@ public class PlayerCombat : State
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
 
+    public float damage = 2.0f;
+
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
@@ -31,6 +33,11 @@ public class PlayerCombat : State
         foreach(Collider2D enemy in hitEnemies)
         {
             Debug.Log("We hit " + enemy.name);
+            if(enemy.TryGetComponent(out HealthTracker enemyHealth))
+            {
+                Debug.Log("Damage " + enemy.name);
+                enemyHealth.DamageEntity(damage, "Player", 1);
+            }
         }
     }
 }

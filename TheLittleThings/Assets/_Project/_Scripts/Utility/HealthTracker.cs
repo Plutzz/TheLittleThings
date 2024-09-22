@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class HealthTracker : MonoBehaviour
 {
     public float MaxHP;
-    public float CurrentHP
-    {
-        get; private set;
-    }
+    
+    [field: SerializeField, ProgressBar("Health", "MaxHP", EColor.Red)]
+    public float CurrentHP {get; private set;}
 
-    public bool IsVulnerable;
+    public bool IsVulnerable = true;
 
     private Dictionary<string, int> m_localIFrames;
 
