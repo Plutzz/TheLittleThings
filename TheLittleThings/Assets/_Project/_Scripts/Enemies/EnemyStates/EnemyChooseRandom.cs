@@ -6,12 +6,12 @@ using UnityEngine;
 // Ex: Choose randomly from a list of attacks
 public class EnemyChooseRandom : State
 {
-    [SerializeField] private List<State> enemyAttackStates;
+    [SerializeField] private List<State> states;
     private State state;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        state = enemyAttackStates[Random.Range(0, enemyAttackStates.Count)];
+        state = states[Random.Range(0, states.Count)];
         stateMachine.SetState(state, true);
     }
 

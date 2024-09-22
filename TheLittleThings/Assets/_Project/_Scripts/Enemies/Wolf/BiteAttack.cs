@@ -14,7 +14,7 @@ public class BiteAttack : State
     public override void CheckTransitions()
     {
         base.CheckTransitions();
-        if (stateUptime > 1f)
+        if (stateUptime > animClip.length)
         {
             isComplete = true;
         }

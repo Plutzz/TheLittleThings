@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicEnemyAttack : State
 {
-    [SerializeField] private State navigate, attack, recovery;
+    [SerializeField] private State navigate, attack;
 
     public override void DoEnterLogic()
     {
