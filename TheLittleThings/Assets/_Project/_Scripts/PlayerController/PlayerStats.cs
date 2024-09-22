@@ -13,6 +13,7 @@ public class PlayerStats : ScriptableObject
 
     public float JumpForce;
     public uint JumpFrameBufferAmount;
+    public float FallSpeedLimit;
 
 
     public float Damage;
