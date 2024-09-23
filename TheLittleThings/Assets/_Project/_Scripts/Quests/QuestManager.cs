@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Resource Manager")]
+[CreateAssetMenu(menuName = "Quest Manager")]
 public class QuestManager : ScriptableSingleton<Resources>
 {
     public List<QuestData> QuestList;
@@ -60,7 +60,7 @@ public class QuestManager : ScriptableSingleton<Resources>
     /// Sets designated quest to completed.
     /// </summary>
     /// <param name="id"></param>
-    /// <returns></returns>
+    /// <returns>List of rewards.</returns>
     /// <exception cref="System.Exception"></exception>
     public List<Resource> CompleteQuest(string id)
     {
