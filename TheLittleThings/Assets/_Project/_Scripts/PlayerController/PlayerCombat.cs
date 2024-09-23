@@ -39,15 +39,7 @@ public class PlayerCombat : State
             {
                 Debug.Log("Damage " + enemy.name);
                 enemyHealth.DamageEntity(damage, "Player", 1);
-                //GameObject o;
-                //Quaternion rot = spriteObject.localScale.x < 0 ? Quaternion.Euler(180, 90, 90) : Quaternion.Euler(0, 90, 90);
                 Instantiate(hitParticles, enemy.transform.position, spriteObject.localScale.x < 0 ? Quaternion.Euler(180, 90, 90) : Quaternion.Euler(0, 90, 90));
-
-            
-                // Quarternion rot 
-                //var o = Instantiate(hitParticles, enemy.transform.position);
-                //o.Play();
-                //Debug.Log($"Particles: {o}");
             }
         }
     }
