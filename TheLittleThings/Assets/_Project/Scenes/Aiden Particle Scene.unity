@@ -461,6 +461,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5671589287927504559, guid: 55044eb4e5e14ef47add1dad69b09c23, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1982255267}
     - targetCorrespondingSourceObject: {fileID: 6761131354891089676, guid: 55044eb4e5e14ef47add1dad69b09c23, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1966666212}
@@ -1080,6 +1083,26 @@ CapsuleCollider2D:
   m_Offset: {x: 0.45, y: 0}
   m_Size: {x: 1.17, y: 1}
   m_Direction: 1
+--- !u!1 &1982255261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5671589287927504559, guid: 55044eb4e5e14ef47add1dad69b09c23, type: 3}
+  m_PrefabInstance: {fileID: 610470617}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1982255267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982255261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1de48bcbce5b414f9b7d51bac369397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHP: 10
+  <CurrentHP>k__BackingField: 0
+  IsVulnerable: 1
 --- !u!4 &1990396217 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5876813793830749314, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
@@ -1133,6 +1156,14 @@ PrefabInstance:
       propertyPath: attackRange
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 468687809095837666, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: hitParticles
+      value: 
+      objectReference: {fileID: 4612978345880538794, guid: 52b09e57cf12ff345a097fcbc98b6146, type: 3}
+    - target: {fileID: 468687809095837666, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: spriteObject
+      value: 
+      objectReference: {fileID: 1990396217}
     - target: {fileID: 468687809095837666, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: enemyLayers.m_Bits
       value: 256
@@ -1205,7 +1236,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7927769978348597426, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: hitParticles
+      value: 
+      objectReference: {fileID: 4612978345880538794, guid: 52b09e57cf12ff345a097fcbc98b6146, type: 3}
+    m_RemovedComponents:
+    - {fileID: 7927769978348597426, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5876813793830749314, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
