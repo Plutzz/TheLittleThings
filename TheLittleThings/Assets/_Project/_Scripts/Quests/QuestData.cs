@@ -31,12 +31,12 @@ public class QuestData : ScriptableObject
     /// <summary>
     /// Requirements to start the quest.
     /// </summary>
-    public List<SerializableResource> Requirements;
+    public List<SerializedResource> Requirements;
 
     /// <summary>
     /// Rewards gained from the quest.
     /// </summary>
-    public List<SerializableResource> Rewards;
+    public List<SerializedResource> Rewards;
 
     /// <summary>
     /// Prerequisite Quest IDs.
@@ -52,9 +52,4 @@ public class QuestData : ScriptableObject
     /// Is the quest active.
     /// </summary>
     public bool IsActive;
-
-    /// <summary>
-    /// Completion goal.
-    /// </summary>
-    public IQuestCompleteCondition CompleteCondition;
 }

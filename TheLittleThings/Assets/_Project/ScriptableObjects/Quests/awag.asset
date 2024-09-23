@@ -42,3 +42,4 @@ MonoBehaviour:
   - quest_2
   IsCompleted: 0
   IsActive: 0
+  CompleteConditionIncludeOnlyOne: {fileID: 0}

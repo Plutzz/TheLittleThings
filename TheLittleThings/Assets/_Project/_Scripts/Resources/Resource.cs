@@ -23,27 +23,36 @@ public struct Resource : IEqualityComparer<Resource>
         Amount = amount;
     }
 
-    public Resource(SerializableResource identifier) : this(identifier.Id, identifier.Amount) { }
-    public SerializableResource GetIdentifier()
+    public Resource(SerializedResource identifier) : this(identifier.Id, identifier.Amount) { }
+    /// <summary>
+    /// Gets the serialized version of this resource
+    /// </summary>
+    /// <returns></returns>
+    public SerializedResource GetIdentifier()
     {
-        return new SerializableResource(Data.Id, Amount);
+        return new SerializedResource(Data.Id, Amount);
     }
 
-    public bool IsTheSameResource(string id)
-    {
-        return Data.Id == id;
-    }
+    /// <summary>
+    /// Checks if the resource id and amount are the same.
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns>If a's id equals b's and if a's amount equals b's</returns>
+    public bool StrictEquals(Resource other) => Data.Equals(other.Data) && other.Amount == Amount;
+    /// <summary>
+    /// Checks if the resource id is the same.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns>If a's id equals b's id</returns>
+    bool IEqualityComparer<Resource>.Equals(Resource a, Resource b) => a.Data.Equals(b.Data);
 
-    bool IEqualityComparer<Resource>.Equals(Resource a, Resource b)
-    {
-        return a.Equals(b);
-    }
+    int IEqualityComparer<Resource>.GetHashCode(Resource obj) => obj.GetHashCode();
 
-    int IEqualityComparer<Resource>.GetHashCode(Resource obj)
-    {
-        return obj.GetHashCode();
-    }
-
+    /// <summary>
+    /// Checks if the resource id is the same.
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns>If a's id equals b's id</returns>
     public override bool Equals(object obj)
     {
         if (obj is not Resource)
@@ -84,7 +93,7 @@ public struct Resource : IEqualityComparer<Resource>
         return new Resource(a.Data, a.Amount + b);
     }
 
-    public static Resource operator +(Resource a, SerializableResource b)
+    public static Resource operator +(Resource a, SerializedResource b)
     {
         if (a.Data.Id == b.Id)
         {
@@ -93,7 +102,7 @@ public struct Resource : IEqualityComparer<Resource>
         throw new InvalidResourceOperation();
     }
 
-    public static Resource operator +(SerializableResource a, Resource b)
+    public static Resource operator +(SerializedResource a, Resource b)
     {
         if (a.Id == b.Data.Id)
         {
@@ -106,7 +115,7 @@ public struct Resource : IEqualityComparer<Resource>
         return a + (-b);
     }
 
-    public static Resource operator -(Resource a, SerializableResource b)
+    public static Resource operator -(Resource a, SerializedResource b)
     {
         return a + (-b);
     }

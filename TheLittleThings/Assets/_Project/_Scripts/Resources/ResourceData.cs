@@ -4,20 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Resource Data")]
-public class ResourceData : ScriptableObject
+public class ResourceData : ScriptableObject, IEqualityComparer<ResourceData>
 {
     public string Id;
     public string DisplayName;
     public string DisplayDescription;
 
     public Sprite Sprite;
-
-    private void Awake()
-    {
-        Debug.Log(Id ?? "awagga2");
-
-
-    }
     public override bool Equals(object other)
     {
         if (other is not ResourceData)
@@ -32,4 +25,8 @@ public class ResourceData : ScriptableObject
     {
         return Id?.GetHashCode() ?? 0;
     }
+
+    bool IEqualityComparer<ResourceData>.Equals(ResourceData x, ResourceData y) => x.Id == y.Id;
+
+    int IEqualityComparer<ResourceData>.GetHashCode(ResourceData obj) => obj.Id.GetHashCode();
 }

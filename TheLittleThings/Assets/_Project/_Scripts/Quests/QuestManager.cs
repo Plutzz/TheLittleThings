@@ -16,7 +16,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
     public Dictionary<string, QuestData> ActiveQuests;
     public Dictionary<string, QuestData> CompletedQuests;
 
-    private void Awake()
+    private void OnEnable()
     {
         AllQuests = new Dictionary<string, QuestData>();
         ActiveQuests = new Dictionary<string, QuestData>();
@@ -35,6 +35,13 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
                 CompletedQuests.Add(item.Id, item);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        AllQuests = null;
+        ActiveQuests = null;
+        CompletedQuests = null;
     }
     /// <summary>
     /// Returns if the quest is valid to be taken.
@@ -102,7 +109,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
     /// <param name="id">Quest id</param>
     /// <returns>List of resource requirements.</returns>
     /// <exception cref="System.Exception"></exception>
-    public List<SerializableResource> TakeQuest(string id)
+    public List<SerializedResource> TakeQuest(string id)
     {
         if (AllQuests.TryGetValue(id, out QuestData data))
         {
@@ -124,7 +131,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
     /// <param name="id">Quest id</param>
     /// <returns>List of rewards.</returns>
     /// <exception cref="System.Exception"></exception>
-    public List<SerializableResource> CompleteQuest(string id)
+    public List<SerializedResource> CompleteQuest(string id)
     {
         if (ActiveQuests.TryGetValue(id, out QuestData data))
         {
