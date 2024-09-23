@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3963a7400ba851745bb6cfe563584ad7, type: 3}
-  m_Name: test_resource_1
+  m_Script: {fileID: 11500000, guid: dc98dc0edbf1b1848a53b4b22c0b3fdd, type: 3}
+  m_Name: QuestTM
   m_EditorClassIdentifier: 
-  Id: test_resource_1
-  DisplayName: rat
-  DisplayDescription: 86 rats in a trench coat
-  Sprite: {fileID: 0}
+  QuestList:
+  - {fileID: 11400000, guid: 3949d01b46e45bc4ba0e3f4a658a492c, type: 2}

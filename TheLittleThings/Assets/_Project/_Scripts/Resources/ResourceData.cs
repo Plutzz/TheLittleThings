@@ -6,12 +6,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Resource Data")]
 public class ResourceData : ScriptableObject
 {
-    public string TypeID;
+    public string Id;
     public string DisplayName;
     public string DisplayDescription;
 
     public Sprite Sprite;
 
+    private void Awake()
+    {
+        Debug.Log(Id ?? "awagga2");
+
+
+    }
     public override bool Equals(object other)
     {
         if (other is not ResourceData)
@@ -19,11 +25,11 @@ public class ResourceData : ScriptableObject
             return false;
         }
 
-        return TypeID == ((ResourceData)other).TypeID;
+        return Id == ((ResourceData)other).Id;
     }
 
     public override int GetHashCode()
     {
-        return TypeID.GetHashCode();
+        return Id?.GetHashCode() ?? 0;
     }
 }
