@@ -11,12 +11,18 @@ public class EnemieHealth : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
     }
 
-    public void TakeDamage() {
-        
+    public void TakeDamage(int damage) {
+        currentHealth -= damage;
+        if (currentHealth < 0) {
+            Die();
+        }
+    }
+
+    public void TakeDamage(int damage,int invicibilityFrames) {
+
     }
 
     public void Die() {
-
+        Destroy(gameObject);
     }
-
 }

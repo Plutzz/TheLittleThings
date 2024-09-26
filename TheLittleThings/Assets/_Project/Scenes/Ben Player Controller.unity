@@ -223,7 +223,7 @@ MonoBehaviour:
   cam: {fileID: 1318757529}
   bullet: {fileID: 2306126502676923651, guid: b003336723872459781e0ef81aa58f3b, type: 3}
   spawn: {fileID: 2054566511}
-  speed: 0.5
+  parent: {fileID: 1396334796}
 --- !u!1 &1249178650
 GameObject:
   m_ObjectHideFlags: 0
