@@ -69,7 +69,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
 
             foreach (var item in quest.Requirements)
             {
-                if (ResourceManager.GetResourceCountInList(playerResources, item.Id) < item.Amount)
+                if (ResourceManager.GetResourceCountInList(playerResources, item.Data.Id) < item.Amount)
                 {
                     return false;
                 }
@@ -78,7 +78,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
         }
         else
         {
-            throw new System.Exception("Error: quest ID was not active.");
+            throw new System.Exception("Error: quest ID does not exist.");
         }
 
         
