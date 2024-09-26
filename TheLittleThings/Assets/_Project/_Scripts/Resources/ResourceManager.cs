@@ -30,25 +30,6 @@ public class ResourceManager : ScriptableSingleton<ResourceManager>
         ResourceData = null;
     }
     /// <summary>
-    /// Converts a regular resource list to a serialized one.
-    /// </summary>
-    /// <param name="list"></param>
-    /// <returns></returns>
-    public static List<SerializedResource> ToSerializableList(List<Resource> list)
-    {
-        return list.ConvertAll((Resource r) => r.GetIdentifier());
-    }
-
-    /// <summary>
-    /// Converts a serialized resource list to a regular one.
-    /// </summary>
-    /// <param name="list"></param>
-    /// <returns></returns>
-    public static List<Resource> ToResourceList(List<SerializedResource> list)
-    {
-        return list.ConvertAll((SerializedResource r) => r.GetResource());
-    }
-    /// <summary>
     /// Adds two resource lists together, combining their amount if two have the same id.
     /// </summary>
     /// <param name="a">1st list</param>
