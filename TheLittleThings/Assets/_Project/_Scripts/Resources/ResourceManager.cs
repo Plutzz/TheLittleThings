@@ -76,33 +76,6 @@ public class ResourceManager : ScriptableSingleton<ResourceManager>
         return ret;
     }
     /// <summary>
-    /// Adds two serialized resource lists together, combining their amount if two have the same id.
-    /// </summary>
-    /// <param name="a">1st list</param>
-    /// <param name="b">2nd list</param>
-    /// <returns>Combined list</returns>
-    public static List<SerializedResource> AddSerializedList(List<SerializedResource> a, List<SerializedResource> b)
-    {
-        List<SerializedResource> ret = new List<SerializedResource>();
-
-        foreach (var item in a)
-        {
-            if (!b.Contains(item))
-            {
-                ret.Add(item);
-            }
-        }
-
-        foreach (SerializedResource resource in b)
-        {
-            int count = GetSerializedResourceCountInList(a, resource.Id);
-
-            ret.Add(resource + count);
-        }
-
-        return ret;
-    }
-    /// <summary>
     /// Subtracts two resource lists together, combining their amount if two have the same id.
     /// Same as a + (-b) where the negation negates all the amounts in b.
     /// </summary>
@@ -130,52 +103,6 @@ public class ResourceManager : ScriptableSingleton<ResourceManager>
 
         return ret;
     }
-    /// <summary>
-    /// Subtracts two serialized resource lists together, combining their amount if two have the same id.
-    /// Same as a + (-b) where the negation negates all the amounts in b.
-    /// </summary>
-    /// <param name="a">1st list</param>
-    /// <param name="b">2nd list</param>
-    /// <returns>Combined list</returns>
-    public static List<SerializedResource> SubtractSerializedList(List<SerializedResource> a, List<SerializedResource> b)
-    {
-        List<SerializedResource> ret = new List<SerializedResource>();
-
-        foreach (var item in a)
-        {
-            if (!b.Contains(item))
-            {
-                ret.Add(item);
-            }
-        }
-
-        foreach (SerializedResource resource in b)
-        {
-            int count = GetSerializedResourceCountInList(a, resource.Id);
-
-            ret.Add(-resource + count);
-        }
-
-        return ret;
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="resources">List of serializable resources. Should only contain one type of resource max.</param>
-    /// <param name="id"></param>
-    /// <returns>Amount of the first resource with the same id the list has, if applicable. Otherwise returns 0.</returns>
-    public static int GetSerializedResourceCountInList(List<SerializedResource> resources, string id)
-    {
-        foreach (var resource in resources)
-        {
-            if (resource.IsTheSameResource(id))
-            {
-                return resource.Amount;
-            }
-        }
-        return 0;
-    }
-
     /// <summary>
     /// 
     /// </summary>

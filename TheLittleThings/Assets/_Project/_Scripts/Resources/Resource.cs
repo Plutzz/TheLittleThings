@@ -3,34 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public struct Resource : IEqualityComparer<Resource>
 {
-    public ResourceData Data;
+    private string Id;
+    public ResourceData Data 
+    {
+        get
+        {
+            if (ResourceManager.instance.ResourceData.TryGetValue(Id, out var d))
+            {
+                return d;
+            }
+            throw new Exception($"Error: Invalid resource subtype ID: {Id}");
+        }
+    }
     public int Amount;
 
     public Resource(string subtypeID, int amount)
     {
-        if (!ResourceManager.instance.ResourceData.TryGetValue(subtypeID, out Data))
-        {
-            throw new Exception($"Error: Invalid resource subtype ID: {subtypeID}");
-        }
-
+        Id = subtypeID;
         Amount = amount;
     }
     private Resource(ResourceData data, int amount)
     {
-        Data = data;
+        Id = data.Id;
         Amount = amount;
-    }
-
-    public Resource(SerializedResource identifier) : this(identifier.Id, identifier.Amount) { }
-    /// <summary>
-    /// Gets the serialized version of this resource
-    /// </summary>
-    /// <returns></returns>
-    public SerializedResource GetIdentifier()
-    {
-        return new SerializedResource(Data.Id, Amount);
     }
 
     /// <summary>
@@ -92,34 +90,10 @@ public struct Resource : IEqualityComparer<Resource>
     {
         return new Resource(a.Data, a.Amount + b);
     }
-
-    public static Resource operator +(Resource a, SerializedResource b)
-    {
-        if (a.Data.Id == b.Id)
-        {
-            return new Resource(a.Data, a.Amount + b.Amount);
-        }
-        throw new InvalidResourceOperation();
-    }
-
-    public static Resource operator +(SerializedResource a, Resource b)
-    {
-        if (a.Id == b.Data.Id)
-        {
-            return new Resource(b.Data, a.Amount + b.Amount);
-        }
-        throw new InvalidResourceOperation();
-    }
     public static Resource operator -(Resource a, Resource b)
     {
         return a + (-b);
     }
-
-    public static Resource operator -(Resource a, SerializedResource b)
-    {
-        return a + (-b);
-    }
-
     public static Resource operator -(Resource a, int b)
     {
         return a + (-b);

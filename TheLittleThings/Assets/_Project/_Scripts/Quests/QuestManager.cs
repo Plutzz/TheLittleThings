@@ -109,7 +109,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
     /// <param name="id">Quest id</param>
     /// <returns>List of resource requirements.</returns>
     /// <exception cref="System.Exception"></exception>
-    public List<SerializedResource> TakeQuest(string id)
+    public List<Resource> TakeQuest(string id)
     {
         if (AllQuests.TryGetValue(id, out QuestData data))
         {
@@ -131,7 +131,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
     /// <param name="id">Quest id</param>
     /// <returns>List of rewards.</returns>
     /// <exception cref="System.Exception"></exception>
-    public List<SerializedResource> CompleteQuest(string id)
+    public List<Resource> CompleteQuest(string id)
     {
         if (ActiveQuests.TryGetValue(id, out QuestData data))
         {

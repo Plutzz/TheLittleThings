@@ -31,12 +31,12 @@ public class QuestData : ScriptableObject
     /// <summary>
     /// Requirements to start the quest.
     /// </summary>
-    public List<SerializedResource> Requirements;
+    public List<Resource> Requirements;
 
     /// <summary>
     /// Rewards gained from the quest.
     /// </summary>
-    public List<SerializedResource> Rewards;
+    public List<Resource> Rewards;
 
     /// <summary>
     /// Prerequisite Quest IDs.

@@ -5,7 +5,6 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Tester : MonoBehaviour
 {
-    public QuestCompleteCondition cond;
     // Start is called before the first frame update
     void Awake()
     {
