@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BasicEnemyAttack : State
 {
-    [SerializeField] private State chargeUp, attack;
+    [SerializeField] private State navigate, attack;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        stateMachine.SetState(chargeUp);
+        stateMachine.SetState(navigate);
     }
 
     public override void DoUpdateState()
@@ -21,7 +21,7 @@ public class BasicEnemyAttack : State
     public override void CheckTransitions()
     {
         base.CheckTransitions();
-        if(chargeUp.isComplete)
+        if(navigate.isComplete)
         {
             stateMachine.SetState(attack);
         }

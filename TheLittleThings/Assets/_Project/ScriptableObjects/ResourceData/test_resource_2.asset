@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3963a7400ba851745bb6cfe563584ad7, type: 3}
+  m_Name: test_resource_2
+  m_EditorClassIdentifier: 
+  TypeID: test_resource_2
+  DisplayName: News Broadcast Reciever
+  DisplayDescription: '*This Sol''s news may have some content of interest as you
+    flip through networks.*  *"...while corporate armadas are still defining borders
+    in the so called ''Epsilon Segment'', it would appear that Contractors have been
+    deployed to the region. This usually indicates an escalation of interest, and
+    allows the two corps to fight without truly starting a war, which they are surely
+    wary of since..."* *"...the now abandoned ''Lighthouse'' station is likely to
+    be the target of the next skirmish, according to an anonymous source..."* *"...the
+    fast food chain ''K.S.''s Grills'' reveals a new PR stunt - Vindicator Meatloaf
+    burgers, complete with synthetic h-*" *"...another cache of unmarked, ICG-era
+    ISOCONs were discovered in deep space yesterday, leading local authorities to
+    shut down traffic in the area until engineers can clear..."*'
+  Sprite: {fileID: 0}

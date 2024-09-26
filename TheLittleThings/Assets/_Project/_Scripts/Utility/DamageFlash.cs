@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class DamageFlash : MonoBehaviour
     [SerializeField] private Color flashColor = Color.white;
     [SerializeField] private float flashTime = 0.25f;
     [SerializeField] private Material material;
+    [SerializeField] HealthTracker healthTracker;
 
     private void Awake()
     {
@@ -21,12 +23,19 @@ public class DamageFlash : MonoBehaviour
         {
             _spriteRenderer.material = material;
         }
+
+        healthTracker.OnBeforeEntityDamaged += CallDamageFlash;
     }
 
-    public void CallDamageFlash()
+    private void OnDestroy()
     {
-       StopAllCoroutines();
-       StartCoroutine(DamageFlasher());
+        healthTracker.OnBeforeEntityDamaged -= CallDamageFlash;
+    }
+
+    public void CallDamageFlash(ref float amount, ref string damageSource, ref int localIFrameAddAmount)
+    {
+        StopAllCoroutines();
+        StartCoroutine(DamageFlasher());
     }
 
     private IEnumerator DamageFlasher()

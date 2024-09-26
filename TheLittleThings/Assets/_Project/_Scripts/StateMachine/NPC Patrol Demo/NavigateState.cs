@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class NavigateState : State
 {
-    public Vector2 destination;
+    [DoNotSerialize] public System.Func<Vector2> destination;
 
     public float speed = 1;
     public float threshold = 0.1f;
@@ -26,7 +26,7 @@ public class NavigateState : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        if(Vector2.Distance(core.transform.position, destination) < threshold)
+        if(Vector2.Distance(core.transform.position, destination.Invoke()) < threshold)
         {
             isComplete = true;
         }
@@ -36,7 +36,7 @@ public class NavigateState : State
     public override void DoFixedUpdateState()
     {
         base.DoFixedUpdateState();
-        Vector2 direction = (destination - (Vector2) core.transform.position).normalized;
+        Vector2 direction = (destination.Invoke() - (Vector2) core.transform.position).normalized;
         rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
     }
 }
