@@ -619,7 +619,7 @@ Transform:
   m_GameObject: {fileID: 984089100}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.87, y: -3.46, z: -10}
+  m_LocalPosition: {x: -3.87, y: -3.46, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1295,7 +1295,7 @@ Transform:
   m_GameObject: {fileID: 1318757527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.87, y: -3.46, z: -10}
+  m_LocalPosition: {x: -3.87, y: -3.46, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1493,7 +1493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_TrackedObjectOffset: {x: 1, y: 0, z: 0}
   m_LookaheadTime: 0.05
   m_LookaheadSmoothing: 1
   m_LookaheadIgnoreY: 0
@@ -1534,6 +1534,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1884153346 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+  m_PrefabInstance: {fileID: 5665812048427875498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc995e874751b4e4bb0b0c17e50d8ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1966666210 stripped
@@ -1645,6 +1656,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1884153346}
+    - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 1489064392}
     - target: {fileID: 468687809095837666, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: attackRange
       value: 3
