@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
+    public float transitionSpeed = 10f;
+    public float rotationSpeed = 10f;
+    public float zoom = 2f;
     public int startingCameraPointIndex = 0;
     public CameraPoints cameraPoints;
+
+
+
     private Vector3[] cameraLocations;
     private Vector3[] cameraRotations;
     private int currentCameraPoint;
