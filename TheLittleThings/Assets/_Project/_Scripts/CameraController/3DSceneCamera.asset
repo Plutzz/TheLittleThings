@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df5d73d545329a4f8450f3836397699, type: 3}
+  m_Name: 3DSceneCamera
+  m_EditorClassIdentifier: 
+  cameraLocation:
+  - {x: 13.127792, y: 8.153418, z: 37.18119}
+  - {x: 7.312901, y: 15.959269, z: 29.642282}
+  - {x: 26.837355, y: 23.876844, z: 13.522085}
+  cameraRotation:
+  - {x: 15.849203, y: 220.29199, z: 0.0028063178}
+  - {x: 29.60018, y: 229.0586, z: 0.0022770741}
+  - {x: 359.00424, y: 231.63573, z: 0.0026992396}
