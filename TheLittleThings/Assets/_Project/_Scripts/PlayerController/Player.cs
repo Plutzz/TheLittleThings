@@ -22,13 +22,8 @@ public class Player : StateMachineCore
     [Expandable]
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;
-    [Header("Camera Follow")]
-    [SerializeField] private GameObject cameraFollowGameObject;
     public HealthTracker playerHP;
-    public bool isFacingRight = true;
-    public Transform playerTransform;
-    private CameraFollowObject cameraFollowObject;
-    
+
 
     // Start is called before the first frame update
     void Awake()
@@ -37,8 +32,6 @@ public class Player : StateMachineCore
         ResetPlayer();
         rb.gravityScale = stats.NormalGravity;
         playerHP.OnEntityKilled += PlayerHP_OnEntityKilled;
-        
-        cameraFollowObject = cameraFollowGameObject.GetComponent<CameraFollowObject>();
     }
 
     private void PlayerHP_OnEntityKilled(float damage, string source, int iframes)
@@ -60,7 +53,7 @@ public class Player : StateMachineCore
         // transitions
         if (!groundSensor.grounded)
         {
-            if (IsWallSensorTriggered(xInput))  // Adjust wall check for rotation
+            if ((wallSensor.wallLeft && xInput < 0) || (wallSensor.wallRight && xInput > 0))
             {
                 stateMachine.SetState(wall);
             }
@@ -78,9 +71,13 @@ public class Player : StateMachineCore
         {
             stateMachine.SetState(idle);
         }
-        if (xInput != 0 && StateCanTurn())
+        if (xInput > 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
-            TurnCheck(xInput);
+            graphics.localScale = new Vector3(1, 1, 1);
+        }
+        else if (xInput < 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        {
+            graphics.localScale = new Vector3(-1, 1, 1);
         }
 
         if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
@@ -88,54 +85,6 @@ public class Player : StateMachineCore
             stateMachine.SetState(attack);
         }
 
-    }
-
-    /// <summary>
-    /// Checks if the player is facing a wall based on their rotation and movement direction
-    /// </summary>
-    private bool IsWallSensorTriggered(float xInput)
-    {
-        // Use local space for checking which side the wall is on
-        bool isWallOnLeft = wallSensor.wallLeft && xInput < 0;
-        bool isWallOnRight = wallSensor.wallRight && xInput > 0;
-
-        return isWallOnLeft || isWallOnRight;
-    }
-
-    /// <summary>
-    /// Adjust the player's facing direction based on xInput and the current facing direction.
-    /// </summary>
-    private void TurnCheck(float xInput)
-    {
-        if (xInput < 0 && isFacingRight)
-        {
-            Turn();
-        }
-        else if (xInput > 0 && !isFacingRight)
-        {
-            Turn();
-        }
-    }
-
-    /// <summary>
-    /// Turns the player around by rotating the playerTransform instead of scaling.
-    /// </summary>
-    private void Turn()
-    {
-        float yRotation = isFacingRight ? 180f : 0f;
-        Vector3 rotator = new Vector3(playerTransform.rotation.x, yRotation, playerTransform.rotation.z);
-        playerTransform.rotation = Quaternion.Euler(rotator);
-        isFacingRight = !isFacingRight;
-        
-        cameraFollowObject.CallTurn();
-    }
-
-    /// <summary>
-    /// Only allow turning in these states to prevent turning during attacks, etc.
-    /// </summary>
-    private bool StateCanTurn()
-    {
-        return stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne;
     }
 
     private void ResetPlayer()
