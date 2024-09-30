@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Player Stats™")]
+[CreateAssetMenu(menuName = "Player Statsï¿½")]
 public class PlayerStats : ScriptableObject
 {
     public float MaxSpeed;
@@ -14,6 +14,10 @@ public class PlayerStats : ScriptableObject
     public float JumpForce;
     public uint JumpFrameBufferAmount;
     public float FallSpeedLimit;
+
+    public float RollSpeed;
+    public float RollDuration;
+    public float RollDrag;
 
 
     public float Damage;
