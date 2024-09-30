@@ -8,7 +8,7 @@ public class ResourceData : ScriptableObject, IEqualityComparer<ResourceData>
 {
     public string Id;
     public string DisplayName;
-    public string DisplayDescription;
+    [TextArea(2, 5)] public string DisplayDescription;
 
     public Sprite Sprite;
     public override bool Equals(object other)
