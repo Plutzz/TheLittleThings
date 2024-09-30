@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Experimental.AI;
 
 [CreateAssetMenu(menuName = "Quest Manager")]
-public class QuestManager : Singleton<QuestManager>
+public class QuestManager : ScriptableSingleton<ResourceManager>
 {
     public List<QuestData> QuestList;
 

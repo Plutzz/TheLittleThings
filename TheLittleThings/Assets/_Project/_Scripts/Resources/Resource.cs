@@ -11,7 +11,7 @@ public struct Resource : IEqualityComparer<Resource>
     {
         get
         {
-            if (ResourceManager.Instance.ResourceData.TryGetValue(Id, out var d))
+            if (ResourceManager.instance.ResourceData.TryGetValue(Id, out var d))
             {
                 return d;
             }
