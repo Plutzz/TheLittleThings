@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: 3DSceneCamera
   m_EditorClassIdentifier: 
   cameraLocations:
-  - name: 
-    position: {x: -13.183819, y: 16.104065, z: 33.297955}
-    rotation: {x: 31.490984, y: 142.25496, z: 0.00091712916}
-  - name: 
-    position: {x: -7.378394, y: 27.96178, z: 20.628487}
-    rotation: {x: 15.50539, y: 161.16223, z: 0.0003202962}
-  - name: 
-    position: {x: 15.115201, y: 29.27657, z: 21.110546}
-    rotation: {x: 21.865181, y: 218.74474, z: 0.00082611723}
-  - name: 
-    position: {x: 26.89353, y: 32.628304, z: 5.1874967}
-    rotation: {x: 25.302944, y: 269.27872, z: -0.0013806785}
+  - name: Buildings
+    position: {x: 7.2360296, y: 16.586319, z: 33.886494}
+    rotation: {x: 27.709389, y: 219.60312, z: -0.0017590107}
+  - name: Heart Mountain
+    position: {x: 31.793549, y: 21.840023, z: -1.1877441}
+    rotation: {x: 348.51904, y: 279.76373, z: 0.0046940567}
+  - name: Shack
+    position: {x: 6.2249575, y: 26.594751, z: 13.730796}
+    rotation: {x: 9.661111, y: 201.38461, z: 0.0030988576}
+  - name: Castle
+    position: {x: -15.4253, y: 33.26513, z: 17.680378}
+    rotation: {x: 1.9262465, y: 173.53839, z: 0.003419448}
+  - name: House
+    position: {x: 12.562844, y: 7.678982, z: 36.839005}
+    rotation: {x: 22.03708, y: 223.56061, z: 0.008197485}
