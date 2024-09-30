@@ -16,7 +16,7 @@ public class QuestData : ScriptableObject
     /// <summary>
     /// display description of the quest.
     /// </summary>
-    public string DisplayDescription;
+    [TextArea(2, 5)] public string DisplayDescription;
 
     /// <summary>
     /// Quest icon.

@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public struct Resource : IEqualityComparer<Resource>
 {
-    private string Id;
+    [SerializeField] private string Id;
     public ResourceData Data 
     {
         get
