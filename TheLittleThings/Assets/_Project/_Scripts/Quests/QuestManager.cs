@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Experimental.AI;
 
 [CreateAssetMenu(menuName = "Quest Manager")]
-public class QuestManager : ScriptableSingleton<ResourceManager>
+public class QuestManager : ScriptableSingleton<QuestManager>
 {
     public List<QuestData> QuestList;
 
@@ -104,12 +104,12 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
         return CompletedQuests.ContainsKey(id);
     }
     /// <summary>
-    /// Sets designated quest to active.
+    /// Sets designated quest to active, and subtracts the requirements from player resources.
     /// </summary>
     /// <param name="id">Quest id</param>
-    /// <returns>List of resource requirements.</returns>
+    /// <param name="playerResources">list of player resources</param>
     /// <exception cref="System.Exception"></exception>
-    public List<Resource> TakeQuest(string id)
+    public void TakeQuest(string id, ref List<Resource> playerResources)
     {
         if (AllQuests.TryGetValue(id, out QuestData data))
         {
@@ -117,7 +117,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
 
             ActiveQuests.Add(id, data);
 
-            return data.Requirements;
+            playerResources = ResourceManager.SubtractList(playerResources, data.Requirements);
         }
         else
         {
@@ -126,12 +126,12 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
     }
 
     /// <summary>
-    /// Sets designated quest to completed.
+    /// Sets designated quest to completed, and adds the rewards to player resources.
     /// </summary>
     /// <param name="id">Quest id</param>
-    /// <returns>List of rewards.</returns>
+    /// <param name="playerResources">list of player resources</param>
     /// <exception cref="System.Exception"></exception>
-    public List<Resource> CompleteQuest(string id)
+    public void CompleteQuest(string id, ref List<Resource> playerResources)
     {
         if (ActiveQuests.TryGetValue(id, out QuestData data))
         {
@@ -141,7 +141,7 @@ public class QuestManager : ScriptableSingleton<ResourceManager>
             CompletedQuests.Add(id, data);
             ActiveQuests.Remove(id);
 
-            return data.Rewards;
+            playerResources = ResourceManager.AddList(playerResources, data.Rewards);
         }
         else
         {
