@@ -7,34 +7,28 @@ public class CameraMovement : MonoBehaviour
     public float transitionSpeed = 10f;
     public float rotationSpeed = 10f;
     public float zoom = 2f;
-    public int startingCameraPointIndex = 0;
     public CameraPoints cameraPoints;
 
-
-
-    private Vector3[] cameraLocations;
-    private Vector3[] cameraRotations;
+    private List<CameraPlacement> cameraWaypoints;
     private int currentCameraPoint;
 
     void Start()
     {
-        cameraLocations = cameraPoints.cameraLocation;
-        cameraRotations = cameraPoints.cameraRotation;
-        currentCameraPoint = startingCameraPointIndex;
-        transform.position = cameraLocations[currentCameraPoint];
-        transform.eulerAngles = cameraRotations[currentCameraPoint];
+        cameraWaypoints = cameraPoints.cameraLocations;
+        currentCameraPoint = 0;
+        SetCamera(currentCameraPoint);
     }
 
     void Update()
     {
-        if (cameraLocations.Length == cameraRotations.Length)
+        if (cameraWaypoints.Count > 0)
         {
             if (Input.GetButtonDown("Horizontal"))
             {
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
                     currentCameraPoint++;
-                    if (currentCameraPoint > cameraLocations.Length - 1)
+                    if (currentCameraPoint > cameraWaypoints.Count - 1)
                     {
                         currentCameraPoint = 0;
                     }
@@ -45,21 +39,23 @@ public class CameraMovement : MonoBehaviour
                     currentCameraPoint--;
                     if (currentCameraPoint < 0)
                     {
-                        currentCameraPoint = cameraLocations.Length - 1;
+                        currentCameraPoint = cameraWaypoints.Count - 1;
                     }
                     SetCamera(currentCameraPoint);
                 }
+                Debug.Log(cameraWaypoints.Count);
+                Debug.Log(currentCameraPoint);
             }
         } else
         {
-            Debug.Log("Amount of camera locations and rotations are not the same size");
+            Debug.Log("No camera waypoints");
         }
     }
 
     private void SetCamera(int i)
     {
-        transform.position = cameraLocations[i];
-        transform.eulerAngles = cameraRotations[i];
+        transform.position = cameraWaypoints[i].position;
+        transform.eulerAngles = cameraWaypoints[i].rotation;
     }
 
 }
