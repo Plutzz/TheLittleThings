@@ -38,7 +38,8 @@ public class Player : StateMachineCore
         rb.gravityScale = stats.NormalGravity;
         playerHP.OnEntityKilled += PlayerHP_OnEntityKilled;
         
-        cameraFollowObject = cameraFollowGameObject.GetComponent<CameraFollowObject>();
+        if(cameraFollowGameObject != null)
+            cameraFollowObject = cameraFollowGameObject.GetComponent<CameraFollowObject>();
     }
 
     private void PlayerHP_OnEntityKilled(float damage, string source, int iframes)
