@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3963a7400ba851745bb6cfe563584ad7, type: 3}
   m_Name: test_resource_2
   m_EditorClassIdentifier: 
-  TypeID: test_resource_2
+  Id: test_resource_2
   DisplayName: News Broadcast Reciever
   DisplayDescription: '*This Sol''s news may have some content of interest as you
     flip through networks.*  *"...while corporate armadas are still defining borders

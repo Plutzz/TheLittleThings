@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 928c30b34cdfda34a93d4997d800b5e9, type: 3}
+  m_Name: awag
+  m_EditorClassIdentifier: 
+  Id: quest_1
+  DisplayName: Alea Iacta Est 10
+  DisplayDescription: "\u201CWe have obtained the coordinates of the largest ICG
+    era cache to date. The acquisition of this cache would be a great asset to the
+    company. Your mission will be to secure the cache location from any intruders
+    and hand the cache\u2019s contents to us afterwards.  A small garrison of unknown
+    assets guard the cache. Intel says that they\u2019re likely old automated ICG
+    defense drones, and shouldn\u2019t put up much of a fight.\u201D  \u201CComplete
+    this final mission and you will be rewarded with enough to live a comfortable
+    life for the rest of time.\u201D "
+  Sprite: {fileID: 0}
+  Location: {x: 500, y: 500}
+  Requirements:
+  - Id: token_supercap
+    Amount: 4
+  - Id: token_cap
+    Amount: 6
+  - Id: token_subcap
+    Amount: 12
+  - Id: token_strikecraft
+    Amount: 36
+  Rewards:
+  - Id: triple_point
+    Amount: 1
+  - Id: sparks_of_revolution
+    Amount: 1
+  Prerequisites:
+  - quest_2
+  IsCompleted: 0
+  IsActive: 0
+  CompleteConditionIncludeOnlyOne: {fileID: 0}

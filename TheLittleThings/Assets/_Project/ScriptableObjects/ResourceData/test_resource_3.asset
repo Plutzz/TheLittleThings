@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3963a7400ba851745bb6cfe563584ad7, type: 3}
   m_Name: test_resource_3
   m_EditorClassIdentifier: 
-  TypeID: test_resource_3
+  Id: test_resource_3
   DisplayName: Briefing
   DisplayDescription: "# INTRO 00 *The official looking man clears his throat as
     a small chime rings out within the bar, and begins speaking.*  > \"Welcome contractors,
