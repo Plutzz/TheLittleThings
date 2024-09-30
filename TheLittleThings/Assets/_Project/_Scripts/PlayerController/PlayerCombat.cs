@@ -8,6 +8,8 @@ public class PlayerCombat : State
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public GameObject hitParticles;
+    public Transform spriteObject;
 
     public float damage = 2.0f;
 
@@ -37,6 +39,7 @@ public class PlayerCombat : State
             {
                 Debug.Log("Damage " + enemy.name);
                 enemyHealth.DamageEntity(damage, "Player", 1);
+                Instantiate(hitParticles, enemy.transform.position, spriteObject.localScale.x < 0 ? Quaternion.Euler(180, 90, 90) : Quaternion.Euler(0, 90, 90));
             }
         }
     }
