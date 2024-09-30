@@ -25,21 +25,14 @@ MonoBehaviour:
   Sprite: {fileID: 0}
   Location: {x: 500, y: 500}
   Requirements:
-  - Id: token_supercap
-    Amount: 4
-  - Id: token_cap
-    Amount: 6
-  - Id: token_subcap
-    Amount: 12
-  - Id: token_strikecraft
-    Amount: 36
+  - Amount: 4
+  - Amount: 6
+  - Amount: 12
+  - Amount: 36
   Rewards:
-  - Id: triple_point
-    Amount: 1
-  - Id: sparks_of_revolution
-    Amount: 1
+  - Amount: 1
+  - Amount: 1
   Prerequisites:
   - quest_2
   IsCompleted: 0
   IsActive: 0
-  CompleteConditionIncludeOnlyOne: {fileID: 0}

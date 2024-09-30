@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemieHealth : MonoBehaviour, IDamageable
 {
-    int maxHealth;
-    int currentHealth;
+    [SerializeField] private int maxHealth;
+    private int currentHealth;
 
     void Start() {
         currentHealth = maxHealth;
