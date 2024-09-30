@@ -13,9 +13,9 @@ public class DialogueManager : Singleton<DialogueManager>
     private Dialogue currentDialogue;
 
     [SerializeField] private GameObject dialogueBox;
-    [SerializeField] private TextMeshPro dialogueText;
+    [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject characterImage;
-    [SerializeField] private AudioSource talkingAudio;
+    //[SerializeField] private AudioSource talkingAudio;
     private SpriteRenderer characterRend;
     //private InputManager inputManager;
     //private StudioEventEmitter eventEmitter;
@@ -31,7 +31,7 @@ public class DialogueManager : Singleton<DialogueManager>
         base.Awake();
         sentences = new Queue<string>();
         characterRend = characterImage.GetComponent<SpriteRenderer>();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
 
@@ -130,7 +130,6 @@ public class DialogueManager : Singleton<DialogueManager>
 
     IEnumerator TypeSentence(string sentence)
     {
-        talkingAudio.Play();
         dialogueText.text = "";
         //eventEmitter = AudioManager.Instance.InitializeEventEmitter(FMODEvents.NetworkSFXName.DialogueTalk, gameObject);
         //eventEmitter.Play();
@@ -139,7 +138,7 @@ public class DialogueManager : Singleton<DialogueManager>
             dialogueText.text += letter;
             yield return new WaitForSeconds(textDelay);
         }
-        talkingAudio.Stop();
+        //talkingAudio.Stop();
         //eventEmitter.Stop();
     }
 
