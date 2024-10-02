@@ -1,27 +1,60 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro; 
 
-public class ButtonTest1 : MonoBehaviour
+public class SpearUpgrade : MonoBehaviour
 {
-    public Button spearButton; // Reference to the Button
-    private int spearLevel = 0;
-    private int maxSpearLevel = 3;
+    public Button spearButton; // Assign this in the Unity Editor
+    public Text spearButtonText; // The text on the button to show the progress
+    private int currentLevel = 0; // Start at 0 upgrades
+    private int maxLevel = 3; // Max upgrades is 3
 
     void Start()
     {
-        // Initialize the button text
-        spearButton.GetComponentInChildren<Text>().text = "Spear (0/3)";
+        // Initialize the button's text
+        UpdateSpearText();
 
-        // Add listener for button click
-        spearButton.onClick.AddListener(UpgradeSpear);
+        // Add a listener to the button to handle clicks
+        spearButton.onClick.AddListener(OnSpearButtonClick);
+
+        // Debugging 
+        if (spearButton == null)
+        {
+            Debug.LogError("Spear Button is not assigned");
+        }
+        if (spearButtonText == null)
+        {
+            Debug.LogError("Spear Button Text is not assigned");
+        }
     }
 
-    void UpgradeSpear()
+    void OnSpearButtonClick()
     {
-        if (spearLevel < maxSpearLevel)
+        // Increment the level if it's not at max level yet
+        if (currentLevel < maxLevel)
         {
-            spearLevel++;
-            spearButton.GetComponentInChildren<Text>().text = $"Spear ({spearLevel}/{maxSpearLevel})";
+            currentLevel++;
+            UpdateSpearText();
+        }
+    }
+
+    void UpdateSpearText()
+    {
+         if (spearButtonText != null)
+        {
+        // Update the button text to show the current progress (e.g., 1/3)
+        spearButtonText.text = "Spear (" + currentLevel + "/" + maxLevel + ")";
+        
+        // Disable button when max level is reached
+            if (currentLevel >= maxLevel)
+            {
+                spearButton.interactable = false; // Disable the button
+                spearButtonText.text = "Spear (MAX)";
+            }
+        }
+        else
+        {
+            Debug.LogError("TMP Text component is missing!");
         }
     }
 }
