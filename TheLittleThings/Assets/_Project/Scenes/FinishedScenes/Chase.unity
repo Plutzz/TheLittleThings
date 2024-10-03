@@ -357,9 +357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b21ff7839c584484b8d7487a121f7022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollAmount: 0
+  ScrollAmount: 1
   IsPaused: 0
   CameraTarget: {fileID: 1492900726}
+  cameraScrollYValue: 1.5
 --- !u!1 &423497695
 GameObject:
   m_ObjectHideFlags: 0
