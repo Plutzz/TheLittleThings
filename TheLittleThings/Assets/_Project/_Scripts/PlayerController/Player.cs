@@ -7,15 +7,15 @@ public class Player : StateMachineCore
 {
     [HorizontalLine(color: EColor.Gray)]
     [Header("States")]
-    [SerializeField] private PlayerIdle idle;
-    [SerializeField] private PlayerMove move;
-    [SerializeField] private PlayerRoll roll;
-    [SerializeField] private PlayerAirborne airborne;
+    [SerializeField] public PlayerIdle idle;
+    [SerializeField] public PlayerMove move;
+    [SerializeField] public PlayerRoll roll;
+    [SerializeField] public PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
-    [SerializeField] private PlayerCombat attack;
+    [SerializeField] public PlayerAttacks attack;
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
-    [SerializeField] private GroundSensor groundSensor;
+    [SerializeField] public GroundSensor groundSensor;
     [SerializeField] private WallSensor wallSensor;
     [SerializeField] private Transform graphics;
     [HorizontalLine(color: EColor.Gray)]
@@ -70,6 +70,9 @@ public class Player : StateMachineCore
         }
         else if (xInput == 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
+            if (stateMachine.currentState.isComplete) {
+                print("Trying to set idle");
+            }
             stateMachine.SetState(idle);
         }
         if (xInput > 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
@@ -81,7 +84,7 @@ public class Player : StateMachineCore
             graphics.localScale = new Vector3(-1, 1, 1);
         }
 
-        if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
+        if (playerInput.attackPressedThisFrame && groundSensor.grounded)
         {
             stateMachine.SetState(attack);
         }

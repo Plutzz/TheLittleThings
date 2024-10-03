@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerAttacks : MonoBehaviour
+public class PlayerAttacks : State
 {
+    [Header("Input")]
+    [SerializeField] private PlayerInput playerInput;
 
     [Header("Combo")]
     [SerializeField] private List<PlayerAttackSO> combo;
     [SerializeField] private float continueComboTimer = 0.2f;
     [SerializeField] private float timeBetweenCombos = 1f;
-    
+
     private float lastComboEnd;
-    private int comboCounter;
+    public int comboCounter;
 
     [Header("Attacks")]
     [SerializeField] private float attackCooldown = 0.5f;
@@ -22,37 +24,46 @@ public class PlayerAttacks : MonoBehaviour
     private float lastAttackTime;
     public GameObject AttackPoint;
     public bool FinalAttack;
+    [SerializeField] private Player player;
+    [SerializeField] private PlayerStats stats => player.stats;
 
-
-    private StateMachine stateMachine;
-    private Player player;
-    private PlayerAttackHitbox attackHitbox;
+    [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private Animator anim;
-    
+    private float currentAnimAttackTime;
 
-
-    private void Start()
+    public override void DoEnterLogic()
     {
-        attackHitbox = GetComponentInChildren<PlayerAttackHitbox>(true);
-        player = GetComponent<Player>();
-        stateMachine = player.stateMachine;
+        base.DoEnterLogic();
+        // Movement
+        rb.drag = 4;
+        rb.velocity = Vector2.zero;
+
+
     }
 
-    public void Update()
+    public override void DoUpdateState()
     {
-        //if (inputManager.AttackPressedThisFrame)
-        //{
-        //    Attack();
-        //}
+        base.DoUpdateState();
 
+        
+        if (Time.time - lastAttackTime >= currentAnimAttackTime)
+        {
+            isComplete = true;
+        }
+
+        if (playerInput.attackPressedThisFrame)
+        {
+            Attack();
+        }
         // Handle buffered attacks
-        if(bufferedAttack && Time.time - lastBufferedAttack > attackBufferWindow)
+        if (bufferedAttack && Time.time - lastBufferedAttack > attackBufferWindow)
         {
             bufferedAttack = false;
         }
 
-        if(bufferedAttack && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastAttackTime >= attackCooldown)
+        if (bufferedAttack && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastAttackTime >= attackCooldown)
         {
+            print("Buffered Attack");
             Attack();
             bufferedAttack = false;
         }
@@ -60,29 +71,49 @@ public class PlayerAttacks : MonoBehaviour
         ExitAttack();
     }
 
+    public override void CheckTransitions()
+    {
+        base.CheckTransitions();
+
+        // if (playerInput.xInput != 0)
+        // {
+        //     stateMachine.SetState(player.move);
+        // }
+        // else if (playerInput.ctrlPressedThisFrame)
+        // {
+        //     stateMachine.SetState(player.roll);
+        // }
+    }
 
     void Attack()
     {
-        if(Time.time - lastComboEnd > timeBetweenCombos && comboCounter <= combo.Count)
+
+        if (Time.time - lastComboEnd > timeBetweenCombos && comboCounter <= combo.Count)
         {
-            CancelInvoke("IncompleteCombo");
+            CancelInvoke(nameof(DoExitLogic));
 
             if (Time.time - lastAttackTime >= attackCooldown)
             {
-                //stateMachine.ChangeState(player.states["Attack"]);
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
-                attackHitbox.damage = combo[comboCounter].damage;
-                attackHitbox.knockback = combo[comboCounter].knockback;
-                
-                anim.Play("Attack", 0, 0);
+                currentAnimAttackTime = anim.runtimeAnimatorController.animationClips[comboCounter].length;
+
+                // attackHitbox.damage = combo[comboCounter].damage;
+                // attackHitbox.knockback = combo[comboCounter].knockback;
+
+                anim.Play("Attack" + (comboCounter + 1));
+
+
                 comboCounter++;
-                if(comboCounter == combo.Count - 1)
+
+                if (comboCounter == combo.Count - 1)
                 {
                     FinalAttack = true;
                 }
-                if(comboCounter >= combo.Count)
+                if (comboCounter >= combo.Count)
                 {
-                    EndCombo();
+                    // Combo is complete
+                    lastComboEnd = lastAttackTime;
+                    DoExitLogic();
                 }
                 lastAttackTime = Time.time;
             }
@@ -98,35 +129,29 @@ public class PlayerAttacks : MonoBehaviour
             lastBufferedAttack = Time.time;
         }
 
+        ExitAttack();
     }
+
 
     void ExitAttack()
     {
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
-            Invoke("IncompleteCombo", continueComboTimer);
-
-            //if (player.inputManager.MoveInput == 0)
-            //{
-            //    stateMachine.ChangeState(player.states["Idle"]);
-            //}
-            //else
-            //{
-            //    stateMachine.ChangeState(player.states["Move"]);
-            //}
+            Invoke(nameof(DoExitLogic), continueComboTimer);
         }
     }
 
-    void EndCombo()
+
+    public override void DoExitLogic()
     {
-        comboCounter = 0;
-        lastComboEnd = lastAttackTime;
-        FinalAttack = false;
+        isComplete = true;
+        base.DoExitLogic();
     }
 
-    void IncompleteCombo()
+    public override void ResetValues()
     {
-        FinalAttack = false;
+        base.ResetValues();
         comboCounter = 0;
+        FinalAttack = false;
     }
 }

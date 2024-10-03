@@ -7,7 +7,7 @@ public class PlayerMove : State
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
-    private PlayerStats stats => player.stats;    public override void DoEnterLogic()
+    private PlayerStats stats => player.stats; public override void DoEnterLogic()
     {
         base.DoEnterLogic();
         animator.Play("Run");
@@ -37,5 +37,4 @@ public class PlayerMove : State
             }
         }
     }
-
 }
