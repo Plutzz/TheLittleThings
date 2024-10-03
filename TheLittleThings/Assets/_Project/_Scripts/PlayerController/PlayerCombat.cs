@@ -8,36 +8,84 @@ public class PlayerCombat : State
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
+    public float chargeTime = 0.5f;
 
-    public float damage = 2.0f;
+    private bool isCharging = false;
+    private float chargeTimer = 0f;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Attack();
+        isCharging = false;
+        chargeTimer = 0f;
     }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        if(stateUptime > attackAnimation.length)
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            isCharging = true;
+            chargeTimer = 0f;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            chargeTimer += Time.deltaTime;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isCharging)
+            {
+                if (chargeTimer >= chargeTime)
+                {
+                    ChargeAttack();
+                }
+                else
+                {
+                    RegularAttack();
+                }
+                isCharging = false;
+            }
+        }
+
+        if (stateUptime > attackAnimation.length)
         {
             isComplete = true;
         }
     }
 
-    void Attack()
+    void RegularAttack()
     {
         animator.Play("Attack1");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-        foreach(Collider2D enemy in hitEnemies)
+        foreach (Collider2D enemy in hitEnemies)
         {
-            Debug.Log("We hit " + enemy.name);
-            if(enemy.TryGetComponent(out HealthTracker enemyHealth))
-            {
-                Debug.Log("Damage " + enemy.name);
-                enemyHealth.DamageEntity(damage, "Player", 1);
-            }
+            Debug.Log("Regular Attack hit: " + enemy.name);
+        }
+    }
+
+    void ChargeAttack()
+    {
+        animator.Play("ChargeAttack");
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange * 1.5f, enemyLayers);
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.Log("Charge Attack hit: " + enemy.name);
+        }
+    }
+
+    void Attack()
+    {
+        if (isCharging && chargeTimer >= chargeTime)
+        {
+            ChargeAttack();
+        }
+        else
+        {
+            RegularAttack();
         }
     }
 }
