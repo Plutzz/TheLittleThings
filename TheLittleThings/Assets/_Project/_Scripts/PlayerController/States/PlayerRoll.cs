@@ -27,10 +27,7 @@ public class PlayerRoll : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        if(stateUptime > stats.RollDuration)
-        {
-            isComplete = true;
-        }
+        if(stateUptime > stats.RollDuration || rb.velocity.magnitude < 1) isComplete = true;
     }
 
     private void Roll()

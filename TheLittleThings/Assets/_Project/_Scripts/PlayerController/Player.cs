@@ -24,6 +24,9 @@ public class Player : StateMachineCore
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;
     public HealthTracker playerHP;
+    [Header("Camera")] 
+    [SerializeField] private CameraFollowObject cameraFollowObject;
+    public bool isFacingRight = true;
 
 
     // Start is called before the first frame update
@@ -72,13 +75,9 @@ public class Player : StateMachineCore
         {
             stateMachine.SetState(idle);
         }
-        if (xInput > 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        if (xInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
-            graphics.localScale = new Vector3(1, 1, 1);
-        }
-        else if (xInput < 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
-        {
-            graphics.localScale = new Vector3(-1, 1, 1);
+            TurnCheck(xInput);
         }
 
         if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
@@ -91,6 +90,44 @@ public class Player : StateMachineCore
             stateMachine.SetState(roll);
         }
 
+    }
+
+    private void TurnCheck(float xInput)
+    {
+        if (xInput < 0 && isFacingRight)
+        {
+            Turn();
+        }
+        else if (xInput > 0 && !isFacingRight)
+        {
+            Turn();
+        }
+    }
+    
+    /// <summary>
+    /// Turns the player around by rotating the playerTransform instead of scaling.
+    /// </summary>
+    private void Turn()
+    {
+        float yRotation = isFacingRight ? 180f : 0f;
+        Vector3 rotator = new Vector3(transform.rotation.x, yRotation, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(rotator);
+        isFacingRight = !isFacingRight;
+        
+        cameraFollowObject.CallTurn();
+        RotateSensors();
+    }
+    /**
+     * Rotates the wall sensors so they don't get flipped when the player turns around.
+     */
+    private void RotateSensors()
+    {
+        wallSensor.transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
+    }
+    
+    private Vector2 GetDirection()
+    {
+        return isFacingRight ? Vector2.right : Vector2.left;
     }
 
     private void ResetPlayer()
