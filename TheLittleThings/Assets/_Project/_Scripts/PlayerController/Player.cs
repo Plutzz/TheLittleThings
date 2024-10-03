@@ -7,15 +7,15 @@ public class Player : StateMachineCore
 {
     [HorizontalLine(color: EColor.Gray)]
     [Header("States")]
-    [SerializeField] public PlayerIdle idle;
-    [SerializeField] public PlayerMove move;
-    [SerializeField] public PlayerRoll roll;
-    [SerializeField] public PlayerAirborne airborne;
+    [SerializeField] private PlayerIdle idle;
+    [SerializeField] private PlayerMove move;
+    [SerializeField] private PlayerRoll roll;
+    [SerializeField] private PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
-    [SerializeField] public PlayerAttack attack;
+    [SerializeField] private PlayerAttack attack;
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
-    [SerializeField] public GroundSensor groundSensor;
+    [SerializeField] private GroundSensor groundSensor;
     [SerializeField] private WallSensor wallSensor;
     [SerializeField] private Transform graphics;
     [HorizontalLine(color: EColor.Gray)]

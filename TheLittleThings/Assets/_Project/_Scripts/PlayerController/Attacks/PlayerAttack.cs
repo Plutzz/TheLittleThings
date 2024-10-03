@@ -17,6 +17,7 @@ public class PlayerAttack : State
     public int comboCounter;
 
     [Header("Attacks")]
+    [SerializeField] private float attackForce = 10f;
     [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float attackBufferWindow = 0.2f;
     private bool bufferedAttack;
@@ -31,15 +32,15 @@ public class PlayerAttack : State
     [SerializeField] private Animator anim;
 
 
-/*
-NOTE: The combo attack will interrupt the roll state, so the player will stop mid
-      way through the roll animation and start the attack animation. Don't know if
-      this is what we want for the movement
+    /*
+    NOTE: The combo attack will interrupt the roll state, so the player will stop mid
+          way through the roll animation and start the attack animation. Don't know if
+          this is what we want for the movement
 
-      Attacking frame 1 and then jumping after will increment the combo counter.
-      So the player can attack with the last part of the combo without having to go through the first 2 animations.
-      Could be an issue if the last part of the combo does more damage than the first 2 parts.
-*/
+          Attacking frame 1 and then jumping after will increment the combo counter.
+          So the player can attack with the last part of the combo without having to go through the first 2 animations.
+          Could be an issue if the last part of the combo does more damage than the first 2 parts.
+    */
 
     public override void DoUpdateState()
     {
@@ -80,7 +81,13 @@ NOTE: The combo attack will interrupt the roll state, so the player will stop mi
                 // attackHitbox.knockback = combo[comboCounter].knockback;
 
                 anim.Play("Attack" + (comboCounter + 1));
-                rb.velocity = Vector2.zero;
+
+                // Apply force to the player while attacking
+                if (playerInput.xInput > 0) {
+                    player.rb.AddForce(transform.right * attackForce, ForceMode2D.Impulse);
+                } else {
+                    player.rb.AddForce(-transform.right * attackForce, ForceMode2D.Impulse);
+                }
 
                 comboCounter++;
 
@@ -112,7 +119,7 @@ NOTE: The combo attack will interrupt the roll state, so the player will stop mi
 
     void ExitAttack()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             isComplete = true;
             Invoke(nameof(IncompleteCombo), continueComboTimer);
@@ -124,7 +131,10 @@ NOTE: The combo attack will interrupt the roll state, so the player will stop mi
         comboCounter = 0;
         lastComboEnd = lastAttackTime;
         FinalAttack = false;
-        DoExitLogic();
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            DoExitLogic();
+        }
     }
 
     private void IncompleteCombo()
@@ -136,7 +146,7 @@ NOTE: The combo attack will interrupt the roll state, so the player will stop mi
 
     public override void DoExitLogic()
     {
-        isComplete = true;  
+        isComplete = true;
         base.DoExitLogic();
     }
 }

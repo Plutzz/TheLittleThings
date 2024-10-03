@@ -147,7 +147,8 @@ MonoBehaviour:
   continueComboTimer: 0.2
   timeBetweenCombos: 1
   comboCounter: 0
-  attackCooldown: 0.5
+  attackForce: 3
+  attackCooldown: 0.3
   attackBufferWindow: 0.2
   AttackPoint: {fileID: 559957412}
   FinalAttack: 0
