@@ -5,17 +5,21 @@ using UnityEngine;
 public class DavidPlayerMove : MonoBehaviour
 {
     public float acceleration = 20f;
+    public float airAcceleration = 50f;
     public float maxSpeed = 10f;
-    public float jumpForce = 6f;
+    public float jumpForce = 10f;
     public float gravityOnWall = 1f;
     public float normalGravity = 5f;
     public float wallJumpMagnitude = 3f;
-
+    public float downwardForce = 5f;
+    public bool wallJump = false;
+    
     private bool onWall = false;
-    public bool jumpReady = true;
+    public bool jumpReady = true; //keeps track of when player touches ground or wall since they can jump on both
     private float wallJumpForce = 0f;
     private Rigidbody2D rb;
     private bool grounded = true;
+    private bool jumping = false; //basically if airborne
 
     private void Start()
     {
@@ -26,17 +30,16 @@ public class DavidPlayerMove : MonoBehaviour
     {
         if (jumpReady == true && Input.GetKeyDown(KeyCode.Space))
         {
-            jumpReady = false;
-
-            if(grounded || !onWall)
-            {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-
-            } else
-            {
-                rb.AddForce(new Vector2 (wallJumpForce/2f, jumpForce), ForceMode2D.Impulse);
-            }
+            Jump();
         }
+    }
+
+    private void Jump()
+    {
+        jumping = true; //airborne
+        jumpReady = false;
+
+       
     }
 
     private void FixedUpdate()
@@ -46,27 +49,15 @@ public class DavidPlayerMove : MonoBehaviour
 
     private void Movement()
     {
-        if (Mathf.Abs(rb.velocity.x) < (maxSpeed))
+        //air strafe handling
+        //if moving while airborne from a normal jump and not a walljump
+        if (!grounded && !onWall && rb.velocity.x != 0 && !wallJump)
         {
-            xMove();
-        }
-        else
-        {
-            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxSpeed, maxSpeed), rb.velocity.y);
-        }
-    }
-
-    private void xMove()
-    {
-        if (onWall && wallJumpForce < -0.2)
-        {
-            rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * acceleration);
-        } else if(onWall && wallJumpForce > 0.2)
-        {
-            rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * acceleration);
-        } else
-        {
-            rb.AddForce(Vector2.right * Input.GetAxisRaw("Horizontal") * acceleration);
+            //checks if player wants to move in the opposite direction of velocity
+            if(Input.GetAxisRaw("Horizontal") != 0 && Mathf.Sign(rb.velocity.x) != Input.GetAxisRaw("Horizontal"))
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
 
         // Change localScale to flip sprite
@@ -85,20 +76,22 @@ public class DavidPlayerMove : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Ground"))
         {
+            jumpReady = true;
+            jumping = false;
             grounded = true;
-            rb.gravityScale = 5f;
+            rb.gravityScale = normalGravity;
+            wallJump = false;
         }
-
-        jumpReady = true;
 
         if (collision.gameObject.CompareTag("Wall"))
         {
             rb.velocity = Vector2.right * rb.velocity.x;
 
             jumpReady = true;
+            jumping = false;
 
+            //calculates what side the wall is on for walljump to push player off the wall using walljumpforce
             float wallSide = transform.position.x - collision.gameObject.transform.position.x;
-
             if(wallSide < 0)
             {
                 wallJumpForce = -wallJumpMagnitude;
@@ -113,6 +106,8 @@ public class DavidPlayerMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            //if touching a wall and not touching the ground, change gravity to give sliding down effect
+            //check if y velocity < 0 so that player doesnt have less gravity when normal jumping off the ground while touching a wall
             if (!grounded && rb.velocity.y < 0)
             {
                 rb.gravityScale = gravityOnWall;
@@ -126,8 +121,9 @@ public class DavidPlayerMove : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall"))
         {
+            wallJump = true;
             onWall = false;
-            rb.gravityScale = 5f;
+            rb.gravityScale = normalGravity; //turns gravity back to normals when leaving wall
         }
 
         if (collision.gameObject.CompareTag("Ground"))
