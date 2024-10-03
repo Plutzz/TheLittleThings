@@ -29,8 +29,17 @@ public class PlayerAttack : State
 
     [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private Animator anim;
-    private float currentAnimAttackTime;
 
+
+/*
+NOTE: The combo attack will interrupt the roll state, so the player will stop mid
+      way through the roll animation and start the attack animation. Don't know if
+      this is what we want for the movement
+
+      Attacking frame 1 and then jumping after will increment the combo counter.
+      So the player can attack with the last part of the combo without having to go through the first 2 animations.
+      Could be an issue if the last part of the combo does more damage than the first 2 parts.
+*/
 
     public override void DoUpdateState()
     {
@@ -66,7 +75,6 @@ public class PlayerAttack : State
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
-                currentAnimAttackTime = anim.runtimeAnimatorController.animationClips[comboCounter].length;
 
                 // attackHitbox.damage = combo[comboCounter].damage;
                 // attackHitbox.knockback = combo[comboCounter].knockback;
@@ -128,7 +136,7 @@ public class PlayerAttack : State
 
     public override void DoExitLogic()
     {
-        isComplete = true;
+        isComplete = true;  
         base.DoExitLogic();
     }
 }
