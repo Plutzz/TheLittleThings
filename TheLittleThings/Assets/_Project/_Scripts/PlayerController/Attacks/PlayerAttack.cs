@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerAttacks : State
+public class PlayerAttack : State
 {
     [Header("Input")]
     [SerializeField] private PlayerInput playerInput;
@@ -31,30 +31,14 @@ public class PlayerAttacks : State
     [SerializeField] private Animator anim;
     private float currentAnimAttackTime;
 
-    public override void DoEnterLogic()
-    {
-        base.DoEnterLogic();
-        // Movement
-        rb.drag = 4;
-        rb.velocity = Vector2.zero;
-
-
-    }
 
     public override void DoUpdateState()
     {
-        base.DoUpdateState();
-
-        
-        if (Time.time - lastAttackTime >= currentAnimAttackTime)
-        {
-            isComplete = true;
-        }
-
         if (playerInput.attackPressedThisFrame)
         {
             Attack();
         }
+
         // Handle buffered attacks
         if (bufferedAttack && Time.time - lastBufferedAttack > attackBufferWindow)
         {
@@ -63,26 +47,13 @@ public class PlayerAttacks : State
 
         if (bufferedAttack && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastAttackTime >= attackCooldown)
         {
-            print("Buffered Attack");
             Attack();
             bufferedAttack = false;
         }
 
+
+        base.DoUpdateState();
         ExitAttack();
-    }
-
-    public override void CheckTransitions()
-    {
-        base.CheckTransitions();
-
-        // if (playerInput.xInput != 0)
-        // {
-        //     stateMachine.SetState(player.move);
-        // }
-        // else if (playerInput.ctrlPressedThisFrame)
-        // {
-        //     stateMachine.SetState(player.roll);
-        // }
     }
 
     void Attack()
@@ -90,7 +61,7 @@ public class PlayerAttacks : State
 
         if (Time.time - lastComboEnd > timeBetweenCombos && comboCounter <= combo.Count)
         {
-            CancelInvoke(nameof(DoExitLogic));
+            CancelInvoke(nameof(IncompleteCombo));
 
             if (Time.time - lastAttackTime >= attackCooldown)
             {
@@ -101,7 +72,7 @@ public class PlayerAttacks : State
                 // attackHitbox.knockback = combo[comboCounter].knockback;
 
                 anim.Play("Attack" + (comboCounter + 1));
-
+                rb.velocity = Vector2.zero;
 
                 comboCounter++;
 
@@ -111,9 +82,7 @@ public class PlayerAttacks : State
                 }
                 if (comboCounter >= combo.Count)
                 {
-                    // Combo is complete
-                    lastComboEnd = lastAttackTime;
-                    DoExitLogic();
+                    EndCombo();
                 }
                 lastAttackTime = Time.time;
             }
@@ -137,21 +106,29 @@ public class PlayerAttacks : State
     {
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
-            Invoke(nameof(DoExitLogic), continueComboTimer);
+            isComplete = true;
+            Invoke(nameof(IncompleteCombo), continueComboTimer);
         }
     }
 
+    private void EndCombo()
+    {
+        comboCounter = 0;
+        lastComboEnd = lastAttackTime;
+        FinalAttack = false;
+        DoExitLogic();
+    }
+
+    private void IncompleteCombo()
+    {
+        FinalAttack = false;
+        comboCounter = 0;
+        DoExitLogic();
+    }
 
     public override void DoExitLogic()
     {
         isComplete = true;
         base.DoExitLogic();
-    }
-
-    public override void ResetValues()
-    {
-        base.ResetValues();
-        comboCounter = 0;
-        FinalAttack = false;
     }
 }

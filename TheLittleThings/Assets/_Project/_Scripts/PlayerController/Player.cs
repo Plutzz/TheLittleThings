@@ -12,7 +12,7 @@ public class Player : StateMachineCore
     [SerializeField] public PlayerRoll roll;
     [SerializeField] public PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
-    [SerializeField] public PlayerAttacks attack;
+    [SerializeField] public PlayerAttack attack;
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
     [SerializeField] public GroundSensor groundSensor;
@@ -70,9 +70,6 @@ public class Player : StateMachineCore
         }
         else if (xInput == 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
-            if (stateMachine.currentState.isComplete) {
-                print("Trying to set idle");
-            }
             stateMachine.SetState(idle);
         }
         if (xInput > 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))

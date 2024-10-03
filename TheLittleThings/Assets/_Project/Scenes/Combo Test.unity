@@ -144,7 +144,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
   - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
   - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
-  continueComboTimer: 0.5
+  continueComboTimer: 0.2
   timeBetweenCombos: 1
   comboCounter: 0
   attackCooldown: 0.5
@@ -609,7 +609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7273186640696278873, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8620566132482992768, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_IsActive
