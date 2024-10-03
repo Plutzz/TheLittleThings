@@ -8,22 +8,25 @@ public class Tester : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        List<Resource> a = new List<Resource>()
+        List<Resource> presources = new List<Resource>()
         {
-            new Resource("test_resource_1", 1),
-            new Resource("test_resource_2", 1),
-            
-        };
-        List<Resource> b = new List<Resource>()
-        {
-            new Resource("test_resource_1", 1),
-            new Resource("test_resource_2", 1),
-            new Resource("test_resource_3", 1),
-        };
+            new Resource("test_resource_1", 3),
+            new Resource("test_resource_2", 3),
+            new Resource("test_resource_3", 3),
 
-        foreach (var awagga in ResourceManager.AddList(a, b))
+        };
+        QuestManager.instance.TakeQuest("quest_1", ref presources);
+
+        foreach (var resource in presources)
         {
-            Debug.Log(awagga);
+            Debug.Log(resource);
+        }
+        Debug.Log("before /\\ after \\/");
+        QuestManager.instance.CompleteQuest("quest_1", ref presources);
+
+        foreach (var resource in presources)
+        {
+            Debug.Log(resource);
         }
     }
 }

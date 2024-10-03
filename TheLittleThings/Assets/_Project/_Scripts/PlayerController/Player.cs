@@ -9,6 +9,7 @@ public class Player : StateMachineCore
     [Header("States")]
     [SerializeField] private PlayerIdle idle;
     [SerializeField] private PlayerMove move;
+    [SerializeField] private PlayerRoll roll;
     [SerializeField] private PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
     [SerializeField] private PlayerCombat attack;
@@ -57,17 +58,17 @@ public class Player : StateMachineCore
             {
                 stateMachine.SetState(wall);
             }
-            else
+            else if (stateMachine.currentState != roll)
             {
                 stateMachine.SetState(airborne);
             }
 
         }
-        else if (xInput != 0 && (stateMachine.currentState != attack || stateMachine.currentState.isComplete))
+        else if (xInput != 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
         }
-        else if (xInput == 0 && (stateMachine.currentState != attack || stateMachine.currentState.isComplete))
+        else if (xInput == 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
@@ -83,6 +84,11 @@ public class Player : StateMachineCore
         if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
         {
             stateMachine.SetState(attack);
+        }
+        
+        if (playerInput.ctrlPressedThisFrame)
+        {
+            stateMachine.SetState(roll);
         }
 
     }
