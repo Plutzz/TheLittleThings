@@ -34,7 +34,7 @@ public class Player : StateMachineCore
     {
         SetupInstances();
         ResetPlayer();
-        rb.gravityScale = stats.NormalGravity;
+        //rb.gravityScale = stats.NormalGravity;
         playerHP.OnEntityKilled += PlayerHP_OnEntityKilled;
     }
 
@@ -114,7 +114,7 @@ public class Player : StateMachineCore
         transform.rotation = Quaternion.Euler(rotator);
         isFacingRight = !isFacingRight;
         
-        cameraFollowObject.CallTurn();
+        cameraFollowObject?.CallTurn();
         RotateSensors();
     }
     /**

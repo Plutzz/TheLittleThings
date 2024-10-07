@@ -32,7 +32,7 @@ public class PlayerRoll : State
 
     private void Roll()
     {
-        animator.Play("Roll");
+        //animator.Play("Roll");
         rb.velocity = new Vector2(playerInput.xInput * stats.RollSpeed, rb.velocity.y);
     }
 }
