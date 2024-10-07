@@ -5,29 +5,23 @@ using UnityEngine;
 
 public class PlayerAttack : State
 {
+    /*
+        Handles the attack animation
+        Handles the attack force
+    */
     [Header("Input")]
     [SerializeField] private PlayerInput playerInput;
 
     [Header("Combo")]
-    [SerializeField] private List<PlayerAttackSO> combo;
-    [SerializeField] private float continueComboTimer = 0.2f;
-    [SerializeField] private float timeBetweenCombos = 1f;
-
-    private float lastComboEnd;
-    public int comboCounter;
+    public List<PlayerAttackSO> combo;
 
     [Header("Attacks")]
     [SerializeField] private float attackForce = 10f;
-    [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float attackBufferWindow = 0.2f;
-    private bool bufferedAttack;
-    private float lastBufferedAttack;
-    private float lastAttackTime;
-    public GameObject AttackPoint;
+
+
     public bool FinalAttack;
     [SerializeField] private Player player;
-    [SerializeField] private PlayerStats stats => player.stats;
-
+    [SerializeField] private PlayerAttackManager attackManager;
     [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private Animator anim;
 
@@ -42,111 +36,36 @@ public class PlayerAttack : State
           Could be an issue if the last part of the combo does more damage than the first 2 parts.
     */
 
+    public override void DoEnterLogic()
+    {
+        base.DoEnterLogic();
+        rb.drag = 0;
+    }
+
     public override void DoUpdateState()
     {
-        if (playerInput.attackPressedThisFrame)
-        {
-            Attack();
-        }
+        int comboCounter = attackManager.currentComboAttack;
+        anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
+        // attackHitbox.damage = combo[comboCounter].damage;
+        // attackHitbox.knockback = combo[comboCounter].knockback;
+        Debug.Log("Attack" + comboCounter);
+        anim.Play("Attack" + (comboCounter + 1));
 
-        // Handle buffered attacks
-        if (bufferedAttack && Time.time - lastBufferedAttack > attackBufferWindow)
-        {
-            bufferedAttack = false;
-        }
+        // Apply force to the player while attacking
+        // if (playerInput.xInput > 0)
+        // {
+        //     player.rb.AddForce(transform.right * attackForce, ForceMode2D.Impulse);
+        // }
+        // else
+        // {
+        //     player.rb.AddForce(-transform.right * attackForce, ForceMode2D.Impulse);
+        // }
 
-        if (bufferedAttack && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastAttackTime >= attackCooldown)
-        {
-            Attack();
-            bufferedAttack = false;
-        }
-
-
-        base.DoUpdateState();
-        ExitAttack();
-    }
-
-    void Attack()
-    {
-
-        if (Time.time - lastComboEnd > timeBetweenCombos && comboCounter <= combo.Count)
-        {
-            CancelInvoke(nameof(IncompleteCombo));
-
-            if (Time.time - lastAttackTime >= attackCooldown)
-            {
-                anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
-
-                // attackHitbox.damage = combo[comboCounter].damage;
-                // attackHitbox.knockback = combo[comboCounter].knockback;
-
-                anim.Play("Attack" + (comboCounter + 1));
-
-                // Apply force to the player while attacking
-                if (playerInput.xInput > 0) {
-                    player.rb.AddForce(transform.right * attackForce, ForceMode2D.Impulse);
-                } else {
-                    player.rb.AddForce(-transform.right * attackForce, ForceMode2D.Impulse);
-                }
-
-                comboCounter++;
-
-                if (comboCounter == combo.Count - 1)
-                {
-                    FinalAttack = true;
-                }
-                if (comboCounter >= combo.Count)
-                {
-                    EndCombo();
-                }
-                lastAttackTime = Time.time;
-            }
-            else
-            {
-                bufferedAttack = true;
-                lastBufferedAttack = Time.time;
-            }
-        }
-        else
-        {
-            bufferedAttack = true;
-            lastBufferedAttack = Time.time;
-        }
-
-        ExitAttack();
-    }
-
-
-    void ExitAttack()
-    {
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             isComplete = true;
-            Invoke(nameof(IncompleteCombo), continueComboTimer);
         }
-    }
 
-    private void EndCombo()
-    {
-        comboCounter = 0;
-        lastComboEnd = lastAttackTime;
-        FinalAttack = false;
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
-        {
-            DoExitLogic();
-        }
-    }
-
-    private void IncompleteCombo()
-    {
-        FinalAttack = false;
-        comboCounter = 0;
-        DoExitLogic();
-    }
-
-    public override void DoExitLogic()
-    {
-        isComplete = true;
-        base.DoExitLogic();
+        base.DoUpdateState();
     }
 }

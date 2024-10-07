@@ -81,7 +81,7 @@ public class Player : StateMachineCore
             graphics.localScale = new Vector3(-1, 1, 1);
         }
 
-        if (playerInput.attackPressedThisFrame && groundSensor.grounded)
+        if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         {
             stateMachine.SetState(attack);
         }

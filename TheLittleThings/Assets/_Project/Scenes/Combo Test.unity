@@ -144,15 +144,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
   - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
   - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
-  continueComboTimer: 0.2
-  timeBetweenCombos: 1
-  comboCounter: 0
   attackForce: 3
-  attackCooldown: 0.3
-  attackBufferWindow: 0.2
-  AttackPoint: {fileID: 559957412}
   FinalAttack: 0
   player: {fileID: 848388979}
+  attackManager: {fileID: 1129578166}
   attackHitbox: {fileID: 559957415}
   anim: {fileID: 1305858797}
 --- !u!1 &388678020
@@ -626,6 +621,9 @@ PrefabInstance:
     - {fileID: 8620566132482992768, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1129578166}
     - targetCorrespondingSourceObject: {fileID: 7273186640696278873, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       insertIndex: -1
       addedObject: {fileID: 559957415}
@@ -638,7 +636,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1455932459555731382, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
   m_PrefabInstance: {fileID: 673652725}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1129578160}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96d78fb38e611e140b4d4af2681350dc, type: 3}
@@ -649,12 +647,35 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
   m_PrefabInstance: {fileID: 673652725}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1129578160}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc995e874751b4e4bb0b0c17e50d8ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1129578160 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+  m_PrefabInstance: {fileID: 673652725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129578166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129578160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8736d6e97dd94904cb0369e96aa85b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 848388979}
+  playerInput: {fileID: 848388976}
+  anim: {fileID: 1305858797}
+  playerAttack: {fileID: 82920688}
+  attackCooldown: 0.5
+  attackBufferWindow: 1
 --- !u!95 &1305858797 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1120812358657271873, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
