@@ -22,5 +22,4 @@ public class PlayerStats : ScriptableObject
 
     public float Damage;
     public float AttackSpeedMult;
-    
 }
