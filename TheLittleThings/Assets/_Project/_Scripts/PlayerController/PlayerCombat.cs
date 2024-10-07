@@ -16,19 +16,13 @@ public class PlayerCombat : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        isCharging = false;
+        isCharging = true;
         chargeTimer = 0f;
     }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            isCharging = true;
-            chargeTimer = 0f;
-        }
 
         if (Input.GetMouseButton(0))
         {
@@ -51,7 +45,7 @@ public class PlayerCombat : State
             }
         }
 
-        if (stateUptime > attackAnimation.length)
+        if (stateUptime > attackAnimation.length+chargeTime)
         {
             isComplete = true;
         }
@@ -69,7 +63,7 @@ public class PlayerCombat : State
 
     void ChargeAttack()
     {
-        animator.Play("ChargeAttack");
+        animator.Play("Attack2");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange * 1.5f, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
         {
