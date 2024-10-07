@@ -6,7 +6,7 @@ using static UnityEngine.KeyCode;
 public class PlayerInput : MonoBehaviour
 {
     public float xInput { get;  private set; }
-    public float zInput { get; private set; }
+    public float yInput { get; private set; }
     public bool jumpPressedThisFrame { get; private set; }
     public bool jumpHeld { get; private set; }
     public bool attackPressedThisFrame { get; private set; }
@@ -20,7 +20,7 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
-        zInput = Input.GetAxisRaw("Vertical");
+        yInput = Input.GetAxisRaw("Vertical");
         jumpPressedThisFrame = Input.GetKeyDown(KeyCode.Space);
         ctrlPressedThisFrame = Input.GetKeyDown(KeyCode.LeftControl);
         jumpHeld = Input.GetKey(KeyCode.Space);

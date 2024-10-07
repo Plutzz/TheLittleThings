@@ -18,7 +18,7 @@ public class WallSensor : MonoBehaviour
     {
         wallLeft = Physics.Raycast(transform.position, Vector3.left, rayLength, groundLayer);
         wallRight = Physics.Raycast(transform.position, Vector3.right, rayLength, groundLayer);
-        Debug.DrawRay(transform.position, Vector3.right * rayLength);
-        Debug.DrawRay(transform.position, Vector3.left * rayLength);
+        Debug.DrawRay(transform.position, transform.right * rayLength);
+        Debug.DrawRay(transform.position, -transform.right * rayLength);
     }
 }

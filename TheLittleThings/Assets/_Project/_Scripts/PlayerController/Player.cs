@@ -44,7 +44,7 @@ public class Player : StateMachineCore
     {
         stateMachine.currentState.DoUpdateBranch();
         float xInput = playerInput.xInput;
-        float zInput = playerInput.zInput;
+        float yInput = playerInput.yInput;
 
         if (playerInput.ResetInput)
         {
@@ -54,25 +54,21 @@ public class Player : StateMachineCore
         // transitions
         if (!groundSensor.grounded)
         {
-            if ((wallSensor.wallLeft && xInput < 0) || (wallSensor.wallRight && xInput > 0))
-            {
-                stateMachine.SetState(wall);
-            }
-            else if (stateMachine.currentState != roll)
+            if (stateMachine.currentState != roll)
             {
                 stateMachine.SetState(airborne);
             }
 
         }
-        else if ((xInput != 0 || zInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
         }
-        else if ((xInput == 0 || zInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
-        if (xInput != 0 && zInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             //TurnCheck(xInput);
         }

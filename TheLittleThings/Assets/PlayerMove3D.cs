@@ -7,6 +7,7 @@ public class PlayerMove3D : State
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
+    [SerializeField] private Transform orientation;
     private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
@@ -24,7 +25,7 @@ public class PlayerMove3D : State
         //if velocity is less than maxspeed
         if (Mathf.Abs(rb.velocity.magnitude) < stats.MaxSpeed)
         {
-            rb.AddForce((transform.forward * playerInput.zInput + transform.right * playerInput.xInput).normalized * stats.Acceleration);
+            rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * stats.Acceleration);
         }
         //else //if at max speed, set velocity to max speed for consistent movement
         //{
