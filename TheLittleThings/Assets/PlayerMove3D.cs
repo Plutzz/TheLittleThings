@@ -24,7 +24,7 @@ public class PlayerMove3D : State
         //if velocity is less than maxspeed
         if (Mathf.Abs(rb.velocity.magnitude) < stats.MaxSpeed)
         {
-            rb.AddForce(new Vector3 (playerInput.xInput, 0, playerInput.zInput).normalized * stats.Acceleration);
+            rb.AddForce((transform.forward * playerInput.zInput + transform.right * playerInput.xInput).normalized * stats.Acceleration);
         }
         //else //if at max speed, set velocity to max speed for consistent movement
         //{
