@@ -8,7 +8,7 @@ public class Player : StateMachineCore
     [HorizontalLine(color: EColor.Gray)]
     [Header("States")]
     [SerializeField] private PlayerIdle idle;
-    [SerializeField] private PlayerMove move;
+    [SerializeField] private PlayerMove3D move;
     [SerializeField] private PlayerRoll roll;
     [SerializeField] private PlayerAirborne airborne;
     [SerializeField] private PlayerWall wall;
@@ -43,6 +43,7 @@ public class Player : StateMachineCore
     {
         stateMachine.currentState.DoUpdateBranch();
         float xInput = playerInput.xInput;
+        float zInput = playerInput.zInput;
 
         if (playerInput.ResetInput)
         {
@@ -62,15 +63,15 @@ public class Player : StateMachineCore
             }
 
         }
-        else if (xInput != 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput != 0 || zInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
         }
-        else if (xInput == 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput == 0 || zInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
-        if (xInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        if (xInput != 0 && zInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             TurnCheck(xInput);
         }
@@ -155,7 +156,7 @@ public class Player : StateMachineCore
 
     void FixedUpdate() 
     {
-        Debug.Log("Gravity");
+        //Debug.Log("Gravity");
         rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
         stateMachine.currentState.DoFixedUpdateBranch(); 
     }
