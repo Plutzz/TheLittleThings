@@ -36,6 +36,7 @@ public class Player : StateMachineCore
         ResetPlayer();
         rb.useGravity = false;
         ChangeGravity(stats.NormalGravity);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -73,7 +74,7 @@ public class Player : StateMachineCore
         }
         if (xInput != 0 && zInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
-            TurnCheck(xInput);
+            //TurnCheck(xInput);
         }
 
         if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
