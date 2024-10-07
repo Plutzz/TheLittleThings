@@ -6,5 +6,15 @@ using UnityEngine;
 [Serializable]
 public class SaveState
 {
-    PlayerStats stats;
+    public string SaveName;
+    public int hp, damage, movementSpeed;
+
+    public List<Resource> resources;
+
+    public SaveState(string saveName)
+    {
+        SaveName = saveName;
+        hp = 0;
+        resources = new List<Resource>();
+    }
 }

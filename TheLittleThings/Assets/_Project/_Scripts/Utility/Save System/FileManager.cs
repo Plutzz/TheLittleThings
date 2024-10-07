@@ -12,9 +12,9 @@ public class FileManager
     {
         SaveDirPath = saveDirPath;
     }
-    public void Save(SaveState s, string name)
+    public void Save(SaveState s)
     {
-        string path = Path.Combine(SaveDirPath, name);
+        string path = Path.Combine(SaveDirPath, s.SaveName);
 
         try
         {
@@ -60,9 +60,13 @@ public class FileManager
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
-                return null;
             }
         }
         return null;
+    }
+
+    public string[] GetSaveNames()
+    {
+        return Directory.GetFiles(SaveDirPath);
     }
 }

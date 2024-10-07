@@ -3,41 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class SaveManager : Singleton<SaveManager>
 {
-    private SaveState m_currentSave;
+    public SaveState CurrentSave;
     private FileManager m_fileManager;
+    private string SavePath = "C:\\Games\\TheLittleThings\\Saves";
 
     private void Start()
     {
-        LoadGame();
+        m_fileManager = new FileManager(SavePath);
+        string[] saves = m_fileManager.GetSaveNames();
+
+        if (saves.Length == 0)
+        {
+            string saveName = "test" + ".json"; // prompt player for save name later™
+            NewGame(saveName);
+        }
+        else
+        {
+            LoadGame(saves[0]); // prompt player for save name later™
+        }
     }
-    public void NewGame()
+    public void NewGame(string name)
     {
-        m_currentSave = new SaveState();
+        CurrentSave = new SaveState(name);
+
+        SaveGame();
     }
 
-    public void LoadGame()
+    public void LoadGame(string name)
     {
-        if (m_currentSave == null)
-        {
-            NewGame();
-        }
+        CurrentSave = m_fileManager.Load(name);
+        Debug.Log(CurrentSave.hp);
     }
 
     public void SaveGame()
     {
-
+        m_fileManager.Save(CurrentSave);
     }
 
     protected override void OnApplicationQuit()
     {
         SaveGame();
     }
-}
-public interface IDataPersistent
-{
-    public void LoadData();
-    public void SaveData();
 }
