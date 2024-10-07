@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 7
   Acceleration: 100
-  NormalGravity: 4
-  WallGravity: 1
+  CurrentGravity: 25
+  NormalGravity: 25
+  WallGravity: 0
   NoInputDeceleration: 10
   JumpForce: 15
   JumpFrameBufferAmount: 7

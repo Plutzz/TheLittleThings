@@ -42,7 +42,7 @@ public class PlayerJumpManager : MonoBehaviour
             rb.AddForce(-Vector2.up * downwardForce);
         }
 
-        if(groundSensor.grounded && rb.velocity.y < 0)
+        if((groundSensor.grounded && rb.velocity.y < 0))
         {
             jumping = false;
         }
@@ -73,24 +73,25 @@ public class PlayerJumpManager : MonoBehaviour
 
     void AttemptJump()
     {
+        Debug.Log("Attempt Jump");
         if (framesSinceOnGround < FrameBufferNum)
         {
-
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             if (wallSensor.wallLeft && !groundSensor.grounded) //walljump
             {
-                rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
+                rb.velocity = Vector3.zero; //set to zero before jump for consistent walljump
 
-                rb.AddForce(new Vector2(playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
+                rb.AddForce(new Vector3(playerStats.JumpForce, playerStats.JumpForce / 1.5f, 0), ForceMode.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
             }
             else if (wallSensor.wallRight && !groundSensor.grounded)
             {
                 rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
 
-                rb.AddForce(new Vector2(-playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode.Impulse);
+                rb.AddForce(new Vector3(-playerStats.JumpForce, playerStats.JumpForce / 1.5f, 0), ForceMode.Impulse);
             }
-            else
+            else if(groundSensor.grounded)
             {
-                rb.AddForce(Vector2.up * playerStats.JumpForce, ForceMode.Impulse);
+                rb.AddForce(Vector3.up * playerStats.JumpForce, ForceMode.Impulse);
             }
 
             jumping = true;

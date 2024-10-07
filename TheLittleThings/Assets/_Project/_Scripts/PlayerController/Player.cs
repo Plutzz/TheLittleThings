@@ -34,13 +34,8 @@ public class Player : StateMachineCore
     {
         SetupInstances();
         ResetPlayer();
-        //rb.gravityScale = stats.NormalGravity;
-        playerHP.OnEntityKilled += PlayerHP_OnEntityKilled;
-    }
-
-    private void PlayerHP_OnEntityKilled(float damage, string source, int iframes)
-    {
-        ResetPlayer();
+        rb.useGravity = false;
+        ChangeGravity(stats.NormalGravity);
     }
 
     // Update is called once per frame
@@ -89,7 +84,6 @@ public class Player : StateMachineCore
         {
             stateMachine.SetState(roll);
         }
-
     }
 
     private void TurnCheck(float xInput)
@@ -154,5 +148,15 @@ public class Player : StateMachineCore
 #endif
     }
 
-    void FixedUpdate() { stateMachine.currentState.DoFixedUpdateBranch(); }
+    public void ChangeGravity(float _gravity)
+    {
+        stats.CurrentGravity = _gravity;
+    }
+
+    void FixedUpdate() 
+    {
+        Debug.Log("Gravity");
+        rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
+        stateMachine.currentState.DoFixedUpdateBranch(); 
+    }
 }

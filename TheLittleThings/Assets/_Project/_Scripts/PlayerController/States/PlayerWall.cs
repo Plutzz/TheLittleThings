@@ -12,14 +12,14 @@ public class PlayerWall : State
     {
         base.DoEnterLogic();
         //animator.Play("Wall Slide");
-        //rb.gravityScale = stats.WallGravity;
-        rb.velocity = Vector2.right * rb.velocity.x;
+        player.ChangeGravity(stats.WallGravity);
+        //rb.velocity = Vector2.right * rb.velocity.x;
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        //rb.gravityScale = stats.NormalGravity;
+        player.ChangeGravity(stats.NormalGravity);
     }
 
     public override void DoFixedUpdateState()
