@@ -22,7 +22,7 @@ public class PlayerInput : MonoBehaviour
         jumpPressedThisFrame = Input.GetKeyDown(KeyCode.Space);
         ctrlPressedThisFrame = Input.GetKeyDown(KeyCode.LeftControl);
         jumpHeld = Input.GetKey(KeyCode.Space);
-        attackPressedThisFrame = Input.GetMouseButton(0);
+        attackPressedThisFrame = Input.GetMouseButtonDown(0);
         ResetInput = Input.GetKeyDown(R);
     }
 }
