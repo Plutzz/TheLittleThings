@@ -30,7 +30,7 @@ public class PlayerCombat : State
 
     void Attack()
     {
-        //animator.Play("Attack1");
+        animator.Play("Stab");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach(Collider2D enemy in hitEnemies)
         {

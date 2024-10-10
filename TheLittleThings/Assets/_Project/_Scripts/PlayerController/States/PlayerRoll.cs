@@ -42,7 +42,7 @@ public class PlayerRoll : State
             rollDir = Vector3.ProjectOnPlane(player.transform.forward, Vector3.up).normalized;
         }
 
-        //animator.Play("Roll");
+        animator.Play("Roll");
         rb.velocity = new Vector3(rollDir.x * stats.RollSpeed, rb.velocity.y, rollDir.z * stats.RollSpeed);
         
     }
