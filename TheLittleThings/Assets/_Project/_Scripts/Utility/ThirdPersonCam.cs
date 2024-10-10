@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,13 @@ public class ThirdPersonCam : MonoBehaviour
     public Transform player;
     public Transform playerObj;
     public PlayerInput playerInput;
+    [SerializeField, Range(0, 10)]private float sensitivity = 5f;
     [SerializeField] private float rotationSpeed;
+    private CinemachineFreeLook freeLookCam;
+    private void Awake()
+    {
+        freeLookCam = GetComponent<CinemachineFreeLook>();
+    }
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -16,6 +23,10 @@ public class ThirdPersonCam : MonoBehaviour
 
     private void Update()
     {
+
+        freeLookCam.m_YAxis.m_MaxSpeed = sensitivity;
+        freeLookCam.m_XAxis.m_MaxSpeed = sensitivity * 100f;
+
         // rotate orientation
         Vector3 _viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = _viewDir.normalized;
