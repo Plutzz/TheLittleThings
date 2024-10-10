@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   MaxSpeed: 7
-  Acceleration: 100
+  GroundAcceleration: 100
+  AirAcceleration: 40
   CurrentGravity: 25
   NormalGravity: 25
   WallGravity: 0

@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1455932459555731382}
   player: {fileID: 25349042078243649}
+  orientation: {fileID: 1248634803902626960}
 --- !u!1 &2434682862123665328
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +484,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1455932459555731382}
   player: {fileID: 25349042078243649}
+  orientation: {fileID: 1248634803902626960}
   rollAnimation: {fileID: 7400000, guid: 5118900a0fbea814ea3ffb8fada43696, type: 2}
 --- !u!1 &6815999616323941054
 GameObject:
@@ -510,7 +512,7 @@ Transform:
   m_GameObject: {fileID: 6815999616323941054}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -528,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0509153c5ec867443bd9ffaf747cb720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayLength: 0.1
+  rayLength: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -589,10 +591,10 @@ MonoBehaviour:
   idle: {fileID: 8812925399064479836}
   move: {fileID: 2633695728506890234}
   roll: {fileID: 9160494552930986411}
-  airborne: {fileID: 4940713817908270570}
+  airborne: {fileID: 9219111477414494804}
   wall: {fileID: 1533492836941248637}
   attack: {fileID: 468687809095837666}
-  groundSensor: {fileID: 0}
+  groundSensor: {fileID: 6944144178948029153}
   wallSensor: {fileID: 0}
   graphics: {fileID: 5876813793830749314}
   stats: {fileID: 11400000, guid: 375090d2f820b7d4cae7fc60435feb89, type: 2}
@@ -642,8 +644,7 @@ MonoBehaviour:
   rb: {fileID: 3255713826382201420}
   player: {fileID: 25349042078243649}
   playerInput: {fileID: 1455932459555731382}
-  groundSensor: {fileID: 0}
-  wallSensor: {fileID: 0}
+  groundSensor: {fileID: 6944144178948029153}
 --- !u!54 &3255713826382201420
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -779,7 +780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8137601838954440038}
-  - component: {fileID: 4940713817908270570}
+  - component: {fileID: 9219111477414494804}
   m_Layer: 7
   m_Name: Airborne
   m_TagString: Untagged
@@ -802,7 +803,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3541420136210047196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4940713817908270570
+--- !u!114 &9219111477414494804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -811,8 +812,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8275365947236992134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 360cc4a4c13760f47b586df4b452ba7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d3c4d036f134b14988dc3d3b04beb56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1455932459555731382}
   player: {fileID: 25349042078243649}
+  orientation: {fileID: 1248634803902626960}

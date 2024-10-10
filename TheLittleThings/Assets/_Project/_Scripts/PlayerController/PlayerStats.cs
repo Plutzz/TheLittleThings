@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject
 {
     public float MaxSpeed;
-    public float Acceleration;
+    public float GroundAcceleration;
+    public float AirAcceleration;
     public float CurrentGravity;
     public float NormalGravity;
     public float WallGravity;

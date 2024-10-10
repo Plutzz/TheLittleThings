@@ -30,12 +30,12 @@ public class PlayerWall : State
             //movement on wall if the wall is on the right, doesn't let player add force against wall because then they will stop moving since the wall has a friction of 0.4
             if (wallSensor.wallRight)
             {
-                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * stats.Acceleration);
+                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), -1, 0) * stats.GroundAcceleration);
             }
             //movement on the wall if the wall is on the left
             else if (wallSensor.wallLeft)
             {
-                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * stats.Acceleration);
+                rb.AddForce(Vector2.right * Mathf.Clamp(Input.GetAxisRaw("Horizontal"), 0, 1) * stats.GroundAcceleration);
             }
         }
     }

@@ -25,7 +25,7 @@ public class PlayerAirborne : State
         // (so if you aren't pressing an input then the player will start heading towards 0 velocity)
         if (rb.velocity.x != 0 && playerInput.xInput != 0 && Mathf.Sign(rb.velocity.x) != Mathf.Sign(playerInput.xInput))
         {
-            rb.AddForce(Vector2.right * playerInput.xInput * (stats.Acceleration));
+            rb.AddForce(Vector2.right * playerInput.xInput * (stats.GroundAcceleration));
             //rb.velocity = new Vector2(0, rb.velocity.y);
         }
         else if (rb.velocity.x != 0 && playerInput.xInput == 0)
@@ -37,7 +37,7 @@ public class PlayerAirborne : State
         //if velocity is less than maxspeed
         if (Mathf.Abs(rb.velocity.x) < stats.MaxSpeed)
         {
-            rb.AddForce(Vector2.right * playerInput.xInput * stats.Acceleration);
+            rb.AddForce(Vector2.right * playerInput.xInput * stats.GroundAcceleration);
         }
         else //if at max speed, set velocity to max speed for consistent movement
         {

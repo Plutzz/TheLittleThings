@@ -11,7 +11,6 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerMove3D move;
     [SerializeField] private PlayerRoll roll;
     [SerializeField] private PlayerAirborne3D airborne;
-    [SerializeField] private PlayerWall wall;
     [SerializeField] private PlayerCombat attack;
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]

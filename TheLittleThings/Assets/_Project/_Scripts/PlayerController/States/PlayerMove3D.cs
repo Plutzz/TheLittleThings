@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerMove3D : State
@@ -20,24 +21,20 @@ public class PlayerMove3D : State
     {
         base.DoExitLogic();
     }
+
+    public override void DoUpdateState()
+    {
+        base.DoUpdateState();
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        if (flatVel.magnitude > stats.MaxSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * stats.MaxSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+    }
     public override void DoFixedUpdateState()
     {
-        //if velocity is less than maxspeed
-        if (Mathf.Abs(rb.velocity.magnitude) < stats.MaxSpeed)
-        {
-            rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * stats.Acceleration);
-        }
-        //else //if at max speed, set velocity to max speed for consistent movement
-        //{
-        //    if (rb.velocity.x < -stats.MaxSpeed)
-        //    {
-        //        rb.velocity = new Vector2(Mathf.Clamp(-stats.MaxSpeed, -stats.MaxSpeed, 0), rb.velocity.y);
-        //    }
-        //    else if (rb.velocity.x > stats.MaxSpeed)
-        //    {
-        //        rb.velocity = new Vector2(Mathf.Clamp(stats.MaxSpeed, 0, stats.MaxSpeed), rb.velocity.y);
-        //    }
-        //}
+        rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * stats.GroundAcceleration);        
     }
 
 }
