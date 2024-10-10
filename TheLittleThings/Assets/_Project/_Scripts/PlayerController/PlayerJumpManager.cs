@@ -13,7 +13,6 @@ public class PlayerJumpManager : MonoBehaviour
     [HorizontalLine]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
-    [SerializeField] private WallSensor wallSensor;
 
     float FrameBufferNum => playerStats.JumpFrameBufferAmount;
     float JumpForce => playerStats.JumpForce;
@@ -76,21 +75,9 @@ public class PlayerJumpManager : MonoBehaviour
         Debug.Log("Attempt Jump");
         if (framesSinceOnGround < FrameBufferNum)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
-            if (wallSensor.wallLeft && !groundSensor.grounded) //walljump
+            if(groundSensor.grounded)
             {
-                rb.velocity = Vector3.zero; //set to zero before jump for consistent walljump
-
-                rb.AddForce(new Vector3(playerStats.JumpForce, playerStats.JumpForce / 1.5f, 0), ForceMode.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
-            }
-            else if (wallSensor.wallRight && !groundSensor.grounded)
-            {
-                rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
-
-                rb.AddForce(new Vector3(-playerStats.JumpForce, playerStats.JumpForce / 1.5f, 0), ForceMode.Impulse);
-            }
-            else if(groundSensor.grounded)
-            {
+                Debug.Log("Jump");
                 rb.AddForce(Vector3.up * playerStats.JumpForce, ForceMode.Impulse);
             }
 
