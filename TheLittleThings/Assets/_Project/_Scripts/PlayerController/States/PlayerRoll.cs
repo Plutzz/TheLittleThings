@@ -37,6 +37,11 @@ public class PlayerRoll : State
         Vector3 rollDirRight = Vector3.ProjectOnPlane(orientation.right, Vector3.up).normalized * playerInput.xInput;
         Vector3 rollDir = (rollDirFor + rollDirRight).normalized;
 
+        if (rollDir == Vector3.zero)
+        {
+            rollDir = Vector3.ProjectOnPlane(player.transform.forward, Vector3.up).normalized;
+        }
+
         //animator.Play("Roll");
         rb.velocity = new Vector3(rollDir.x * stats.RollSpeed, rb.velocity.y, rollDir.z * stats.RollSpeed);
         
