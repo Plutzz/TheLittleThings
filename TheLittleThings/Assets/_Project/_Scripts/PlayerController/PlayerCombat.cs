@@ -11,7 +11,7 @@ public class PlayerCombat : State
     public GameObject hitParticles;
     public Transform spriteObject;
 
-    public float damage = 2.0f;
+    public int damage = 2;
 
     public override void DoEnterLogic()
     {
@@ -30,15 +30,15 @@ public class PlayerCombat : State
 
     void Attack()
     {
-        animator.Play("Attack1");
+        //animator.Play("Attack1");
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
         foreach(Collider2D enemy in hitEnemies)
         {
             Debug.Log("We hit " + enemy.name);
-            if(enemy.TryGetComponent(out HealthTracker enemyHealth))
+            if(enemy.TryGetComponent(out EnemyHealth enemyHealth))
             {
                 Debug.Log("Damage " + enemy.name);
-                enemyHealth.DamageEntity(damage, "Player", 1);
+                enemyHealth.TakeDamage(damage);
                 Instantiate(hitParticles, enemy.transform.position, spriteObject.localScale.x < 0 ? Quaternion.Euler(180, 90, 90) : Quaternion.Euler(0, 90, 90));
             }
         }

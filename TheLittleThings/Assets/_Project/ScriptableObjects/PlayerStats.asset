@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 7
   Acceleration: 100
-  NormalGravity: 4
-  WallGravity: 1
+  CurrentGravity: 25
+  NormalGravity: 25
+  WallGravity: 0
   NoInputDeceleration: 10
   JumpForce: 15
   JumpFrameBufferAmount: 7
   FallSpeedLimit: 50
   RollSpeed: 15
   RollDuration: 0.7
+  RollDrag: 0
   Damage: 1
   AttackSpeedMult: 4

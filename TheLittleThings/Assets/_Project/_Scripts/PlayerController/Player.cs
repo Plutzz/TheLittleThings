@@ -8,9 +8,9 @@ public class Player : StateMachineCore
     [HorizontalLine(color: EColor.Gray)]
     [Header("States")]
     [SerializeField] private PlayerIdle idle;
-    [SerializeField] private PlayerMove move;
+    [SerializeField] private PlayerMove3D move;
     [SerializeField] private PlayerRoll roll;
-    [SerializeField] private PlayerAirborne airborne;
+    [SerializeField] private PlayerAirborne3D airborne;
     [SerializeField] private PlayerWall wall;
     [SerializeField] private PlayerCombat attack;
     [HorizontalLine(color: EColor.Gray)]
@@ -34,13 +34,9 @@ public class Player : StateMachineCore
     {
         SetupInstances();
         ResetPlayer();
-        rb.gravityScale = stats.NormalGravity;
-        playerHP.OnEntityKilled += PlayerHP_OnEntityKilled;
-    }
-
-    private void PlayerHP_OnEntityKilled(float damage, string source, int iframes)
-    {
-        ResetPlayer();
+        rb.useGravity = false;
+        ChangeGravity(stats.NormalGravity);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -48,6 +44,7 @@ public class Player : StateMachineCore
     {
         stateMachine.currentState.DoUpdateBranch();
         float xInput = playerInput.xInput;
+        float yInput = playerInput.yInput;
 
         if (playerInput.ResetInput)
         {
@@ -57,27 +54,23 @@ public class Player : StateMachineCore
         // transitions
         if (!groundSensor.grounded)
         {
-            if ((wallSensor.wallLeft && xInput < 0) || (wallSensor.wallRight && xInput > 0))
-            {
-                stateMachine.SetState(wall);
-            }
-            else if (stateMachine.currentState != roll)
+            if (stateMachine.currentState != roll)
             {
                 stateMachine.SetState(airborne);
             }
 
         }
-        else if (xInput != 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
         }
-        else if (xInput == 0 && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
-        if (xInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
+        if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
-            TurnCheck(xInput);
+            //TurnCheck(xInput);
         }
 
         if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
@@ -89,7 +82,6 @@ public class Player : StateMachineCore
         {
             stateMachine.SetState(roll);
         }
-
     }
 
     private void TurnCheck(float xInput)
@@ -114,7 +106,7 @@ public class Player : StateMachineCore
         transform.rotation = Quaternion.Euler(rotator);
         isFacingRight = !isFacingRight;
         
-        cameraFollowObject.CallTurn();
+        cameraFollowObject?.CallTurn();
         RotateSensors();
     }
     /**
@@ -154,5 +146,15 @@ public class Player : StateMachineCore
 #endif
     }
 
-    void FixedUpdate() { stateMachine.currentState.DoFixedUpdateBranch(); }
+    public void ChangeGravity(float _gravity)
+    {
+        stats.CurrentGravity = _gravity;
+    }
+
+    void FixedUpdate() 
+    {
+        //Debug.Log("Gravity");
+        rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
+        stateMachine.currentState.DoFixedUpdateBranch(); 
+    }
 }

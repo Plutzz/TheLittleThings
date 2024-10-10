@@ -11,7 +11,7 @@ public class PlayerAirborne : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.Play("Fall");
+        //animator.Play("Fall");
         rb.drag = 0;
     }
 
@@ -30,7 +30,7 @@ public class PlayerAirborne : State
         }
         else if (rb.velocity.x != 0 && playerInput.xInput == 0)
         {
-            Debug.Log("Decceleration");
+            //Debug.Log("Decceleration");
             rb.AddForce(Vector2.right * -Mathf.Sign(rb.velocity.x) * stats.NoInputDeceleration);
         }
 

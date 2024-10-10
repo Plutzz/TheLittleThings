@@ -7,6 +7,7 @@ public class PlayerStats : ScriptableObject
 {
     public float MaxSpeed;
     public float Acceleration;
+    public float CurrentGravity;
     public float NormalGravity;
     public float WallGravity;
     public float NoInputDeceleration;

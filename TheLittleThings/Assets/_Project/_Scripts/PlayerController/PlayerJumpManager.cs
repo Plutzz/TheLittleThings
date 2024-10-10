@@ -6,14 +6,13 @@ using UnityEngine;
 public class PlayerJumpManager : MonoBehaviour
 {
     [Header("Player Components")]
-    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Rigidbody rb;
     [SerializeField] private Player player;
     [SerializeField] private PlayerInput playerInput;
     private PlayerStats playerStats => player.stats;
     [HorizontalLine]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
-    [SerializeField] private WallSensor wallSensor;
 
     float FrameBufferNum => playerStats.JumpFrameBufferAmount;
     float JumpForce => playerStats.JumpForce;
@@ -42,7 +41,7 @@ public class PlayerJumpManager : MonoBehaviour
             rb.AddForce(-Vector2.up * downwardForce);
         }
 
-        if(groundSensor.groundCheck && rb.velocity.y < 0)
+        if((groundSensor.grounded && rb.velocity.y < 0))
         {
             jumping = false;
         }
@@ -55,7 +54,7 @@ public class PlayerJumpManager : MonoBehaviour
         {
             framesSinceOnGround = (int)FrameBufferNum;
         }
-        else if (player.stateMachine.currentState is not PlayerAirborne && (groundSensor.grounded || wallSensor.wallRight || wallSensor.wallLeft))
+        else if (player.stateMachine.currentState is not PlayerAirborne && (groundSensor.grounded))
         {
             framesSinceOnGround = 0;
         }
@@ -73,24 +72,13 @@ public class PlayerJumpManager : MonoBehaviour
 
     void AttemptJump()
     {
+        Debug.Log("Attempt Jump");
         if (framesSinceOnGround < FrameBufferNum)
         {
-
-            if (wallSensor.wallLeft && !groundSensor.grounded) //walljump
+            if(groundSensor.grounded)
             {
-                rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
-
-                rb.AddForce(new Vector2(playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode2D.Impulse); //adds force x=wallJumpForce y=jumpforce/1.5
-            }
-            else if (wallSensor.wallRight && !groundSensor.grounded)
-            {
-                rb.velocity = Vector2.zero; //set to zero before jump for consistent walljump
-
-                rb.AddForce(new Vector2(-playerStats.JumpForce, playerStats.JumpForce / 1.5f), ForceMode2D.Impulse);
-            }
-            else
-            {
-                rb.AddForce(Vector2.up * playerStats.JumpForce, ForceMode2D.Impulse);
+                Debug.Log("Jump");
+                rb.AddForce(Vector3.up * playerStats.JumpForce, ForceMode.Impulse);
             }
 
             jumping = true;

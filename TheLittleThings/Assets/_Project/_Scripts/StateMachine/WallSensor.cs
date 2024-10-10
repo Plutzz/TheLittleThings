@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class WallSensor : MonoBehaviour
 {
-    public BoxCollider2D wallLeftCheck, wallRightCheck;
-    public LayerMask groundLayer;
     public bool wallLeft { get; private set; }
     public bool wallRight { get; private set; }
+    [SerializeField] private float rayLength;
+    public LayerMask groundLayer;
 
-    private void FixedUpdate()
+    private void Update()
     {
         CheckGround();
     }
 
     private void CheckGround()
     {
-        wallLeft = Physics2D.OverlapAreaAll(wallLeftCheck.bounds.min, wallLeftCheck.bounds.max, groundLayer).Length > 0;
-        wallRight = Physics2D.OverlapAreaAll(wallRightCheck.bounds.min, wallRightCheck.bounds.max, groundLayer).Length > 0;
+        wallLeft = Physics.Raycast(transform.position, Vector3.left, rayLength, groundLayer);
+        wallRight = Physics.Raycast(transform.position, Vector3.right, rayLength, groundLayer);
+        Debug.DrawRay(transform.position, transform.right * rayLength);
+        Debug.DrawRay(transform.position, -transform.right * rayLength);
     }
 }
