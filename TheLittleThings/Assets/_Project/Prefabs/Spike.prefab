@@ -122,7 +122,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 1038168246061390451, guid: 8b8c8cc6774fb074cb9139cc631b108e, type: 3}
-  m_RigidBody: {fileID: 8348711651137289109}
+  Player: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+  attackRange: 1
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  hitParticles: {fileID: 1038168246061390451, guid: 8b8c8cc6774fb074cb9139cc631b108e, type: 3}
+  spriteObject: {fileID: 723733834739849180}
+  rb: {fileID: 8348711651137289109}
+  m_Speed: 10
+  damage: 2
 --- !u!54 &8348711651137289109
 Rigidbody:
   m_ObjectHideFlags: 0

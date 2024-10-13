@@ -27,5 +27,4 @@ public class EnemyRanged : MonoBehaviour
     void shoot() {
         GameObject projectile = (GameObject)Instantiate(spike, spawn.transform.position, spawn.rotation);
     }
-
 }
