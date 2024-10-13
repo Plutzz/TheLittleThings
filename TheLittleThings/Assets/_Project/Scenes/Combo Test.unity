@@ -559,6 +559,10 @@ PrefabInstance:
       propertyPath: attack
       value: 
       objectReference: {fileID: 82920688}
+    - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
+      propertyPath: attackManager
+      value: 
+      objectReference: {fileID: 1129578166}
     - target: {fileID: 3666055917276726836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.87
@@ -670,12 +674,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8736d6e97dd94904cb0369e96aa85b3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 848388979}
-  playerInput: {fileID: 848388976}
-  anim: {fileID: 1305858797}
   playerAttack: {fileID: 82920688}
-  attackCooldown: 0.5
-  attackBufferWindow: 1
+  comboInputTimeThreshold: 1
+  lastInputTime: 0
+  comboCount: 0
 --- !u!95 &1305858797 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1120812358657271873, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
