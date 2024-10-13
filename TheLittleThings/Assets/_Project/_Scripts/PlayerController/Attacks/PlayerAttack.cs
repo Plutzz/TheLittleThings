@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,6 +26,9 @@ public class PlayerAttack : State
     [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private Animator anim;
 
+    public event Action<int> playerCombo;
+    public void PlayerComboTrigger(int comboNumber) { playerCombo?.Invoke(comboNumber); }
+
 
     /*
     NOTE: The combo attack will interrupt the roll state, so the player will stop mid
@@ -36,15 +40,25 @@ public class PlayerAttack : State
           Could be an issue if the last part of the combo does more damage than the first 2 parts.
     */
 
+
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
         rb.drag = 0;
+
     }
 
     public override void DoUpdateState()
     {
-        int comboCounter = attackManager.currentComboAttack;
+        int comboCounter = attackManager.ComboCount;
+
+        // Ensure comboCounter is within the valid range
+        if (comboCounter < 0 || comboCounter >= combo.Count)
+        {
+            Debug.LogError("Combo counter out of range: " + comboCounter);
+            return;
+        }
+        
         anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
         // attackHitbox.damage = combo[comboCounter].damage;
         // attackHitbox.knockback = combo[comboCounter].knockback;
@@ -64,8 +78,12 @@ public class PlayerAttack : State
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             isComplete = true;
+            PlayerComboTrigger(comboCounter);
         }
 
         base.DoUpdateState();
     }
+
+
+
 }

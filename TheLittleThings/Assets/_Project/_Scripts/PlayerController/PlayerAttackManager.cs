@@ -11,87 +11,73 @@ public class PlayerAttackManager : MonoBehaviour
         Handles the attack buffer window
     */
     [Header("Player Components")]
-    [SerializeField] private Player player;
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private Animator anim;
     [SerializeField] private PlayerAttack playerAttack;
 
-
-
     [Header("Attacks")]
-    [SerializeField] private float attackCooldown;
-    [SerializeField] private float attackBufferWindow;
-    private float lastAttackTime;
-    private bool bufferedAttack;
-    private float lastBufferedAttack;
-    private float lastComboEnd;
-    private float timeBetweenCombos = 1.0f;
-    private int comboLength;
-    public int currentComboAttack { get; private set; }
-    private bool isAttacking => IsAttackAnimationPlaying();
+    [SerializeField] private float comboInputTimeThreshold = 1f;
+    [SerializeField] private float lastInputTime;
+    [SerializeField] private int comboCount = 0;
+
+    Dictionary<int, bool> hasExecuted = new Dictionary<int, bool>();
+
+    // need to use this to iterate over and modify the dictionary
+    List<int> comboNumbers = new List<int>();
+    public int ComboCount { get { return comboCount; } }
 
     void Start()
     {
-        currentComboAttack = 0;
-        lastAttackTime = Time.time;
-        lastComboEnd = Time.time;
-        comboLength = playerAttack.combo.Count;
+        for (int i = 1; i <= playerAttack.combo.Count; i++)
+        {
+            hasExecuted.Add(i, false);
+        }
+        comboNumbers = new List<int>(hasExecuted.Keys);
+        playerAttack.playerCombo += UpdateTheHasExecutedDictionary;
+    }
+
+    public void ResetExecutionTracker()
+    {
+        comboCount = 0;
+        foreach (var comboNumber in comboNumbers) { hasExecuted[comboNumber] = false; }
+    }
+
+    private void OnDestroy()
+    {
+        playerAttack.playerCombo -= UpdateTheHasExecutedDictionary;
+    }
+
+    void UpdateTheHasExecutedDictionary(int comboNumber)
+    {
+        hasExecuted[comboNumber] = true;
+        PerformCombo();
+    }
+
+    public void PerformCombo()
+    {
+        if (comboCount >= playerAttack.combo.Count)
+        {
+            comboCount = 0;
+            ResetExecutionTracker();
+        }
+        print("Performing Combo " + comboCount);
+        if (comboCount == 0 || (comboCount < playerAttack.combo.Count -1 && hasExecuted[comboCount]))
+        {
+            comboCount++;
+        }
+        else if (comboCount >= playerAttack.combo.Count)
+        {
+            Debug.Log("Restart Combo!");
+            ResetExecutionTracker();
+        }
+
+        lastInputTime = Time.time;
     }
 
     void Update()
     {
-        if (playerInput.attackPressedDownThisFrame && !isAttacking)
+        if (Time.time - lastInputTime > comboInputTimeThreshold)
         {
-            lastAttackTime = Time.time;
-            bufferedAttack = true;
-            lastBufferedAttack = Time.time;
-
-            // Debug.Log($"Buffered attack at {Time.time}");
-            // Debug.Log($"Last attack time: {lastAttackTime}");
+            // if too much time has passed reset combo
+            ResetExecutionTracker();
         }
-
-        // Handle buffered attacks
-        if (bufferedAttack && Time.time - lastBufferedAttack > attackBufferWindow)
-        {
-            bufferedAttack = false;
-        }
-
-        if (bufferedAttack && player.stateMachine.currentState is PlayerAttack && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastAttackTime >= attackCooldown)
-        {
-            Attack();
-            bufferedAttack = false;
-        }
-
-        // Reset combo attack if attack cooldown has passed
-        if (Time.time - lastAttackTime >= attackCooldown && !IsAttackAnimationPlaying())
-        {
-            currentComboAttack = 0;
-        }
-    }
-
-
-    void Attack()
-    {
-        Debug.Log($"Attacking with combo attack {currentComboAttack}");
-
-        lastAttackTime = Time.time;
-
-        currentComboAttack++; 
-
-        Debug.Log($"Combo attack incremented to {currentComboAttack}");
-
-        if (currentComboAttack >= comboLength)
-        {
-            currentComboAttack = 0;
-            lastComboEnd = Time.time;
-            Debug.Log("Combo attack reset");
-        }
-    }
-
-
-    bool IsAttackAnimationPlaying()
-    {
-        // Check if the current animation state is tagged as "Attack" and is still playing
-        return anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
     }
 }
