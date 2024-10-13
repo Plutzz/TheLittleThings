@@ -571,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 7156240462189662132, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_Layer
