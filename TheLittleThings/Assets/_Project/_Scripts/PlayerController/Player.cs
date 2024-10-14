@@ -24,7 +24,7 @@ public class Player : StateMachineCore
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;
     public HealthTracker playerHP;
-
+    [SerializeField] private PlayerAttackManager attackManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -84,6 +84,7 @@ public class Player : StateMachineCore
         if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         {
             stateMachine.SetState(attack);
+            attackManager.PerformCombo();
         }
         
         if (playerInput.ctrlPressedThisFrame)

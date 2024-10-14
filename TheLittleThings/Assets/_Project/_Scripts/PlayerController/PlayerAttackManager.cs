@@ -11,6 +11,7 @@ public class PlayerAttackManager : MonoBehaviour
         Handles the attack buffer window
     */
     [Header("Player Components")]
+    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerAttack playerAttack;
 
     [Header("Attacks")]
@@ -18,10 +19,16 @@ public class PlayerAttackManager : MonoBehaviour
     [SerializeField] private float lastInputTime;
     [SerializeField] private int comboCount = 0;
 
+    [SerializeField] private float attackCooldown = 0.5f;
+    [SerializeField] private float lastComboEnd;
+    [SerializeField] private float timeBetweenCombos = 0.5f;
+    [SerializeField] private float lastBufferedAttack; // the time the last buffered attack was performed
+
     Dictionary<int, bool> hasExecuted = new Dictionary<int, bool>();
 
     // need to use this to iterate over and modify the dictionary
     List<int> comboNumbers = new List<int>();
+    bool isBuffered = false;
     public int ComboCount { get { return comboCount; } }
 
     void Start()
@@ -48,25 +55,31 @@ public class PlayerAttackManager : MonoBehaviour
     void UpdateTheHasExecutedDictionary(int comboNumber)
     {
         hasExecuted[comboNumber] = true;
-        PerformCombo();
     }
 
     public void PerformCombo()
     {
-
-        print("Performing Combo " + comboCount);
-        if (comboCount == 0 || (comboCount < playerAttack.combo.Count && hasExecuted[comboCount]))
+        if (Time.time - lastInputTime >= attackCooldown)
         {
-            comboCount++;
+            print("Performing Combo " + comboCount);
+            if (comboCount == 0 || (comboCount < playerAttack.combo.Count && hasExecuted[comboCount]))
+            {
+                comboCount++;
+            }
+
+            if (comboCount >= playerAttack.combo.Count)
+            {
+                Debug.Log("Restart Combo!");
+                ResetExecutionTracker();
+            }
+            lastInputTime = Time.time;
+        } else {
+            isBuffered = true;
+            lastBufferedAttack = Time.time;
         }
 
-        if (comboCount >= playerAttack.combo.Count)
-        {
-            Debug.Log("Restart Combo!");
-            ResetExecutionTracker();
-        }
 
-        lastInputTime = Time.time;
+
     }
 
     void Update()
@@ -74,7 +87,22 @@ public class PlayerAttackManager : MonoBehaviour
         if (Time.time - lastInputTime > comboInputTimeThreshold)
         {
             // if too much time has passed reset combo
+            playerAttack.SetComplete();
             ResetExecutionTracker();
+        }
+
+
+        if (isBuffered && Time.time - lastBufferedAttack > comboInputTimeThreshold)
+        {
+            print("Buffered Attack Expired");
+            isBuffered = false;
+        }
+
+        if (isBuffered && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastInputTime >= attackCooldown)
+        {
+            print("Buffered Attack");
+            PerformCombo();
+            isBuffered = false;
         }
     }
 }

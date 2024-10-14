@@ -56,7 +56,7 @@ public class PlayerAttack : State
         {
             return;
         }
-        
+
         anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
         // attackHitbox.damage = combo[comboCounter].damage;
         // attackHitbox.knockback = combo[comboCounter].knockback;
@@ -75,13 +75,16 @@ public class PlayerAttack : State
 
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
-            isComplete = true;
             PlayerComboTrigger(comboCounter);
         }
 
         base.DoUpdateState();
     }
 
+    public void SetComplete()
+    {
+        isComplete = true;
+    }
 
 
 }
