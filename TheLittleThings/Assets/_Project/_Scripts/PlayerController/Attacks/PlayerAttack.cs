@@ -17,15 +17,10 @@ public class PlayerAttack : State
     public List<PlayerAttackSO> combo;
 
     [Header("Attacks")]
-    [SerializeField] private float attackForce = 10f;
 
-
-    public bool FinalAttack;
-    [SerializeField] private Player player;
     [SerializeField] private PlayerAttackManager attackManager;
     [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private Animator anim;
-    [SerializeField] private Transform sprite;
 
     public event Action<int> playerCombo;
     public void PlayerComboTrigger(int comboNumber) { playerCombo?.Invoke(comboNumber); }
