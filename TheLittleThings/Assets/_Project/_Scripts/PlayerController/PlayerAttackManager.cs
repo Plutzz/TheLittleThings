@@ -53,17 +53,14 @@ public class PlayerAttackManager : MonoBehaviour
 
     public void PerformCombo()
     {
-        if (comboCount >= playerAttack.combo.Count)
-        {
-            comboCount = 0;
-            ResetExecutionTracker();
-        }
+
         print("Performing Combo " + comboCount);
-        if (comboCount == 0 || (comboCount < playerAttack.combo.Count -1 && hasExecuted[comboCount]))
+        if (comboCount == 0 || (comboCount < playerAttack.combo.Count && hasExecuted[comboCount]))
         {
             comboCount++;
         }
-        else if (comboCount >= playerAttack.combo.Count)
+
+        if (comboCount >= playerAttack.combo.Count)
         {
             Debug.Log("Restart Combo!");
             ResetExecutionTracker();

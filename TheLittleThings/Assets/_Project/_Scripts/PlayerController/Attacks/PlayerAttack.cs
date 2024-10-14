@@ -52,10 +52,8 @@ public class PlayerAttack : State
     {
         int comboCounter = attackManager.ComboCount;
 
-        // Ensure comboCounter is within the valid range
         if (comboCounter < 0 || comboCounter >= combo.Count)
         {
-            Debug.LogError("Combo counter out of range: " + comboCounter);
             return;
         }
         
