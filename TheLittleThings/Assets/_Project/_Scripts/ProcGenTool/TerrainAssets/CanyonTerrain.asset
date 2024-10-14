@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67b8ff2e0ccf3cf47b531137c53fa3a0, type: 3}
+  m_Name: CanyonTerrain
+  m_EditorClassIdentifier: 
+  autoUpdate: 1
+  uniformScale: 2
+  useFalloff: 0
+  falloffCurve: 5.63
+  falloffShift: 23.73
+  meshHeightMultipler: 30
+  meshHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.00810832
+      outSlope: 0.00810832
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.46968785
+      value: 0.0038083792
+      inSlope: -0.00212432
+      outSlope: -0.00212432
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.60955215
+    - serializedVersion: 3
+      time: 0.47428805
+      value: 0.9951833
+      inSlope: 0.7617873
+      outSlope: 0.7617873
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13712563
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.50372154
+      value: 1.0009767
+      inSlope: -0.009357239
+      outSlope: -0.009357239
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.27614516
+    - serializedVersion: 3
+      time: 0.7777821
+      value: 1.0027299
+      inSlope: -0.047379617
+      outSlope: -0.047379617
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.2422399
+    - serializedVersion: 3
+      time: 1.0063289
+      value: 1.0106947
+      inSlope: 0.0114627
+      outSlope: 0.0114627
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.27968025
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
