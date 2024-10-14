@@ -25,6 +25,7 @@ public class PlayerAttack : State
     [SerializeField] private PlayerAttackManager attackManager;
     [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private Animator anim;
+    [SerializeField] private Transform sprite;
 
     public event Action<int> playerCombo;
     public void PlayerComboTrigger(int comboNumber) { playerCombo?.Invoke(comboNumber); }
@@ -63,15 +64,6 @@ public class PlayerAttack : State
         Debug.Log("Attack" + comboCounter);
         anim.Play("Attack" + (comboCounter + 1));
 
-        // Apply force to the player while attacking
-        // if (playerInput.xInput > 0)
-        // {
-        //     player.rb.AddForce(transform.right * attackForce, ForceMode2D.Impulse);
-        // }
-        // else
-        // {
-        //     player.rb.AddForce(-transform.right * attackForce, ForceMode2D.Impulse);
-        // }
 
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {

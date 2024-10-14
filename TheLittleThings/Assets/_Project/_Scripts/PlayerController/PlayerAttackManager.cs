@@ -23,6 +23,9 @@ public class PlayerAttackManager : MonoBehaviour
     [SerializeField] private float lastComboEnd;
     [SerializeField] private float timeBetweenCombos = 0.5f;
     [SerializeField] private float lastBufferedAttack; // the time the last buffered attack was performed
+    [SerializeField] private Transform sprite;
+    [SerializeField] private float attackForce = 10f;
+    [SerializeField] private Player player;
 
     Dictionary<int, bool> hasExecuted = new Dictionary<int, bool>();
 
@@ -65,6 +68,10 @@ public class PlayerAttackManager : MonoBehaviour
             if (comboCount == 0 || (comboCount < playerAttack.combo.Count && hasExecuted[comboCount]))
             {
                 comboCount++;
+                if (sprite.localScale.x > 0)
+                    player.rb.AddForce(player.transform.right * attackForce, ForceMode2D.Impulse);
+                else
+                    player.rb.AddForce(-player.transform.right * attackForce, ForceMode2D.Impulse);
             }
 
             if (comboCount >= playerAttack.combo.Count)
@@ -73,7 +80,9 @@ public class PlayerAttackManager : MonoBehaviour
                 ResetExecutionTracker();
             }
             lastInputTime = Time.time;
-        } else {
+        }
+        else
+        {
             isBuffered = true;
             lastBufferedAttack = Time.time;
         }
