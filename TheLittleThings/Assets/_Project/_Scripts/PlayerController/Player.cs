@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Player : StateMachineCore
 {
-    [HorizontalLine(color: EColor.Gray)]
-    [Header("States")]
-    [SerializeField] private PlayerIdle idle;
-    [SerializeField] private PlayerMove3D move;
-    [SerializeField] private PlayerRoll roll;
-    [SerializeField] private PlayerAirborne3D airborne;
-    [SerializeField] private PlayerAttack attack;
+    [field: HorizontalLine(color: EColor.Gray)]
+    [field: Header("States")]
+    [field: SerializeField] public PlayerIdle idle { get; private set; }
+    [field: SerializeField] public PlayerMove3D move { get; private set; }
+    [field: SerializeField] public PlayerRoll roll { get; private set; }
+    [field: SerializeField] public PlayerAirborne3D airborne { get; private set; }
+    [field: SerializeField] public PlayerAttack attack { get; private set; }
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
@@ -73,11 +73,10 @@ public class Player : StateMachineCore
             //TurnCheck(xInput);
         }
 
-        if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
-        {
-            stateMachine.SetState(attack, true);
-            attackManager.PerformCombo();
-        }
+        //if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
+        //{
+        //    stateMachine.SetState(attack, true);
+        //}
         
         if (playerInput.ctrlPressedThisFrame)
         {

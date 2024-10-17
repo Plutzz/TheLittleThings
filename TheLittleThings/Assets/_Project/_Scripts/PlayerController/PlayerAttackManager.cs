@@ -1,113 +1,126 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttackManager : MonoBehaviour
 {
-    /*
-        Handles what the combo attack they are currently on
-        Handles the attack cooldown
-        Handles the attack buffer window
-    */
-    [Header("Player Components")]
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private PlayerAttack playerAttack;
+
+    [Header("Combo")]
+    [SerializeField] private List<PlayerAttackSO> combo;
+    [SerializeField] private float continueComboTimer = 0.2f;
+    [SerializeField] private float timeBetweenCombos = 1f;
+
+    private float lastComboEnd;
+    private int comboCounter;
 
     [Header("Attacks")]
-    [SerializeField] private float comboInputTimeThreshold = 1f;
-    [SerializeField] private float lastInputTime;
-    [SerializeField] private int comboCount = 0;
-
     [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private float lastComboEnd;
-    [SerializeField] private float timeBetweenCombos = 0.5f;
-    [SerializeField] private float lastBufferedAttack; // the time the last buffered attack was performed
-    [SerializeField] private float attackForce = 10f;
-    [SerializeField] private Player player;
-    [SerializeField] private Transform playerObj;
+    [SerializeField] private float attackBufferWindow = 0.2f;
+    private bool bufferedAttack;
+    private float lastBufferedAttack;
+    private float lastAttackTime;
+    public GameObject AttackPoint;
+    public bool FinalAttack;
 
-    Dictionary<int, bool> hasExecuted = new Dictionary<int, bool>();
 
-    // need to use this to iterate over and modify the dictionary
-    List<int> comboNumbers = new List<int>();
-    bool isBuffered = false;
-    public int ComboCount { get { return comboCount; } }
-    void Start()
+    [SerializeField] private Player player; 
+    [SerializeField] private PlayerAttackHitbox attackHitbox;
+    [SerializeField] private PlayerInput inputManager;
+    [SerializeField] private Animator anim;
+
+
+
+    private void Start()
     {
-        for (int i = 1; i <= playerAttack.combo.Count; i++)
+        attackHitbox = GetComponentInChildren<PlayerAttackHitbox>(true);
+        //player = GetComponent<Player>();
+        //inputManager = GetComponent<InputManager>();
+    }
+
+    public void Update()
+    {
+        if (inputManager.attackPressedDownThisFrame)
         {
-            hasExecuted.Add(i, false);
+            Attack();
         }
-        comboNumbers = new List<int>(hasExecuted.Keys);
-        playerAttack.playerCombo += UpdateHasExecuted;
-    }
 
-    public void ResetExecutionTracker()
-    {
-        comboCount = 0;
-        foreach (var comboNumber in comboNumbers) { hasExecuted[comboNumber] = false; }
-    }
-
-    private void OnDestroy()
-    {
-        playerAttack.playerCombo -= UpdateHasExecuted;
-    }
-
-    void UpdateHasExecuted(int comboNumber)
-    {
-        hasExecuted[comboNumber] = true;
-    }
-
-    public void PerformCombo()
-    {
-        if (Time.time - lastInputTime >= attackCooldown)
+        // Handle buffered attacks
+        if (bufferedAttack && Time.time - lastBufferedAttack > attackBufferWindow)
         {
-            //print("Performing Combo " + comboCount);
-            if (comboCount == 0 || (comboCount < playerAttack.combo.Count && hasExecuted[comboCount]))
-            {
-                comboCount++;
-                player.rb.AddForce(playerObj.transform.forward * attackForce, ForceMode.Impulse);
-            }
+            bufferedAttack = false;
+        }
 
-            if (comboCount >= playerAttack.combo.Count)
+        if (bufferedAttack && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastAttackTime >= attackCooldown)
+        {
+            Attack();
+            bufferedAttack = false;
+        }
+
+        ExitAttack();
+    }
+
+
+    void Attack()
+    {
+        if (Time.time - lastComboEnd > timeBetweenCombos && comboCounter <= combo.Count)
+        {
+            CancelInvoke("IncompleteCombo");
+
+            if (Time.time - lastAttackTime >= attackCooldown)
             {
-                Debug.Log("Restart Combo!");
-                ResetExecutionTracker();
+                //attackHitbox.sfxName = combo[comboCounter].sfxName;
+                player.stateMachine.SetState(player.attack, true);
+                anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
+                attackHitbox.damage = combo[comboCounter].damage;
+                attackHitbox.knockback = combo[comboCounter].knockback;
+
+                anim.Play("Attack", 0, 0);
+                comboCounter++;
+                if (comboCounter == combo.Count - 1)
+                {
+                    FinalAttack = true;
+                }
+                if (comboCounter >= combo.Count)
+                {
+                    EndCombo();
+                }
+                lastAttackTime = Time.time;
             }
-            lastInputTime = Time.time;
+            else
+            {
+                bufferedAttack = true;
+                lastBufferedAttack = Time.time;
+            }
         }
         else
         {
-            isBuffered = true;
+            bufferedAttack = true;
             lastBufferedAttack = Time.time;
         }
 
-
-
     }
 
-    void Update()
+    void ExitAttack()
     {
-        if (Time.time - lastInputTime > comboInputTimeThreshold)
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
-            // if too much time has passed reset combo
-            playerAttack.SetComplete();
-            ResetExecutionTracker();
-        }
+            Invoke("IncompleteCombo", continueComboTimer);
 
-
-        if (isBuffered && Time.time - lastBufferedAttack > comboInputTimeThreshold)
-        {
-            print("Buffered Attack Expired");
-            isBuffered = false;
+            player.attack.SetIsComplete(true);
         }
+    }
 
-        if (isBuffered && Time.time - lastComboEnd > timeBetweenCombos && Time.time - lastInputTime >= attackCooldown)
-        {
-            print("Buffered Attack");
-            PerformCombo();
-            isBuffered = false;
-        }
+    void EndCombo()
+    {
+        comboCounter = 0;
+        lastComboEnd = lastAttackTime;
+        FinalAttack = false;
+    }
+
+    void IncompleteCombo()
+    {
+        FinalAttack = false;
+        comboCounter = 0;
     }
 }

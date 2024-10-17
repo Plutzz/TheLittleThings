@@ -19,7 +19,6 @@ public class DavidPlayerMove : MonoBehaviour
     private float wallJumpForce = 0f;
     private Rigidbody2D rb;
     private bool grounded = true;
-    private bool jumping = false; //basically if airborne
 
     private void Start()
     {
@@ -36,7 +35,6 @@ public class DavidPlayerMove : MonoBehaviour
 
     private void Jump()
     {
-        jumping = true; //airborne
         jumpReady = false;
 
        
@@ -67,7 +65,6 @@ public class DavidPlayerMove : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             jumpReady = true;
-            jumping = false;
             grounded = true;
             rb.gravityScale = normalGravity;
             wallJump = false;
@@ -78,7 +75,6 @@ public class DavidPlayerMove : MonoBehaviour
             rb.velocity = Vector2.right * rb.velocity.x;
 
             jumpReady = true;
-            jumping = false;
 
             //calculates what side the wall is on for walljump to push player off the wall using walljumpforce
             float wallSide = transform.position.x - collision.gameObject.transform.position.x;

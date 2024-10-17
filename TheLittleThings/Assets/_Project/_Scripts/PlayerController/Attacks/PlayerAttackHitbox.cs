@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerAttackHitbox : MonoBehaviour
 {
-    private List<Collider2D> previousHits;
-    private Collider2D hitbox;
+    private List<Collider> previousHits;
+    private Collider hitbox;
     [HideInInspector] public int damage;
     [HideInInspector] public float knockback;
 
     private void Awake()
     {
-        previousHits = new List<Collider2D>();
-        hitbox = GetComponent<Collider2D>();
+        previousHits = new List<Collider>();
+        hitbox = GetComponent<Collider>();
     }
     private void OnEnable()
     {
@@ -24,13 +24,14 @@ public class PlayerAttackHitbox : MonoBehaviour
         hitbox.enabled = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        //if (collision.GetComponent<IDamageable>() != null && !previousHits.Contains(collision))
-        //{
-        //    previousHits.Add(collision);
-        //    collision.GetComponent<IDamageable>().TakeDamage(damage, knockback, transform.parent.position.x);
-        //}
+        if (collision.GetComponent<IDamageable>() != null && !previousHits.Contains(collision))
+        {
+            previousHits.Add(collision);
+            //collision.GetComponent<IDamageable>().TakeDamage(damage, knockback, transform.parent.position.x);
+            collision.GetComponent<IDamageable>().TakeDamage(damage);
+        }
     }
 
 }
