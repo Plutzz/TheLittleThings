@@ -9,7 +9,8 @@ public class PlayerInput : MonoBehaviour
     public float yInput { get; private set; }
     public bool jumpPressedThisFrame { get; private set; }
     public bool jumpHeld { get; private set; }
-    public bool attackPressedThisFrame { get; private set; }
+    public bool attackPressedDownThisFrame { get; private set; }
+    public bool attackPressedUpThisFrame { get; private set; }
     public bool ctrlPressedThisFrame { get; private set; }
 
     public bool ResetInput
@@ -24,7 +25,8 @@ public class PlayerInput : MonoBehaviour
         jumpPressedThisFrame = Input.GetKeyDown(KeyCode.Space);
         ctrlPressedThisFrame = Input.GetKeyDown(KeyCode.LeftControl);
         jumpHeld = Input.GetKey(KeyCode.Space);
-        attackPressedThisFrame = Input.GetMouseButton(0);
+        attackPressedDownThisFrame = Input.GetMouseButtonDown(0);
+        attackPressedUpThisFrame = Input.GetMouseButtonUp(0);
         ResetInput = Input.GetKeyDown(R);
     }
 }

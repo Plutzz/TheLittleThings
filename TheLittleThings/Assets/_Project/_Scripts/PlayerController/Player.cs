@@ -27,6 +27,7 @@ public class Player : StateMachineCore
     [SerializeField] private CameraFollowObject cameraFollowObject;
     public bool isFacingRight = true;
 
+    [SerializeField] private PlayerAttackManager attackManager;
 
     // Start is called before the first frame update
     void Awake()
@@ -72,9 +73,10 @@ public class Player : StateMachineCore
             //TurnCheck(xInput);
         }
 
-        if (Input.GetMouseButtonDown(0) && groundSensor.grounded)
+        if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         {
             stateMachine.SetState(attack);
+            attackManager.PerformCombo();
         }
         
         if (playerInput.ctrlPressedThisFrame)
