@@ -11,7 +11,7 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerMove3D move;
     [SerializeField] private PlayerRoll roll;
     [SerializeField] private PlayerAirborne3D airborne;
-    [SerializeField] private PlayerCombat attack;
+    [SerializeField] private PlayerAttack attack;
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
@@ -75,7 +75,7 @@ public class Player : StateMachineCore
 
         if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         {
-            stateMachine.SetState(attack);
+            stateMachine.SetState(attack, true);
             attackManager.PerformCombo();
         }
         

@@ -41,6 +41,7 @@ public class PlayerAttack : State
     {
         base.DoEnterLogic();
         rb.drag = 0;
+        anim.Play("Stab", -1, 0);
 
     }
 
@@ -56,13 +57,13 @@ public class PlayerAttack : State
         anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
         // attackHitbox.damage = combo[comboCounter].damage;
         // attackHitbox.knockback = combo[comboCounter].knockback;
-        Debug.Log("Attack" + comboCounter);
-        anim.Play("Attack" + (comboCounter + 1));
+
 
 
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             PlayerComboTrigger(comboCounter);
+            
         }
 
         base.DoUpdateState();

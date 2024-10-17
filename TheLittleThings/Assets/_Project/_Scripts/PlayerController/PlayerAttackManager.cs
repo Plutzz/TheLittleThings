@@ -23,9 +23,9 @@ public class PlayerAttackManager : MonoBehaviour
     [SerializeField] private float lastComboEnd;
     [SerializeField] private float timeBetweenCombos = 0.5f;
     [SerializeField] private float lastBufferedAttack; // the time the last buffered attack was performed
-    [SerializeField] private Transform sprite;
     [SerializeField] private float attackForce = 10f;
     [SerializeField] private Player player;
+    [SerializeField] private Transform playerObj;
 
     Dictionary<int, bool> hasExecuted = new Dictionary<int, bool>();
 
@@ -33,7 +33,6 @@ public class PlayerAttackManager : MonoBehaviour
     List<int> comboNumbers = new List<int>();
     bool isBuffered = false;
     public int ComboCount { get { return comboCount; } }
-
     void Start()
     {
         for (int i = 1; i <= playerAttack.combo.Count; i++)
@@ -41,7 +40,7 @@ public class PlayerAttackManager : MonoBehaviour
             hasExecuted.Add(i, false);
         }
         comboNumbers = new List<int>(hasExecuted.Keys);
-        playerAttack.playerCombo += UpdateTheHasExecutedDictionary;
+        playerAttack.playerCombo += UpdateHasExecuted;
     }
 
     public void ResetExecutionTracker()
@@ -52,10 +51,10 @@ public class PlayerAttackManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        playerAttack.playerCombo -= UpdateTheHasExecutedDictionary;
+        playerAttack.playerCombo -= UpdateHasExecuted;
     }
 
-    void UpdateTheHasExecutedDictionary(int comboNumber)
+    void UpdateHasExecuted(int comboNumber)
     {
         hasExecuted[comboNumber] = true;
     }
@@ -64,14 +63,11 @@ public class PlayerAttackManager : MonoBehaviour
     {
         if (Time.time - lastInputTime >= attackCooldown)
         {
-            print("Performing Combo " + comboCount);
+            //print("Performing Combo " + comboCount);
             if (comboCount == 0 || (comboCount < playerAttack.combo.Count && hasExecuted[comboCount]))
             {
                 comboCount++;
-                if (sprite.localScale.x > 0)
-                    player.rb.AddForce(player.transform.right * attackForce, ForceMode.Impulse);
-                else
-                    player.rb.AddForce(-player.transform.right * attackForce, ForceMode.Impulse);
+                player.rb.AddForce(playerObj.transform.forward * attackForce, ForceMode.Impulse);
             }
 
             if (comboCount >= playerAttack.combo.Count)
