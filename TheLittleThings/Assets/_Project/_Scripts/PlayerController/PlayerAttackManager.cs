@@ -69,9 +69,9 @@ public class PlayerAttackManager : MonoBehaviour
             {
                 comboCount++;
                 if (sprite.localScale.x > 0)
-                    player.rb.AddForce(player.transform.right * attackForce, ForceMode2D.Impulse);
+                    player.rb.AddForce(player.transform.right * attackForce, ForceMode.Impulse);
                 else
-                    player.rb.AddForce(-player.transform.right * attackForce, ForceMode2D.Impulse);
+                    player.rb.AddForce(-player.transform.right * attackForce, ForceMode.Impulse);
             }
 
             if (comboCount >= playerAttack.combo.Count)
