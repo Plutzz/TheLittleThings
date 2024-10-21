@@ -70,10 +70,12 @@ public class PlayerAttackManager : MonoBehaviour
             if (Time.time - lastAttackTime >= attackCooldown)
             {
                 //attackHitbox.sfxName = combo[comboCounter].sfxName;
-                player.stateMachine.SetState(player.attack, true);
-                anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 attackHitbox.damage = combo[comboCounter].damage;
                 attackHitbox.knockback = combo[comboCounter].knockback;
+                player.attack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
+                anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
+                player.stateMachine.SetState(player.attack, true);
+
 
                 anim.Play("Attack", 0, 0);
                 comboCounter++;

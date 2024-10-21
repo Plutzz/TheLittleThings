@@ -8,4 +8,5 @@ public class PlayerAttackSO : ScriptableObject
     public AnimatorOverrideController animatorOV;
     public int damage;
     public float knockback;
+    public float timeBeforeHitboxActive;
 }
