@@ -9,6 +9,7 @@ public class PlayerAttack : State
     [SerializeField] private float attackMoveAmount = 0.5f;
     [SerializeField] private float finalAttackMoveAmount = 50f;
     [SerializeField] private float groundDrag = 2f;
+    [SerializeField] private float rotationSpeed = 1f;
     [SerializeField] private Transform playerObj;
     [SerializeField] private Transform orientation;
     [SerializeField] private Player player;
@@ -25,9 +26,6 @@ public class PlayerAttack : State
         timer = attackTime;
         rb.drag = groundDrag;
         rb.velocity = Vector2.zero;
-        Vector2 _inputVector = new Vector2(playerInput.xInput, playerInput.yInput);
-        Vector3 _inputDir = orientation.forward * _inputVector.y + orientation.right * _inputVector.x;
-        playerObj.transform.forward = _inputDir;
         if (attackManager.FinalAttack)
         {
             rb.AddForce(playerObj.forward * finalAttackMoveAmount, ForceMode.Impulse);
@@ -51,6 +49,12 @@ public class PlayerAttack : State
         if (stateUptime > timeBeforeHitboxActive)
         {
             attackManager.AttackPoint.SetActive(true);
+        }
+        else 
+        {
+            Vector2 _inputVector = new Vector2(playerInput.xInput, playerInput.yInput);
+            Vector3 _inputDir = orientation.forward * _inputVector.y + orientation.right * _inputVector.x;
+            playerObj.transform.forward = Vector3.Slerp(playerObj.forward, _inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
     }
 
