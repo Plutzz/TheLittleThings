@@ -11,7 +11,7 @@ public class Player : StateMachineCore
     [field: SerializeField] public PlayerMove3D move { get; private set; }
     [field: SerializeField] public PlayerRoll roll { get; private set; }
     [field: SerializeField] public PlayerAirborne3D airborne { get; private set; }
-    [field: SerializeField] public PlayerAttack attack { get; private set; }
+    [field: SerializeField] public PlayerChooseAttack attack { get; private set; }
     [HorizontalLine(color: EColor.Gray)]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;

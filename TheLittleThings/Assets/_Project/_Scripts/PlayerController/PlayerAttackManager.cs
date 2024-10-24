@@ -72,7 +72,7 @@ public class PlayerAttackManager : MonoBehaviour
                 //attackHitbox.sfxName = combo[comboCounter].sfxName;
                 attackHitbox.damage = combo[comboCounter].damage;
                 attackHitbox.knockback = combo[comboCounter].knockback;
-                player.attack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
+                player.attack.comboAttack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 player.stateMachine.SetState(player.attack, true);
 
@@ -109,7 +109,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             Invoke("IncompleteCombo", continueComboTimer);
 
-            player.attack.SetIsComplete(true);
+            player.attack.comboAttack.SetIsComplete(true);
         }
     }
 

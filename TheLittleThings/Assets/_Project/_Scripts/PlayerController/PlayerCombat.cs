@@ -16,7 +16,8 @@ public class PlayerCombat : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Attack();
+        Debug.Log("HoldAttack");
+        //Attack();
     }
 
     public override void DoUpdateState()

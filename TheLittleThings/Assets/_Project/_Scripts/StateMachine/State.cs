@@ -77,7 +77,7 @@ public class State : MonoBehaviour
     }
 
     /// <summary>
-    /// Calls DoUpdate for every state down the branch
+    /// Calls DoUpdate for when the state is active for every state down the branch
     /// </summary>
     public void DoUpdateBranch()
     {
