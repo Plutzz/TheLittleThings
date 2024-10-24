@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SocialPlatforms.Impl;
-public class PlayerAttack : State
+public class PlayerComboAttack : State
 {
     [SerializeField] private float attackTime = 1f;
     [SerializeField] private float attackMoveAmount = 0.5f;
