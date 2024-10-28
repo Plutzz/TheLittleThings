@@ -12,13 +12,14 @@ public class ChargeAttack : State
     {
         base.DoEnterLogic();
         Debug.Log("Enter Charge");
-        animator.Play(animClip.name);
+        //animator.Play(animClip.name);
     }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        rb.velocity = new Vector2(chargeSpeed * Mathf.Sign(core.transform.localScale.x), rb.velocity.y);
+        rb.velocity = new Vector3(0, rb.velocity.y, 0) + core.transform.forward * chargeSpeed;
+        core.transform.forward = rb.velocity.normalized;
     }
 
     public override void CheckTransitions()

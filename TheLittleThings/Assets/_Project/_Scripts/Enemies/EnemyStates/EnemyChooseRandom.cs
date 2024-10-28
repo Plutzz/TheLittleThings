@@ -18,7 +18,7 @@ public class EnemyChooseRandom : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        if (state.isComplete)
+        if (state?.isComplete ?? false)
         {
             isComplete = true;
         }

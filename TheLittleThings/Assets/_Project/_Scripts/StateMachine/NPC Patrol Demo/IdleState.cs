@@ -11,13 +11,13 @@ public class IdleState : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.Play(animClip.name);
+        //animator.Play(animClip.name);
     }
     public override void CheckTransitions()
     {
         base.CheckTransitions();
 
-        if (stateUptime > animClip.length)
+        if (true/*stateUptime > animClip.length*/)
         {
             isComplete = true;
         }

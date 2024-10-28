@@ -7,7 +7,7 @@ public class PatrolState : State
 {
     [SerializeField] private IdleState idleState;
     [SerializeField] private NavigateState navigateState;
-    private Transform anchor1, anchor2;
+    
     [SerializeField] private float patrolTime = 2f;
     public override void DoEnterLogic()
     {
@@ -16,9 +16,8 @@ public class PatrolState : State
         //stateMachine.SetState(idleState);
     }
 
-    private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("awagga");
         navigateState.destination = () => collision.gameObject.transform.position;
         stateMachine.SetState(navigateState);
     }
