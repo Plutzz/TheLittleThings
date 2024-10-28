@@ -15,4 +15,4 @@ MonoBehaviour:
   animatorOV: {fileID: 22100000, guid: 8c96689af4277c945bae888ec4e10c3f, type: 2}
   damage: 1
   knockback: 1
-  timeBeforeHitboxActive: 0.5
+  timeBeforeHitboxActive: 0.3

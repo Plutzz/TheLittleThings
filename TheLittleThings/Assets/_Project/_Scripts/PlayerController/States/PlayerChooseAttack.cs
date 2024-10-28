@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerChooseAttack : State
 {
     [SerializeField] private float holdTime = 0.25f;
-    [SerializeField] public PlayerAttack comboAttack;
-    [SerializeField] private PlayerCombat holdAttack;
+    [SerializeField] public PlayerComboAttack comboAttack;
+    [SerializeField] private PlayerHoldAttack holdAttack;
     [SerializeField] private DummyState dummyState;
 
     public override void DoEnterLogic()

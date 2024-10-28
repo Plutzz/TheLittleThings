@@ -6,6 +6,8 @@ public class PlayerAttackHitbox : MonoBehaviour
 {
     private List<Collider> previousHits;
     private Collider hitbox;
+    [SerializeField] private GameObject hitEffectPrefab;
+    [SerializeField] private Transform player;
     [HideInInspector] public int damage;
     [HideInInspector] public float knockback;
 
@@ -31,7 +33,14 @@ public class PlayerAttackHitbox : MonoBehaviour
             previousHits.Add(collision);
             //collision.GetComponent<IDamageable>().TakeDamage(damage, knockback, transform.parent.position.x);
             collision.GetComponent<IDamageable>().TakeDamage(damage);
+            Instantiate(hitEffectPrefab, collision.ClosestPointOnBounds(player.position + Vector3.up), Quaternion.identity);
+
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
     }
 
 }
