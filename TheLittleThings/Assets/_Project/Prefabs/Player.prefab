@@ -220,7 +220,7 @@ MonoBehaviour:
   attackMoveAmount: 0
   finalAttackMoveAmount: 0
   groundDrag: 2
-  rotationSpeed: 1
+  rotationSpeed: 2
   playerObj: {fileID: 8676626723179518780}
   orientation: {fileID: 1248634803902626960}
   player: {fileID: 25349042078243649}
@@ -505,7 +505,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4552250333619339351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -573,6 +573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a42aedabd7646e247acf2a06e6f82955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffectPrefab: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
+  player: {fileID: 8676626723179518780}
   damage: 0
   knockback: 0
 --- !u!1 &5867501284426466747
