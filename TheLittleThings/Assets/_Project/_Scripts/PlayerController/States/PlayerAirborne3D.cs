@@ -12,7 +12,8 @@ public class PlayerAirborne3D : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.Play("Jump");
+        animator.SetTrigger("Jump");
+        //animator.Play("Jump");
         rb.drag = 0;
         //Clamp fall speed
     }
