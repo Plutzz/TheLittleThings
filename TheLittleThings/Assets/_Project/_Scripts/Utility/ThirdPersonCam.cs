@@ -6,7 +6,7 @@ using UnityEngine;
 public class ThirdPersonCam : MonoBehaviour
 {
     public Transform orientation;
-    public Transform player;
+    public Transform PlayerTransform;
     public Transform playerObj;
     public Player Player;
     public PlayerInput playerInput;
@@ -29,7 +29,7 @@ public class ThirdPersonCam : MonoBehaviour
         freeLookCam.m_XAxis.m_MaxSpeed = sensitivity * 100f;
 
         // rotate orientation
-        Vector3 _viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        Vector3 _viewDir = PlayerTransform.position - new Vector3(transform.position.x, PlayerTransform.position.y, transform.position.z);
         orientation.forward = _viewDir.normalized;
 
         // rotate player object

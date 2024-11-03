@@ -15,4 +15,10 @@ public class DamageHitbox : MonoBehaviour
         if(collision.gameObject.TryGetComponent(out HealthTracker hp))
             hp.DamageEntity(DamageAmount, DamageSource, LocalIFrameAddAmount);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out HealthTracker hp))
+            hp.DamageEntity(DamageAmount, DamageSource, LocalIFrameAddAmount);
+    }
 }

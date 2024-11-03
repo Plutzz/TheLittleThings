@@ -15,18 +15,19 @@ public class EnemyNavigateJump : State
     {
         base.DoEnterLogic();
         destination = target.position.x;
-        animator.Play(animClip.name);
+        //animator.Play(animClip.name);
     }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        float distance = target.position.x - core.transform.position.x;
-        rb.velocity = new Vector2(Mathf.Sign(distance) * speed, rb.velocity.y);
+        Vector3 horizontalDist = rb.position - target.position;
+        horizontalDist.y = 0;
+        rb.velocity = new Vector3(0, rb.velocity.y, 0) + horizontalDist.normalized;
 
-        core.transform.localScale = new Vector3(-1 * Mathf.Sign(distance) * Mathf.Abs(core.transform.localScale.x), core.transform.localScale.y, core.transform.localScale.z);
+        core.transform.forward = horizontalDist.normalized;
 
-        if (Mathf.Abs(distance) < arriveThreshold)
+        if (Mathf.Abs(horizontalDist.sqrMagnitude) < arriveThreshold * arriveThreshold)
         {
             isComplete = true;
         }
@@ -35,6 +36,6 @@ public class EnemyNavigateJump : State
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        rb.velocity = Vector2.zero;
+        rb.velocity = Vector3.zero;
     }
 }

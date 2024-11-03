@@ -5,6 +5,7 @@ using NaughtyAttributes;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
+    [SerializeField] private GameObject gameObjectToDestroy;
     [SerializeField] private int maxHealth;
     [field: SerializeField, ProgressBar("currentHealth", "maxHealth", EColor.Red)]
     private int currentHealth;
@@ -25,6 +26,14 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     }
 
     public void Die() {
-        Destroy(gameObject);
+        if (gameObjectToDestroy != null)
+        {
+            Destroy(gameObjectToDestroy);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
     }
 }

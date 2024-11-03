@@ -61,7 +61,15 @@ public abstract class StateMachineCore : MonoBehaviour
 
             GUIStyle style = new GUIStyle();
             style.alignment = TextAnchor.MiddleCenter;
-            style.normal.textColor = Color.white;
+            if(stateMachine.currentState.isComplete)
+            {
+                style.normal.textColor = Color.green;
+            }
+            else
+            {
+                style.normal.textColor = Color.red;
+            }
+            style.fontSize = 40;
             UnityEditor.Handles.Label(transform.position + Vector3.up * 3, "Active States: " + string.Join(" > ", states), style);
         
         }
