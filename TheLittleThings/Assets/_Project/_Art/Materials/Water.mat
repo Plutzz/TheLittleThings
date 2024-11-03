@@ -37,13 +37,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Depth: 5
+    - _EdgeThickness: 1
     - _PanningSpeed: 0.1
     - _PatternThickness: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 0.4
+    - _Scale: 0.15
     - _SurfaceSpeed: 0.05
-    m_Colors: []
+    m_Colors:
+    - _BrightColor: {r: 0.9897279, g: 1, b: 0.9009434, a: 0}
+    - _DeepColor: {r: 0.10145959, g: 0.18144724, b: 0.3773585, a: 0}
+    - _ShallowColor: {r: 0.30838373, g: 0.8490566, b: 0.8120521, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2540711146361015958
 MonoBehaviour:
