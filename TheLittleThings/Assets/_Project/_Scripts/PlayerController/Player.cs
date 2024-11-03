@@ -51,13 +51,12 @@ public class Player : StateMachineCore
             ResetPlayer();
         }
 
+        Debug.Log("Grounded: " + groundSensor.grounded);
+
         // transitions
-        if (!groundSensor.grounded)
+        if (!groundSensor.grounded && stateMachine.currentState != roll)
         {
-            if (stateMachine.currentState != roll)
-            {
-                stateMachine.SetState(airborne);
-            }
+            stateMachine.SetState(airborne);
 
         }
         else if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
@@ -71,7 +70,7 @@ public class Player : StateMachineCore
         if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             //TurnCheck(xInput);
-        }
+        } else 
 
         //if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         //{

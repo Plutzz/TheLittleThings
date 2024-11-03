@@ -12,6 +12,7 @@ public class PlayerAirborne3D : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        Debug.Log("airborne state enter");
         animator.SetTrigger("Jump");
         //animator.Play("Jump");
         rb.drag = 0;
