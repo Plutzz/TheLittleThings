@@ -51,7 +51,6 @@ public class Player : StateMachineCore
             ResetPlayer();
         }
 
-        Debug.Log("Grounded: " + groundSensor.grounded);
 
         // transitions
         if (!groundSensor.grounded && stateMachine.currentState != roll)
