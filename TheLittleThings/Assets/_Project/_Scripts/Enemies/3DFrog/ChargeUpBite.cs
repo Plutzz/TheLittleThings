@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeUpBite : State
+public class AnimationState : State
 {
     [SerializeField] private AnimationClip animClip;
     //[SerializeField] private float chargeTime = 2f;
