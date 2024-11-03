@@ -18,7 +18,7 @@ public class PatrolState : State
 
     private void OnTriggerEnter(Collider collision)
     {
-        navigateState.destination = () => collision.gameObject.transform.position;
+        //navigateState.destination = () => collision.gameObject.transform.position;
         stateMachine.SetState(navigateState);
     }
     public override void CheckTransitions()

@@ -7,33 +7,36 @@ using UnityEngine.UIElements;
 
 public class NavigateState : State
 {
-    [DoNotSerialize] public System.Func<Vector3> destination;
-    [SerializeField] private EnemyChooseRandom attackState;
+    [SerializeField] private Transform destination;
 
     public float speed;
     public float turnSpeed;
     public float threshold;
 
-    // Generic animation state?
-    // public State animation
+    [SerializeField] private float minTime = 0.5f;
 
     [SerializeField] private AnimationClip animClip;
     private Vector3 direction;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        //animator.Play(animClip.name);
+        animator.Play(animClip.name);
     }
 
+    public override void DoExitLogic()
+    {
+        base.DoExitLogic();
+        rb.velocity = Vector3.zero;
+    }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        Debug.Log((core.transform.position - destination.Invoke()).sqrMagnitude);
-        if((core.transform.position - destination.Invoke()).sqrMagnitude < threshold * threshold)
+        Debug.Log((core.transform.position - destination.position).sqrMagnitude);
+
+        if(stateUptime > minTime && (core.transform.position - destination.position).sqrMagnitude < threshold * threshold)
         {
             isComplete = true;
-            //stateMachine.SetState(attackState);
         }
 
         core.transform.forward = Vector3.RotateTowards(core.transform.forward, direction, turnSpeed * Time.deltaTime, 0);
@@ -43,7 +46,7 @@ public class NavigateState : State
     public override void DoFixedUpdateState()
     {
         base.DoFixedUpdateState();
-        direction = (destination.Invoke() - core.transform.position);
+        direction = (destination.position - core.transform.position);
         direction.y = 0;
         direction.Normalize();
         
