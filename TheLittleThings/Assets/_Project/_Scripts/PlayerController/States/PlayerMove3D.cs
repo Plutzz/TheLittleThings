@@ -13,7 +13,8 @@ public class PlayerMove3D : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.Play("Walk");
+        animator.SetTrigger("Walk");
+        //animator.Play("Walk");
         rb.drag = 4;
     }
 

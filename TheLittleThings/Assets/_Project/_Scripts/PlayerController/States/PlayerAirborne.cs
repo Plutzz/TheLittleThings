@@ -11,6 +11,7 @@ public class PlayerAirborne : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+
         //animator.Play("Fall");
         rb.drag = 0;
     }
