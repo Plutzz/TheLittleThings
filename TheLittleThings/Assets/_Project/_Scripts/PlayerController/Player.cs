@@ -63,7 +63,7 @@ public class Player : StateMachineCore
         {
             stateMachine.SetState(move);
         }
-        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != airborne && stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
