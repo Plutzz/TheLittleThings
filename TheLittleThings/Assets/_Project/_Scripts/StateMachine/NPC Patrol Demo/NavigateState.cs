@@ -29,10 +29,11 @@ public class NavigateState : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
+        Debug.Log((core.transform.position - destination.Invoke()).sqrMagnitude);
         if((core.transform.position - destination.Invoke()).sqrMagnitude < threshold * threshold)
         {
             isComplete = true;
-            stateMachine.SetState(attackState);
+            //stateMachine.SetState(attackState);
         }
 
         core.transform.forward = Vector3.RotateTowards(core.transform.forward, direction, turnSpeed * Time.deltaTime, 0);

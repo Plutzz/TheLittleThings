@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal.Internal;
 
 public class IdleState : State
 {
-    public float IdleTime = 2f;
+    public float idleTime = 2f;
     [SerializeField] private AnimationClip animClip;
 
     public override void DoEnterLogic()
@@ -17,7 +17,7 @@ public class IdleState : State
     {
         base.CheckTransitions();
 
-        if (true/*stateUptime > animClip.length*/)
+        if (stateUptime > idleTime)
         {
             isComplete = true;
         }
