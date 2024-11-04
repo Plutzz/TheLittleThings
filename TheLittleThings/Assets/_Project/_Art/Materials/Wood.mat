@@ -132,10 +132,10 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColor: {r: 0.5754717, g: 0.38736504, b: 0.26330546, a: 0}
-    - _ShadowColor: {r: 0.3962264, g: 0.30039853, b: 0.26352793, a: 0}
+    - _MainColor: {r: 0.33962262, g: 0.26118475, b: 0.17782128, a: 0}
+    - _ShadowColor: {r: 0.2735849, g: 0.20549682, b: 0.16131185, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 0.5377358, g: 0.42342737, b: 0.3221342, a: 0}
+    - _SpecularColor: {r: 0.3962264, g: 0.34222236, b: 0.28221786, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &853100886604624954
 MonoBehaviour:
