@@ -7,6 +7,7 @@ public class EnemyNavigateJump : State
 {
     [SerializeField] private AnimationClip animClip;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxStateTime = 3f; // Prevent enemy from getting stuck
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckLength = 1f;

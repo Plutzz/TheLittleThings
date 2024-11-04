@@ -667,7 +667,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheckLength: 1
+  groundCheckLength: 2.25
 --- !u!1 &4642775835015641071
 GameObject:
   m_ObjectHideFlags: 0
