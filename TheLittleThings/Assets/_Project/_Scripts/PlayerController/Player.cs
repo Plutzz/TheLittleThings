@@ -51,27 +51,25 @@ public class Player : StateMachineCore
             ResetPlayer();
         }
 
+
         // transitions
-        if (!groundSensor.grounded)
+        if (!groundSensor.grounded && stateMachine.currentState != roll)
         {
-            if (stateMachine.currentState != roll)
-            {
-                stateMachine.SetState(airborne);
-            }
+            stateMachine.SetState(airborne);
 
         }
         else if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
         }
-        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != airborne && stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
         }
         if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             //TurnCheck(xInput);
-        }
+        } else 
 
         //if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         //{
