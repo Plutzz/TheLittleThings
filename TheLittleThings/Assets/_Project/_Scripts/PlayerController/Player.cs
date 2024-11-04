@@ -155,4 +155,20 @@ public class Player : StateMachineCore
         rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
         stateMachine.currentState.DoFixedUpdateBranch(); 
     }
+
+    public void ResetAllTriggers()
+    {
+        animator.ResetTrigger("Jump");
+        animator.ResetTrigger("Walk");
+        animator.ResetTrigger("Roll");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Idle");
+    }
+
+    public void SetTrigger(string _trigger)
+    {
+        ResetAllTriggers();
+        animator.SetTrigger(_trigger);
+    }
+
 }

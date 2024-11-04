@@ -9,7 +9,8 @@ public class PlayerIdle : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        animator.SetTrigger("Idle");
+        player.SetTrigger("Idle");
+        player.SetTrigger("Idle");
         //animator.Play("Idle");
         rb.drag = 4;
     }
