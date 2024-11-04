@@ -69,14 +69,14 @@ public class Player : StateMachineCore
         if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             //TurnCheck(xInput);
-        } else 
+        }
 
         //if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         //{
         //    stateMachine.SetState(attack, true);
         //}
         
-        if (playerInput.ctrlPressedThisFrame)
+        if (stateMachine.currentState != attack && playerInput.ctrlPressedThisFrame)
         {
             stateMachine.SetState(roll);
         }
@@ -155,4 +155,20 @@ public class Player : StateMachineCore
         rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
         stateMachine.currentState.DoFixedUpdateBranch(); 
     }
+
+    public void ResetAllTriggers()
+    {
+        animator.ResetTrigger("Jump");
+        animator.ResetTrigger("Walk");
+        animator.ResetTrigger("Roll");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Idle");
+    }
+
+    public void SetTrigger(string _trigger)
+    {
+        ResetAllTriggers();
+        animator.SetTrigger(_trigger);
+    }
+
 }
