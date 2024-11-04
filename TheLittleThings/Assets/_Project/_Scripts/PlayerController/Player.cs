@@ -69,14 +69,14 @@ public class Player : StateMachineCore
         if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
         {
             //TurnCheck(xInput);
-        } else 
+        }
 
         //if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
         //{
         //    stateMachine.SetState(attack, true);
         //}
         
-        if (playerInput.ctrlPressedThisFrame)
+        if (stateMachine.currentState != attack && playerInput.ctrlPressedThisFrame)
         {
             stateMachine.SetState(roll);
         }
