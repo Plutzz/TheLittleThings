@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Terrain
+  m_Name: Rock
   m_Shader: {fileID: -6465566751694194690, guid: abaeff4eec2e97c4d8a844e32c56d6b0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -100,7 +100,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Float: 1
+    - _Float: 213
     - _FresnelCutoff: 1
     - _FresnelPower: 1
     - _GlossMapScale: 0
@@ -132,10 +132,10 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColor: {r: 0.3207547, g: 0.2308198, b: 0.14070842, a: 0}
-    - _ShadowColor: {r: 0.16862746, g: 0.11372549, b: 0.09019608, a: 0}
+    - _MainColor: {r: 0.3, g: 0.3, b: 0.3, a: 0}
+    - _ShadowColor: {r: 0.25, g: 0.25, b: 0.25, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 0.3490566, g: 0.27514294, b: 0.21569064, a: 0}
+    - _SpecularColor: {r: 0.35, g: 0.35, b: 0.35, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &853100886604624954
 MonoBehaviour:

@@ -37,10 +37,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Depth: 5
+    - _Depth: 2
     - _EdgeThickness: 1
     - _PanningSpeed: 0.1
-    - _PatternThickness: 0.1
+    - _PatternThickness: 0.25
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: 0.15
