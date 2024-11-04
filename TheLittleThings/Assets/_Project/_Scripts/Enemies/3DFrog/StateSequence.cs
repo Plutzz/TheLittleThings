@@ -17,13 +17,14 @@ public class StateSequence : State
     public override void CheckTransitions()
     {
         base.CheckTransitions();
+        Debug.Log(gameObject.name + " Ind: " + currentStateIndex + "Count: " + states.Count);
+
         if (!currentState.isComplete) return;
-
-        currentStateIndex++;
-
         // If we are not on the last state go to the next state
         if (currentStateIndex != states.Count - 1)
         {
+            currentStateIndex++;
+            Debug.Log(gameObject.name + " Changing State to " + states[currentStateIndex]);
             stateMachine.SetState(states[currentStateIndex]);
         }
         // If we are on the last state, mark this state as true

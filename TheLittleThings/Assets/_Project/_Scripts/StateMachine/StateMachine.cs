@@ -18,8 +18,10 @@ public class StateMachine
     /// <param name="_forceReset"</param>
     public void SetState(State _newState, bool _forceReset = false)
     {
+        
         if(currentState != _newState || _forceReset)
         {
+            //Debug.Log("Changing State to " + _newState);
             currentState?.DoExitLogic();
             previousState = currentState;
             currentState = _newState;

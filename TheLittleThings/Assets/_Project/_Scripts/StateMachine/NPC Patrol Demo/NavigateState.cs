@@ -48,7 +48,6 @@ public class NavigateState : State
         base.DoFixedUpdateState();
         direction = (destination.position - core.transform.position);
         direction.y = 0;
-        direction.Normalize();
-        
+        direction.Normalize(); 
     }
 }
