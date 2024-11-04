@@ -20,9 +20,8 @@ public class EnemyProjectile : MonoBehaviour
         Destroy(gameObject, duration);
     }
     void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject == Enemy) return;
         if (collision.gameObject.CompareTag("Player")) {
-            collision.gameObject.GetComponent<PlayerHealth>().TakeDamage(damage);
+            collision.gameObject.GetComponent<PlayerHealth>()?.TakeDamage(damage);
         } 
     }
 }

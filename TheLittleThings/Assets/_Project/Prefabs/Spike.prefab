@@ -33,8 +33,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.52, y: -0.83, z: 1.64}
-  m_LocalScale: {x: 0.23, y: 0.15, z: 0.32}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 0.65217394, z: 1.3913043}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   hitEffect: {fileID: 1038168246061390451, guid: 8b8c8cc6774fb074cb9139cc631b108e, type: 3}
   Enemy: {fileID: 0}
   rb: {fileID: 8348711651137289109}
-  m_Speed: 2
+  m_Speed: 5
   damage: 2
   duration: 10
 --- !u!54 &8348711651137289109
@@ -151,10 +151,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!198 &2386155584189857691
 ParticleSystem:
