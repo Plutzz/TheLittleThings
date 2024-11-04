@@ -1,25 +1,29 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interacting : InteractableBase {
+    public Canvas interactCanvas;
     public override void Interact() {
-
-        Debug.Log("ur mom");
-
+        Debug.Log("E has been pressed.");
     }
 
-    void OnTriggerEnter2D(Collider2D collider) {
-        if(collider.transform.CompareTag("Player")) {
+    void OnTriggerEnter(Collider collider) {
+        if(collider.transform.CompareTag("Player")) {  
+            interactCanvas.enabled = true;
             Interactable = true;
         }
     }
 
-    void OnTriggerExit2D(Collider2D collider) {
+    void OnTriggerExit(Collider collider) {
         if(collider.transform.CompareTag("Player")) {
+            interactCanvas.enabled = false;
             Interactable = false;
         }
     }
+
     void Update() {
         if(Input.GetKeyDown(KeyCode.E)) {
             Interaction = true;
