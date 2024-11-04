@@ -31,6 +31,11 @@ public class EnemyNavigateJump : State
         {
             isComplete = true;
         }
+
+        if (stateUptime > maxStateTime)
+        {
+            isComplete = true;
+        }
     }
 
     public override void DoExitLogic()

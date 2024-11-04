@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationState : State
+public class AnimationFlipState : State
 {
     [SerializeField] private AnimationClip animClip;
-    //[SerializeField] private float chargeTime = 2f;
+    [SerializeField] private AnimationClip nextanimClip;
+    [SerializeField] private Transform toFlip;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Debug.Log("Enter Charge");
         animator.Play(animClip.name);
     }
 
@@ -26,5 +26,12 @@ public class AnimationState : State
         {
             isComplete = true;
         }
+    }
+
+    public override void DoExitLogic()
+    {
+        base.DoExitLogic();
+        toFlip.eulerAngles += 180f * Vector3.up;
+        animator.Play(nextanimClip.name);
     }
 }

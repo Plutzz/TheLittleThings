@@ -12,7 +12,7 @@ public class StateSequence : State
     {
         base.DoEnterLogic();
         currentStateIndex = 0;
-        stateMachine.SetState(states[currentStateIndex]);
+        stateMachine.SetState(states[currentStateIndex], true);
     }
     public override void CheckTransitions()
     {
@@ -25,7 +25,7 @@ public class StateSequence : State
         {
             currentStateIndex++;
             //Debug.Log(gameObject.name + " Changing State to " + states[currentStateIndex]);
-            stateMachine.SetState(states[currentStateIndex]);
+            stateMachine.SetState(states[currentStateIndex], true);
         }
         // If we are on the last state, mark this state as true
         else

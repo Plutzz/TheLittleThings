@@ -40,7 +40,7 @@ public class PlayerAttackManager : MonoBehaviour
 
     public void Update()
     {
-        if (inputManager.attackPressedDownThisFrame)
+        if (inputManager.attackPressedDownThisFrame && player.stateMachine.currentState is not PlayerAirborne3D)
         {
             Attack();
         }
