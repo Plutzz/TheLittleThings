@@ -4,35 +4,65 @@ using UnityEngine;
 
 public class PlayerHoldAttack : State
 {
-    //[SerializeField] private float maxHoldTimer = 2f;
+    [SerializeField] private float maxHoldTimer = 2f;
+    [SerializeField] private float chargeTime = 0f;
 
-    // int minDamage
-    // int maxDamage
-    // int currentDamage
+    private int minDamage = 1;
+    private int maxDamage = 10;
+    private int currentDamage;
 
-    // Create 2 child states: HoldChargeup and HoldDoAttack
-    // To test, put debug statements
+    private bool isHolding = false;
+
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Debug.Log("HoldAttack");
-        // Transition to HoldChargeup
-        // currentDamage = minDamage
+        Debug.Log("Entering HoldAttack State");
+
+        currentDamage = minDamage;
+        chargeTime = 0f;
+
+        SetState(new HoldChargeup(this));
     }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
 
-        // ramp up damage with time
-        // Lerp currentDamage between minDamage and maxDamage to calculate scaling damage
+        chargeTime += Time.deltaTime;
 
+        currentDamage = Mathf.RoundToInt(Mathf.Lerp(minDamage, maxDamage, chargeTime / maxHoldTimer));
 
-        //if(mouse up || stateUptime > maxHoldTimer)
-            //Transition to HoldDoAttack
+        Debug.Log("Charging Damage");
 
-
-        // When HoldDoAttack isComplete == true, mark this state as complete
-
+        if (Input.GetMouseButtonUp(0) || chargeTime >= maxHoldTimer)
+        {
+            SetState(new HoldDoAttack(this, currentDamage));
+        }
     }
+}
+
+public class HoldChargeup : State
+{
+    private PlayerHoldAttack parentState;
+
+    public HoldChargeup(PlayerHoldAttack parent)
+    {
+        parentState = parent;
+    }
+
+   
+}
+
+public class HoldDoAttack : State
+{
+    private PlayerHoldAttack parentState;
+    private int finalDamage;
+
+    public HoldDoAttack(PlayerHoldAttack parent, int damage)
+    {
+        parentState = parent;
+        finalDamage = damage;
+    }
+
+    
 }
