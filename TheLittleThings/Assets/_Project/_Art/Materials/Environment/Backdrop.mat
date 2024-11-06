@@ -7,13 +7,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wood
-  m_Shader: {fileID: -6465566751694194690, guid: abaeff4eec2e97c4d8a844e32c56d6b0, type: 3}
+  m_Name: Backdrop
+  m_Shader: {fileID: -6465566751694194690, guid: ccc8a05e7414e224c8a693ada64c975d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _SHADOWPATTERN_ROUNDEDDIAMOND
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -68,8 +67,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Texture2D:
-        m_Texture: {fileID: 0}
+    - _Triplanar_7daf910e6aa24b9494a0434b1a74a90c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 46adf44db8d553d4a9a614e9a10c22ac, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -100,27 +99,17 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Float: 1
-    - _FresnelCutoff: 1
-    - _FresnelPower: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _MainBlend: 0.5
-    - _MainCutoff: 0.5
     - _Metallic: 0
-    - _MinShadowStrength: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PatternScale: 75
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SHADOWPATTERN: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SpecularBlend: 0.1
-    - _SpecularCutoff: 0.8
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
@@ -129,15 +118,13 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BrightColor: {r: 0.5411765, g: 0.3137255, b: 0.27058825, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DarkColor: {r: 0.427451, g: 0.2901961, b: 0.27450982, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColor: {r: 0.33962262, g: 0.26118475, b: 0.17782128, a: 0}
-    - _ShadowColor: {r: 0.2735849, g: 0.20549682, b: 0.16131185, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 0.3962264, g: 0.34222236, b: 0.28221786, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &853100886604624954
+--- !u!114 &6482647465562123050
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
