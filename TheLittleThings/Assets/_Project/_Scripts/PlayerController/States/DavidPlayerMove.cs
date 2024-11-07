@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DavidPlayerMove : MonoBehaviour
@@ -13,7 +14,6 @@ public class DavidPlayerMove : MonoBehaviour
     public float wallJumpMagnitude = 3f;
     public float downwardForce = 5f;
     public bool wallJump = false;
-    
     private bool onWall = false;
     public bool jumpReady = true; //keeps track of when player touches ground or wall since they can jump on both
     private float wallJumpForce = 0f;

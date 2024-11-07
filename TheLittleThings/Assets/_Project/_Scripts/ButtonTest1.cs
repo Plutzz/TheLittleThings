@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; 
-
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 public class SpearUpgrade : MonoBehaviour
 {
     public Button spearButton; // Assign this in the Unity Editor
