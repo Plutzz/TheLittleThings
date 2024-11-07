@@ -5,21 +5,21 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Interacting : InteractableBase {
-    public Canvas interactCanvas;
-    public override void Interact() {
+    
+        public override void Interact() {
         Debug.Log("E has been pressed.");
     }
 
     void OnTriggerEnter(Collider collider) {
         if(collider.transform.CompareTag("Player")) {  
-            interactCanvas.enabled = true;
+            InteractText.instance?.EnableInteractPrompt();
             Interactable = true;
         }
     }
 
     void OnTriggerExit(Collider collider) {
         if(collider.transform.CompareTag("Player")) {
-            interactCanvas.enabled = false;
+            InteractText.instance?.DisableInteractPrompt();
             Interactable = false;
         }
     }
@@ -35,6 +35,5 @@ public class Interacting : InteractableBase {
             Interact();
         }
     }
-
 
 }

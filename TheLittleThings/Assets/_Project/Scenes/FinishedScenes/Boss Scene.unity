@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 435643606}
   - component: {fileID: 435643608}
   - component: {fileID: 435643607}
+  - component: {fileID: 435643609}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -791,8 +792,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -237, y: -600.8}
-  m_SizeDelta: {x: 95.5, y: 100}
+  m_AnchoredPosition: {x: -226, y: -480}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &435643607
 MonoBehaviour:
@@ -841,8 +842,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.63
-  m_fontSizeBase: 31.63
+  m_fontSize: 37.07
+  m_fontSizeBase: 37.07
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -891,6 +892,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435643605}
   m_CullTransparentMesh: 1
+--- !u!114 &435643609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435643605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f832a3dfbe7e14479780bf697d332dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: {fileID: 435643607}
+  enabledY: 100
+  disabledY: -100
+  tweenDuration: 1
+  ease: 11
 --- !u!1 &516429558
 GameObject:
   m_ObjectHideFlags: 3
@@ -2721,7 +2739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Interaction: 0
   Interactable: 0
-  interactCanvas: {fileID: 0}
 --- !u!65 &1900238758
 BoxCollider:
   m_ObjectHideFlags: 0
