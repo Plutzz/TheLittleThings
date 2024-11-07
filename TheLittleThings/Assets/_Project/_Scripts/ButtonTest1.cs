@@ -6,7 +6,7 @@ using TMPro;
 public class SpearUpgrade : MonoBehaviour
 {
     public Button spearButton; // Assign this in the Unity Editor
-    public Text spearButtonText; // The text on the button to show the progress
+    public TextMeshProUGUI spearButtonText; // The text on the button to show the progress
     private int currentLevel = 0; // Start at 0 upgrades
     private int maxLevel = 3; // Max upgrades is 3
 

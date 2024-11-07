@@ -734,7 +734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spearButton: {fileID: 1567663463}
-  spearButtonText: {fileID: 0}
+  spearButtonText: {fileID: 1534905437}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
