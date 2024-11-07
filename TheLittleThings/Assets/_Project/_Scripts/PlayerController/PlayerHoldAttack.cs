@@ -7,6 +7,9 @@ public class PlayerHoldAttack : State
     [SerializeField] private float maxHoldTimer = 2f;
     [SerializeField] private float chargeTime = 0f;
 
+    [SerializeField] private State holdChargeup;
+    [SerializeField] private HoldDoAttack holdAttack;
+
     private int minDamage = 1;
     private int maxDamage = 10;
     private int currentDamage;
@@ -21,7 +24,7 @@ public class PlayerHoldAttack : State
         currentDamage = minDamage;
         chargeTime = 0f;
 
-        SetState(new HoldChargeup(this));
+        SetState(holdChargeup);
     }
 
     public override void DoUpdateState()
@@ -36,33 +39,9 @@ public class PlayerHoldAttack : State
 
         if (Input.GetMouseButtonUp(0) || chargeTime >= maxHoldTimer)
         {
-            SetState(new HoldDoAttack(this, currentDamage));
+            holdAttack.damage = currentDamage;
+            SetState(holdAttack);
         }
     }
 }
 
-public class HoldChargeup : State
-{
-    private PlayerHoldAttack parentState;
-
-    public HoldChargeup(PlayerHoldAttack parent)
-    {
-        parentState = parent;
-    }
-
-   
-}
-
-public class HoldDoAttack : State
-{
-    private PlayerHoldAttack parentState;
-    private int finalDamage;
-
-    public HoldDoAttack(PlayerHoldAttack parent, int damage)
-    {
-        parentState = parent;
-        finalDamage = damage;
-    }
-
-    
-}
