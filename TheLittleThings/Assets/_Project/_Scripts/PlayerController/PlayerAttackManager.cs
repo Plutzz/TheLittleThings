@@ -15,8 +15,9 @@ public class PlayerAttackManager : MonoBehaviour
     private int comboCounter;
 
     [Header("Attacks")]
-    [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float attackBufferWindow = 0.2f;
+    [SerializeField] private float normalizedTime = 1f;
+    private float attackCooldown = 0.5f;
     private bool bufferedAttack;
     private float lastBufferedAttack;
     private float lastAttackTime;
@@ -74,6 +75,7 @@ public class PlayerAttackManager : MonoBehaviour
                 attackHitbox.damage = combo[comboCounter].damage;
                 attackHitbox.knockback = combo[comboCounter].knockback;
                 player.attack.comboAttack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
+                attackCooldown = combo[comboCounter].cooldownAfterAttack;
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 player.stateMachine.SetState(player.attack, true);
 
@@ -104,9 +106,13 @@ public class PlayerAttackManager : MonoBehaviour
 
     }
 
-    void ExitAttack()
+    private void ExitAttack()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) return; 
+        
+        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
+        
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > normalizedTime)
         {
             Invoke("IncompleteCombo", continueComboTimer);
 
@@ -114,14 +120,14 @@ public class PlayerAttackManager : MonoBehaviour
         }
     }
 
-    void EndCombo()
+    private void EndCombo()
     {
         comboCounter = 0;
         lastComboEnd = lastAttackTime;
         FinalAttack = false;
     }
 
-    void IncompleteCombo()
+    private void IncompleteCombo()
     {
         FinalAttack = false;
         comboCounter = 0;

@@ -21,7 +21,7 @@ public class PlayerComboAttack : State
     [HideInInspector] public float timeBeforeHitboxActive;
     public override void DoEnterLogic()
     {
-        Debug.Log("Learn combo");
+        Debug.Log("Learn combo" + attackManager.FinalAttack);
         base.DoEnterLogic();
         isComplete = false;
         timer = attackTime;
