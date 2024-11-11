@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class JumpToPoint : State
 {
-    [SerializeField] private Rigidbody target;
+    private Rigidbody target;   // Player grabbed from Frog file
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private float displacementOffset;
     [SerializeField] private float predictionAmount;
@@ -14,7 +14,6 @@ public class JumpToPoint : State
     [SerializeField] private float turnSpeed = 5;
     [SerializeField] private float groundCheckLength = 2.25f;
     [SerializeField] private LayerMask groundLayer;
-
     [SerializeField] private AnimationClip animClip;
 
     private Vector3 direction;
@@ -22,6 +21,7 @@ public class JumpToPoint : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         rb.useGravity = false;
         Vector3 distanceVector = target.position + (Vector3.ClampMagnitude(target.velocity, playerStats.MaxSpeed) * predictionAmount) - transform.position;
         float displacement = Vector3.ProjectOnPlane(distanceVector, Vector3.up).magnitude - displacementOffset;

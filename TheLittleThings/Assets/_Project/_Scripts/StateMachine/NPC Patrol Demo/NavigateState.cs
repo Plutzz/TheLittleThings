@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class NavigateState : State
 {
-    [SerializeField] private Transform destination;
+    private Transform destination;
 
     public float speed;
     public float turnSpeed;
@@ -21,6 +21,7 @@ public class NavigateState : State
     {
         base.DoEnterLogic();
         animator.Play(animClip.name);
+        destination = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     public override void DoExitLogic()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class TurnTowardsState : State
 {
     
-    [SerializeField] private Transform target;
+    private Transform target;
     [SerializeField] private bool flipDirection;
     [SerializeField] private float threshold = 1f;
     [SerializeField] private float turnSpeed = 5;
@@ -13,6 +13,7 @@ public class TurnTowardsState : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         direction = (target.position - core.transform.position);
         direction.y = 0;
         if(flipDirection)

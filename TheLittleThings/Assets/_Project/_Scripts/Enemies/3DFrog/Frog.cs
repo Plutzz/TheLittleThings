@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
 
-public class Wolf : StateMachineCore
+public class Frog : StateMachineCore
 {
     [SerializeField] private State idleState;
     [SerializeField] private EnemyChooseRandom attack;
