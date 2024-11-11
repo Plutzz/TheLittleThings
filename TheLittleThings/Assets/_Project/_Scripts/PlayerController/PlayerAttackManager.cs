@@ -36,6 +36,7 @@ public class PlayerAttackManager : MonoBehaviour
         attackHitbox = GetComponentInChildren<PlayerAttackHitbox>(true);
         //player = GetComponent<Player>();
         //inputManager = GetComponent<InputManager>();
+        
     }
 
     public void Update()
