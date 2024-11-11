@@ -7,12 +7,13 @@ public class Wolf : StateMachineCore
 {
     [SerializeField] private State idleState;
     [SerializeField] private EnemyChooseRandom attack;
+    [SerializeField] private State initialState;
 
     // Start is called before the first frame update
     void Start()
     {
         SetupInstances();
-        stateMachine.SetState(idleState);
+        stateMachine.SetState(initialState);
     }
 
     // Update is called once per frame
@@ -30,7 +31,12 @@ public class Wolf : StateMachineCore
             {
                 stateMachine.SetState(idleState);
             }
+            else if (stateMachine.currentState == initialState)
+            {
+                stateMachine.SetState(idleState);
+            }
         }
+        
     }
 
 

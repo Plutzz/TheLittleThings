@@ -6,28 +6,33 @@ using UnityEngine;
 public class EnemyNavigateJump : State
 {
     [SerializeField] private AnimationClip animClip;
-    public Transform target;
-    public float speed = 5f;
-    public float arriveThreshold = 2f;
-
-    private float destination;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxStateTime = 3f; // Prevent enemy from getting stuck
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckLength = 1f;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        destination = target.position.x;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(transform.forward * speed, ForceMode.Impulse);
         //animator.Play(animClip.name);
     }
-
+    public void Update()
+    {
+        Debug.DrawRay(transform.position, Vector3.down * groundCheckLength, Color.red);
+    }
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        Vector3 horizontalDist = rb.position - target.position;
-        horizontalDist.y = 0;
-        rb.velocity = new Vector3(0, rb.velocity.y, 0) + horizontalDist.normalized;
+        Debug.DrawRay(transform.position, Vector3.down * groundCheckLength, Color.red);
+        if (Physics.Raycast(transform.position, Vector3.down, groundCheckLength, groundLayer) && rb.velocity.y < -0.1f)
+        {
+            isComplete = true;
+        }
 
-        core.transform.forward = horizontalDist.normalized;
-
-        if (Mathf.Abs(horizontalDist.sqrMagnitude) < arriveThreshold * arriveThreshold)
+        if (stateUptime > maxStateTime)
         {
             isComplete = true;
         }

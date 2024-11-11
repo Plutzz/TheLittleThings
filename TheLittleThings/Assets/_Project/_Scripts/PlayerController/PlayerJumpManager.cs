@@ -73,6 +73,8 @@ public class PlayerJumpManager : MonoBehaviour
     void AttemptJump()
     {
         Debug.Log("Attempt Jump");
+        if (!(player.stateMachine.currentState is PlayerMove3D || player.stateMachine.currentState is PlayerIdle)) return;
+
         if (framesSinceOnGround < FrameBufferNum)
         {
             if(groundSensor.grounded)

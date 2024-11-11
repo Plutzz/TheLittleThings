@@ -15,7 +15,7 @@ public class PlayerProjectile : MonoBehaviour
 
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
+    void OnCollisionEnter(Collision collision) {
         GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);
         Destroy(gameObject);

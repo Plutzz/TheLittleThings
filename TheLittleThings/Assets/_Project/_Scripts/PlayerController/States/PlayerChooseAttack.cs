@@ -14,6 +14,7 @@ public class PlayerChooseAttack : State
         Debug.Log("Hello");
         base.DoEnterLogic();
         stateMachine.SetState(dummyState);
+        rb.velocity = Vector3.zero;
     }
 
     public override void DoUpdateState()
