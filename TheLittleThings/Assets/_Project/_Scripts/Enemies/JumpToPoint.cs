@@ -28,6 +28,7 @@ public class JumpToPoint : State
         v0 = Mathf.Sqrt(displacement * gravity * 2);
         Debug.Log("Displacement " + displacement + " V0 " + v0);
         rb.velocity = v0 * Vector3.ProjectOnPlane(distanceVector, Vector3.up).normalized / 2 + v0 * transform.up / 2;
+        animator.StartPlayback();
         animator.playbackTime = 0;
         animator.speed = 0;
     }
@@ -72,6 +73,7 @@ public class JumpToPoint : State
         base.DoExitLogic();
         rb.velocity = Vector3.zero;
         rb.useGravity = true;
+        animator.StopPlayback();
         animator.speed = 1;
     }
 
