@@ -23,7 +23,7 @@ public class MovementUpgrade : MonoBehaviour
 
     void OnMovementButtonClick()
     {
-=        if (currentLevel < maxLevel)
+        if (currentLevel < maxLevel)
         {
             currentLevel++;
             UpdateButtonText();
