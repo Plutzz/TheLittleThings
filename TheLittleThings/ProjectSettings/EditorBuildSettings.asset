@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Project/Scenes/Ben Player Controller.unity
     guid: b062f4bf84815dd40924b8584c1966f3
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/FinishedScenes/Village.unity
     guid: 8eab07927ae687348a27729db136ef34
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/FinishedScenes/Chase.unity
     guid: 1563f9d963144d44f8334b2feaeafe28
   - enabled: 1
@@ -29,4 +29,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/FinishedScenes/3D Map.unity
     guid: ffccebc5c97deca47b58e384652e5de7
+  - enabled: 1
+    path: Assets/_Project/Scenes/FinishedScenes/Village Scene.unity
+    guid: 0747540f02a17b84e9ef52ee14cdee90
+  - enabled: 1
+    path: Assets/_Project/Scenes/FinishedScenes/VillageMap.unity
+    guid: c5196398906c36f49995527e93f5e74c
   m_configObjects: {}
