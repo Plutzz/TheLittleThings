@@ -24,7 +24,7 @@ MonoBehaviour:
   JumpFrameBufferAmount: 7
   FallSpeedLimit: 50
   RollSpeed: 15
-  RollDuration: 0.7
+  RollDuration: 0.5
   RollDrag: 0
   Damage: 1
   AttackSpeedMult: 4

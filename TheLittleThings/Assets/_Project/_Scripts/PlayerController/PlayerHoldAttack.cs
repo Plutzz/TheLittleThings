@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHoldAttack : State
 {
-    //[SerializeField] private float maxHoldTimer = 2f;
+    // [SerializeField] private float maxHoldTimer = 2f;
 
     // int minDamage
     // int maxDamage

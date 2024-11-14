@@ -24,6 +24,8 @@ public class PlayerMove3D : State
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        player.animator.SetBool("Sprint", false);
+        animator.Play("Walk");
     }
 
     public override void DoUpdateState()
