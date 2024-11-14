@@ -62,7 +62,6 @@ void raymarch_float(float3 rayOrigin, float3 rayDirection, float stepCount, floa
     objectPos = float3(0, 0, 0);
     objectNormal = float3(0, 0, 0);
     hit = 0;
-    
 }
 
 void raymarchvolume_float(float3 rayOrigin, float3 rayDirection, float stepCount, float stepSize, float densityScale,
@@ -78,7 +77,6 @@ void raymarchvolume_float(float3 rayOrigin, float3 rayDirection, float stepCount
         rayOrigin += (rayDirection * stepSize);
 
         float3 samplePos = rayOrigin + 0.5;
-        
         float sampledDensity = tex3D(volumeTex, samplePos).r;
         density += sampledDensity * densityScale;
 
@@ -111,22 +109,23 @@ void raymarchvolume_half(half3 rayOrigin, half3 rayDirection, half stepCount, ha
     for (int i = 0; i < stepCount; i++) {
         rayOrigin += (rayDirection * stepSize);
 
-        float3 samplePos = rayOrigin + 0.5;
-        
-        float sampledDensity = tex3D(volumeTex, samplePos).r;
+        half3 samplePos = rayOrigin + 0.5;
+        half sampledDensity = tex3D(volumeTex, samplePos).r;
+        //FBM3D_float(samplePos, 6, 0.1, sampledDensity);
         density += sampledDensity * densityScale;
 
         // Light loop
-        float3 lightRayOrigin = samplePos;
+        half3 lightRayOrigin = samplePos;
         for (int j = 0; j < numLightSteps; j++)
         {
             lightRayOrigin += lightDirection * lightStepSize;
-            float lightDensity = tex3D(volumeTex, lightRayOrigin).r;
+            half lightDensity = tex3D(volumeTex, lightRayOrigin).r;
+            //FBM3D_float(lightRayOrigin, 6, 0.1, lightDensity);
             lightAccumulation += lightDensity * densityScale;
         }
 
-        float lightTransmission = exp(-lightAccumulation);
-        float shadow = darknessThreshold + lightTransmission * (1 - darknessThreshold);
+        half lightTransmission = exp(-lightAccumulation);
+        half shadow = darknessThreshold + lightTransmission * (1 - darknessThreshold);
         finalLight += density * transmittance * shadow;
         transmittance *= exp(-density * lightAbsorb);
     }
