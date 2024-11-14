@@ -1,0 +1,28 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+RWTexture2D<float4> Result;
+
+int width;
+int height;
+int divisor;
+
+int isInsideCircle(float2 center, float radius, float2 fragPoint)
+{
+    return sign(distance(center, fragPoint) - radius);
+}
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // TODO: insert actual code here!
+    float divisorF = divisor;
+    Result[id.xy] = float4(
+        id.x & id.y,
+        (id.x & (width/divisor - 1))/(width/divisor - 1.0),
+        (id.y & (width/divisor - 1))/(width/divisor - 1.0),
+        isInsideCircle(float2(width,height)/2, 128, id.xy)
+        );
+}
