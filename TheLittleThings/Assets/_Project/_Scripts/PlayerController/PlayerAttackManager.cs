@@ -21,6 +21,7 @@ public class PlayerAttackManager : MonoBehaviour
     private bool bufferedAttack;
     private float lastBufferedAttack;
     private float lastAttackTime;
+    public float attackLength {get; private set;}
     public GameObject AttackPoint;
     public bool FinalAttack;
 
@@ -76,11 +77,13 @@ public class PlayerAttackManager : MonoBehaviour
                 attackHitbox.knockback = combo[comboCounter].knockback;
                 player.attack.comboAttack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
                 attackCooldown = combo[comboCounter].cooldownAfterAttack;
+                attackLength = combo[comboCounter].attackLength;
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 player.stateMachine.SetState(player.attack, true);
 
 
-                anim.Play("Attack", 0, 0);
+                // anim.Play("Attack", 0, 0);
+                
                 comboCounter++;
                 if (comboCounter == combo.Count - 1)
                 {
@@ -110,7 +113,6 @@ public class PlayerAttackManager : MonoBehaviour
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) return; 
         
-        Debug.Log(anim.GetCurrentAnimatorStateInfo(0).normalizedTime);
         
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > normalizedTime)
         {

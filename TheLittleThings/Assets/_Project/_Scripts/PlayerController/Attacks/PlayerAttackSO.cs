@@ -9,5 +9,6 @@ public class PlayerAttackSO : ScriptableObject
     public int damage;
     public float knockback;
     public float timeBeforeHitboxActive;
+    public float attackLength = 1f;
     public float cooldownAfterAttack = 1f;
 }
