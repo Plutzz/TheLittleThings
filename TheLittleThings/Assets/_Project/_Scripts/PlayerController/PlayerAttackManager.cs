@@ -117,7 +117,6 @@ public class PlayerAttackManager : MonoBehaviour
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > normalizedTime)
         {
             Invoke("IncompleteCombo", continueComboTimer);
-
             player.attack.comboAttack.SetIsComplete(true);
         }
     }

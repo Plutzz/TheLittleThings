@@ -16,3 +16,5 @@ MonoBehaviour:
   damage: 2
   knockback: 1
   timeBeforeHitboxActive: 0.3
+  attackLength: 2
+  cooldownAfterAttack: 1

@@ -31,7 +31,6 @@ public class PlayerComboAttack : State
         // Set animation to length of attack
         
         animator.StartPlayback();
-        animator.playbackTime = 0;
         animator.speed = 0;
         
         if (attackManager.FinalAttack)
