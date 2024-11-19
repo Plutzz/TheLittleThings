@@ -18,3 +18,4 @@ MonoBehaviour:
   timeBeforeHitboxActive: 0.3
   attackLength: 0.5
   cooldownAfterAttack: 1
+  moveAmount: 15

@@ -1,19 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerChooseAttack : State
 {
-    [SerializeField] private float holdTime = 0.25f;
     [SerializeField] public PlayerComboAttack comboAttack;
     [SerializeField] private PlayerHoldAttack holdAttack;
-    [SerializeField] private DummyState dummyState;
+    [SerializeField] public float minChargeupTime, maxChargeupTime;
+    [FormerlySerializedAs("dummyState")] [SerializeField] private ChargeupAttackState chargeupAttackState;
 
     public override void DoEnterLogic()
     {
         Debug.Log("Hello");
         base.DoEnterLogic();
-        stateMachine.SetState(dummyState);
+        stateMachine.SetState(chargeupAttackState);
         rb.velocity = Vector3.zero;
     }
 
@@ -27,23 +28,24 @@ public class PlayerChooseAttack : State
             isComplete = true;
         }
 
-        if (currentState != dummyState) return;
+        if (currentState != chargeupAttackState) return;
         
         if (Input.GetMouseButtonUp(0))
         {
             //this code is ran the first time the mouse button is up
-            if (holdTime>stateUptime)
+            if (minChargeupTime>stateUptime)
             {
                 stateMachine.SetState(comboAttack);
-                //transision to combo attack
+            }
+            else
+            {
+                stateMachine.SetState(holdAttack);
             }
         }
-        if (holdTime < stateUptime)
+        if (maxChargeupTime < stateUptime)
         {
             stateMachine.SetState(holdAttack);
-            //tansition to hold attack
         }
-
     }
     
 }

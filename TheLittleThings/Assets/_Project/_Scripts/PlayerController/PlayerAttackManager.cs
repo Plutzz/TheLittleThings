@@ -76,6 +76,7 @@ public class PlayerAttackManager : MonoBehaviour
                 attackHitbox.damage = combo[comboCounter].damage;
                 attackHitbox.knockback = combo[comboCounter].knockback;
                 player.attack.comboAttack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
+                player.attack.comboAttack.attackMoveAmount = combo[comboCounter].moveAmount;
                 attackCooldown = combo[comboCounter].cooldownAfterAttack;
                 attackLength = combo[comboCounter].attackLength;
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;

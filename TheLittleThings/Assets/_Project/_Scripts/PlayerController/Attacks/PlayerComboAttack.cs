@@ -6,8 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class PlayerComboAttack : State
 {
     [SerializeField] private float attackTime = 1f;
-    [SerializeField] private float attackMoveAmount = 0.5f;
-    [SerializeField] private float finalAttackMoveAmount = 50f;
+    public float attackMoveAmount = 0.5f;
     [SerializeField] private float groundDrag = 2f;
     [SerializeField] private float rotationSpeed = 1f;
     [SerializeField] private Transform playerObj;
@@ -33,14 +32,7 @@ public class PlayerComboAttack : State
         animator.StartPlayback();
         animator.speed = 0;
         
-        if (attackManager.FinalAttack)
-        {
-            rb.AddForce(playerObj.forward * finalAttackMoveAmount, ForceMode.Impulse);
-        }
-        else
-        {
-            rb.AddForce(playerObj.forward * attackMoveAmount, ForceMode.Impulse);
-        }
+        rb.AddForce(playerObj.forward * attackMoveAmount, ForceMode.Impulse);
     }
 
     public override void DoExitLogic()
