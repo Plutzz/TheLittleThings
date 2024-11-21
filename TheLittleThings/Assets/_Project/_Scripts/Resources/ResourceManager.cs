@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [CreateAssetMenu(menuName = "Resource Manager")]
 public class ResourceManager : ScriptableSingleton<ResourceManager>
 {
@@ -102,3 +102,4 @@ public class ResourceManager : ScriptableSingleton<ResourceManager>
         return 0;
     }
 }
+#endif

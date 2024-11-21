@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [Serializable]
 public struct Resource : IEqualityComparer<Resource>
 {
@@ -104,3 +104,4 @@ public struct Resource : IEqualityComparer<Resource>
 public class InvalidResourceOperation : Exception
 {
 }
+#endif

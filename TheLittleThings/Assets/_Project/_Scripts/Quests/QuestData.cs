@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [CreateAssetMenu(menuName = "Quest")]
 public class QuestData : ScriptableObject
 {
@@ -53,3 +53,4 @@ public class QuestData : ScriptableObject
     /// </summary>
     public bool IsActive;
 }
+#endif

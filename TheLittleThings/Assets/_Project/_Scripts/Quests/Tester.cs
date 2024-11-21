@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+#if UNITY_EDITOR
 [ExecuteInEditMode]
 public class Tester : MonoBehaviour
 {
@@ -30,3 +30,4 @@ public class Tester : MonoBehaviour
         }
     }
 }
+#endif

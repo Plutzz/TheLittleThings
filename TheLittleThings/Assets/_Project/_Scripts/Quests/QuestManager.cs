@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
-
+#if UNITY_EDITOR
 [CreateAssetMenu(menuName = "Quest Manager")]
 public class QuestManager : ScriptableSingleton<QuestManager>
 {
@@ -149,3 +147,4 @@ public class QuestManager : ScriptableSingleton<QuestManager>
         }
     }
 }
+#endif
