@@ -218,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackTime: 1
   attackMoveAmount: 0
-  groundDrag: 2
+  groundDrag: 10
   rotationSpeed: 2
   playerObj: {fileID: 8676626723179518780}
   orientation: {fileID: 1248634803902626960}
@@ -318,6 +318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7864a011f02b1b4e9c2322c2beeaf92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startAnimationTime: 0.1
+  attackSpeed: 1
 --- !u!1 &2434682862123665328
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,10 +452,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23bea4cac79050489e346606d54d7be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdTime: 1
   comboAttack: {fileID: 3262501301248212334}
   holdAttack: {fileID: 8995895761047869593}
-  dummyState: {fileID: 8086221922116520183}
+  minChargeupTime: 0.5
+  maxChargeupTime: 3
+  chargeupAttackState: {fileID: 8086221922116520183}
 --- !u!1 &4552250333619339351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +1064,7 @@ GameObject:
   - component: {fileID: 1929722023423204261}
   - component: {fileID: 8086221922116520183}
   m_Layer: 7
-  m_Name: DummyState
+  m_Name: ChargeupState
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1094,6 +1097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f2090454f5b3b47bd534c9064e5594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chooseAttack: {fileID: 2806229862035841856}
+  stopAnimationTime: 0.1
 --- !u!1001 &417654482547166807
 PrefabInstance:
   m_ObjectHideFlags: 0
