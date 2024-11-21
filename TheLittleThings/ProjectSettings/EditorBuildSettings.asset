@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/FinishedScenes/Village.unity
     guid: 8eab07927ae687348a27729db136ef34
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Project/Scenes/FinishedScenes/Chase.unity
     guid: 1563f9d963144d44f8334b2feaeafe28
   - enabled: 1

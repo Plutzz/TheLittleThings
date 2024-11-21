@@ -15,11 +15,13 @@ public class PlayerAttackManager : MonoBehaviour
     private int comboCounter;
 
     [Header("Attacks")]
-    [SerializeField] private float attackCooldown = 0.5f;
     [SerializeField] private float attackBufferWindow = 0.2f;
+    [SerializeField] private float normalizedTime = 1f;
+    private float attackCooldown = 0.5f;
     private bool bufferedAttack;
     private float lastBufferedAttack;
     private float lastAttackTime;
+    public float attackLength {get; private set;}
     public GameObject AttackPoint;
     public bool FinalAttack;
 
@@ -36,6 +38,7 @@ public class PlayerAttackManager : MonoBehaviour
         attackHitbox = GetComponentInChildren<PlayerAttackHitbox>(true);
         //player = GetComponent<Player>();
         //inputManager = GetComponent<InputManager>();
+        
     }
 
     public void Update()
@@ -73,11 +76,15 @@ public class PlayerAttackManager : MonoBehaviour
                 attackHitbox.damage = combo[comboCounter].damage;
                 attackHitbox.knockback = combo[comboCounter].knockback;
                 player.attack.comboAttack.timeBeforeHitboxActive = combo[comboCounter].timeBeforeHitboxActive;
+                player.attack.comboAttack.attackMoveAmount = combo[comboCounter].moveAmount;
+                attackCooldown = combo[comboCounter].cooldownAfterAttack;
+                attackLength = combo[comboCounter].attackLength;
                 anim.runtimeAnimatorController = combo[comboCounter].animatorOV;
                 player.stateMachine.SetState(player.attack, true);
 
 
-                anim.Play("Attack", 0, 0);
+                // anim.Play("Attack", 0, 0);
+                
                 comboCounter++;
                 if (comboCounter == combo.Count - 1)
                 {
@@ -103,24 +110,26 @@ public class PlayerAttackManager : MonoBehaviour
 
     }
 
-    void ExitAttack()
+    private void ExitAttack()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.9f && anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) return; 
+        
+        
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime > normalizedTime)
         {
             Invoke("IncompleteCombo", continueComboTimer);
-
             player.attack.comboAttack.SetIsComplete(true);
         }
     }
 
-    void EndCombo()
+    private void EndCombo()
     {
         comboCounter = 0;
         lastComboEnd = lastAttackTime;
         FinalAttack = false;
     }
 
-    void IncompleteCombo()
+    private void IncompleteCombo()
     {
         FinalAttack = false;
         comboCounter = 0;

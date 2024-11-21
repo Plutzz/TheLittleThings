@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   MaxSpeed: 5
+  SprintSpeed: 10
   GroundAcceleration: 100
   AirAcceleration: 40
   CurrentGravity: 25
@@ -23,7 +24,7 @@ MonoBehaviour:
   JumpFrameBufferAmount: 7
   FallSpeedLimit: 50
   RollSpeed: 15
-  RollDuration: 0.7
+  RollDuration: 0.5
   RollDrag: 0
   Damage: 1
   AttackSpeedMult: 4
