@@ -30,7 +30,7 @@ public class PlayerChooseAttack : State
 
         if (currentState != chargeupAttackState) return;
         
-        if (Input.GetMouseButtonUp(0))
+        if (!Input.GetMouseButton(0))
         {
             //this code is ran the first time the mouse button is up
             if (minChargeupTime>stateUptime)
