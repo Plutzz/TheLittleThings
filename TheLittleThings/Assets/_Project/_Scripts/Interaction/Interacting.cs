@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Interacting : InteractableBase {
-    
-        public override void Interact() {
-        Debug.Log("E has been pressed.");
-    }
+
+    public static Boolean interacted = false;
+    // public override void Interact() {
+    //     Debug.Log("E has been pressed.");
+    // }
 
     void OnTriggerEnter(Collider collider) {
         if(collider.transform.CompareTag("Player")) {  
@@ -32,7 +33,10 @@ public class Interacting : InteractableBase {
         }
 
         if(Interaction && Interactable) {
-            Interact();
+            // Interact();
+            interacted = true;
+        } else {
+            interacted = false;
         }
     }
 
