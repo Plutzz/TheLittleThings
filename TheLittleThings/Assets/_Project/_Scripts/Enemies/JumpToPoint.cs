@@ -25,9 +25,10 @@ public class JumpToPoint : State
         rb.useGravity = false;
         Vector3 distanceVector = target.position + (Vector3.ClampMagnitude(target.velocity, playerStats.MaxSpeed) * predictionAmount) - transform.position;
         float displacement = Vector3.ProjectOnPlane(distanceVector, Vector3.up).magnitude - displacementOffset;
-        v0 = Mathf.Sqrt(displacement * gravity * 2);
+        v0 = Mathf.Sqrt(Mathf.Abs(displacement) * gravity * 2);
         Debug.Log("Displacement " + displacement + " V0 " + v0);
         rb.velocity = v0 * Vector3.ProjectOnPlane(distanceVector, Vector3.up).normalized / 2 + v0 * transform.up / 2;
+        animator.Play(animClip.name);
         animator.StartPlayback();
         animator.playbackTime = 0;
         animator.speed = 0;
