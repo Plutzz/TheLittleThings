@@ -55,3 +55,18 @@ MonoBehaviour:
   m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &4759543499317858701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b267e04db00f240827d30068dc0328, type: 3}
+  m_Name: Desaturate
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  myMaterial: {fileID: 2100000, guid: d0eaabd6c5b90e24581c5043d06ea00d, type: 2}
+  myShader: {fileID: 0}

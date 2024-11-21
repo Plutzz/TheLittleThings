@@ -44,6 +44,7 @@ public class ComputeShaderTest : MonoBehaviour
         computeShader.Dispatch(0, renderTexture.width / 8, renderTexture.height / 8, 1);
         
         material.SetTexture("_Tex", renderTexture);
+        AssetDatabase.CreateAsset(renderTexture, "Assets/_Project/_Art/Shaders/Compute/generated.asset");
     }
 
     [ContextMenu("Create 3D Texture")]
