@@ -28,6 +28,8 @@ public class Player : StateMachineCore
     public bool isFacingRight = true;
 
     [SerializeField] private PlayerAttackManager attackManager;
+    [Header("Debug")] 
+    [SerializeField] private Vector3 spawnPos;
 
     // Start is called before the first frame update
     void Awake()
@@ -124,7 +126,7 @@ public class Player : StateMachineCore
     {
         stateMachine.SetState(idle);
         rb.velocity = Vector3.zero;
-        rb.transform.position = new Vector3(0, -3, 0);
+        rb.transform.position = spawnPos;
 
         playerHP?.ResetHP();
     }
