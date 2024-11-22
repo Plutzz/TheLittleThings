@@ -9,5 +9,5 @@ AnimatorOverrideController:
   m_Name: Slash1
   m_Controller: {fileID: 9100000, guid: 51f6a0905ee96fc4595cafd7933b1059, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: -3810515847330519847, guid: 987760f2d508d9f4d95fe2b20ef92a9b, type: 3}
-    m_OverrideClip: {fileID: -3810515847330519847, guid: 987760f2d508d9f4d95fe2b20ef92a9b, type: 3}
+  - m_OriginalClip: {fileID: -3810515847330519847, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
+    m_OverrideClip: {fileID: -3810515847330519847, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
