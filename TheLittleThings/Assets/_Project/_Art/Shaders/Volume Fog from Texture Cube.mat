@@ -80,15 +80,15 @@ Material:
     - Vector1_FADB2BB0: 0
     - Vector1_FDB42E7D: 0.18
     - _2D_Noise_Power: 2.17
-    - _2D_Noise_Scale: 0.007
+    - _2D_Noise_Scale: 0.04
     - _Bounds_Fade: 1.28
     - _Float: 0
-    - _Multiplier: 4.13
+    - _Multiplier: 1.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Randomness: 0
     - _Samples: 80
-    - _Size: 17
+    - _Size: 10.71
     - _Threshold: -0.79
     - _Y_to_Size_Ratio: 1.25
     - _Y_to_size_ratio: 1
@@ -96,6 +96,6 @@ Material:
     - Color_69AD1AD: {r: 0.5283019, g: 0.15699537, b: 0.36548436, a: 0}
     - Vector3_478B0511: {r: 37.64, g: 6.1, b: 0, a: 0}
     - Vector4_52CE31FB: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.7122642, g: 0.94311327, b: 1, a: 0}
+    - _Color: {r: 0.42114633, g: 0.8660666, b: 0.9811321, a: 0}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
