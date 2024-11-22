@@ -557,6 +557,7 @@ MonoBehaviour:
   rotationSpeed: 10
   zoom: 2
   cameraPoints: {fileID: 11400000, guid: 9c266700406be814384bf3af2c3d02a8, type: 2}
+  SceneName: Boss Scene
   text: {fileID: 26717663}
 --- !u!1 &1125137577
 GameObject:

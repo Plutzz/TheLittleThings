@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
     public float rotationSpeed = 10f;
     public float zoom = 2f;
     public CameraPoints cameraPoints;
+    public string SceneName;
 
     private List<CameraPlacement> cameraWaypoints;
     private int currentCameraPoint;
@@ -65,7 +66,7 @@ public class CameraMovement : MonoBehaviour
 
         if (text.activeInHierarchy && Input.GetKeyDown(KeyCode.E))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneTransitionManager.Instance.LoadScene(SceneName);
         }
     }
 

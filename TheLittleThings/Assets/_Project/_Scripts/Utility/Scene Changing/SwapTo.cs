@@ -15,6 +15,6 @@ public class SwapTo : MonoBehaviour
     // Update is called once per frame
     public void SwapToScene()
     {
-        SceneManager.LoadScene(SceneToSwapTo);
+        SceneTransitionManager.Instance.LoadScene(SceneToSwapTo);
     }
 }
