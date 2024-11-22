@@ -49,7 +49,7 @@ public class DialogueManager : Singleton<DialogueManager>
     {
         //Debug.Log(inputManager == null);
         //Debug.Log("Pressed: " + inputManager.NextDialoguePressedThisFrame);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             DisplayNextSentence();
         }
