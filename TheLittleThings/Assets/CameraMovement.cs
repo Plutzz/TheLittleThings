@@ -14,6 +14,8 @@ public class CameraMovement : MonoBehaviour
     private List<CameraPlacement> cameraWaypoints;
     private int currentCameraPoint;
 
+    private bool isMoving = false;
+
     public GameObject text;
     void Start()
     {
@@ -24,10 +26,10 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
-        
+
         if (cameraWaypoints.Count > 0)
         {
-            if (Input.GetButtonDown("Horizontal"))
+            if (!isMoving && Input.GetButtonDown("Horizontal"))
             {
                 if (Input.GetAxisRaw("Horizontal") > 0)
                 {
@@ -35,7 +37,7 @@ public class CameraMovement : MonoBehaviour
                     CameraPlacement p2 = cameraWaypoints[(currentCameraPoint + 1) % cameraWaypoints.Count];
                     currentCameraPoint = (currentCameraPoint + 2) % cameraWaypoints.Count;
                     CameraPlacement p3 = cameraWaypoints[currentCameraPoint];
-                    
+
                     StartCoroutine(MoveCamera(p1, p2, p3));
                 }
                 else
@@ -44,7 +46,7 @@ public class CameraMovement : MonoBehaviour
                     CameraPlacement p2 = cameraWaypoints[(currentCameraPoint - 1) % cameraWaypoints.Count];
                     currentCameraPoint = (currentCameraPoint - 2) % cameraWaypoints.Count;
                     CameraPlacement p3 = cameraWaypoints[currentCameraPoint];
-                    
+
                     StartCoroutine(MoveCamera(p1, p2, p3));
                 }
                 Debug.Log(cameraWaypoints.Count);
@@ -56,7 +58,8 @@ public class CameraMovement : MonoBehaviour
             //     currentCameraPoint = currentCameraPoint % cameraWaypoints.Count;
             //     SetCamera(currentCameraPoint);
             // }
-        } else
+        }
+        else
         {
             Debug.Log("No camera waypoints");
         }
@@ -100,7 +103,7 @@ public class CameraMovement : MonoBehaviour
         {
             float tminus = 1 - t;
             // (1-t)^2*p0+2*t*(1-t)*p1+t^2*p2, simplified from Lerp(Lerp(p0,p1,t),Lerp(p1,p2,t),t)
-            
+
             return tminus * tminus * p0 + 2 * t * tminus * p1 + t * t * p2;
         }
         private static Vector3 BezierTransformRotation(Vector3 p0, Vector3 p1, Vector3 p2, float t)
@@ -136,6 +139,7 @@ public class CameraMovement : MonoBehaviour
     }
     IEnumerator MoveCamera(CameraPlacement c1, CameraPlacement c2, CameraPlacement c3)
     {
+        isMoving = true;
         PosAndRot t1 = new PosAndRot(c1);
         PosAndRot t2 = new PosAndRot(c2);
         PosAndRot t3 = new PosAndRot(c3);
@@ -148,6 +152,8 @@ public class CameraMovement : MonoBehaviour
             yield return null;
         }
         SetCamera(t3);
+
+        isMoving = false;
 
         yield break;
     }
