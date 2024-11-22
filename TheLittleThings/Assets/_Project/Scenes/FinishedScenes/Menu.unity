@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83432142991bffa46b05290cec03584f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToSwapTo: "Chris\u2122 Test\u2122 Scene\u2122"
+  SceneToSwapTo: 3D Map
 --- !u!1 &186896208
 GameObject:
   m_ObjectHideFlags: 0

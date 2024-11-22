@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CameraMovement : MonoBehaviour
     private List<CameraPlacement> cameraWaypoints;
     private int currentCameraPoint;
 
+    public GameObject text;
     void Start()
     {
         cameraWaypoints = cameraPoints.cameraLocations;
@@ -47,15 +49,23 @@ public class CameraMovement : MonoBehaviour
                 Debug.Log(cameraWaypoints.Count);
                 Debug.Log(currentCameraPoint);
             }
-            if (Input.GetMouseButtonDown(0))
-            {
-                currentCameraPoint += 1;
-                currentCameraPoint = currentCameraPoint % cameraWaypoints.Count;
-                SetCamera(currentCameraPoint);
-            }
+            // if (Input.GetMouseButtonDown(0))
+            // {
+            //     currentCameraPoint += 1;
+            //     currentCameraPoint = currentCameraPoint % cameraWaypoints.Count;
+            //     SetCamera(currentCameraPoint);
+            // }
         } else
         {
             Debug.Log("No camera waypoints");
+        }
+
+
+        text.SetActive(currentCameraPoint == 8);
+
+        if (text.activeInHierarchy && Input.GetKeyDown(KeyCode.E))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
