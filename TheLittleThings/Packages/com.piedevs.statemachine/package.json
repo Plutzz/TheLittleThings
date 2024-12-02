@@ -1,0 +1,16 @@
+{
+  "name": "com.piedevs.statemachine",
+  "version": "1.0.0",
+  "displayName": "State Machine",
+  "description": "Component based, hierarchical state machine",
+  "unity": "2022.3",
+  "unityRelease": "30f1",
+ "keywords": [
+    "State Machine"
+  ],
+  "author": {
+    "name": "Benjamin Jiongco",
+    "email": "benjiongco@gmail.com",
+    "url": "https://www.unity3d.com"
+  }
+}
