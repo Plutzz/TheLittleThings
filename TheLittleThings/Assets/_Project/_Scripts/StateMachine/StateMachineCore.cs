@@ -9,6 +9,10 @@ public abstract class StateMachineCore : MonoBehaviour
     /// </summary>
     [Header("StateMachineCore Variables")]
     public Rigidbody rb;
+    /// <summary>
+    /// GameObject that is the parent to all states in this stateMachineCore
+    /// </summary>
+    public GameObject statesParent;
     public Animator animator;
     public StateMachine stateMachine { get; private set; }
     /// <summary>
@@ -27,11 +31,21 @@ public abstract class StateMachineCore : MonoBehaviour
     {
         stateMachine = new StateMachine();
 
-        State[] _allChildStates = GetComponentsInChildren<State>();
+        State[] _allChildStates;
+
+        if (statesParent == null)
+        {
+            _allChildStates = GetComponentsInChildren<State>();
+        }
+        else
+        {
+            _allChildStates = statesParent.GetComponentsInChildren<State>();
+        }
 
         foreach (State _state in _allChildStates)
         {
             _state.SetCore(this);
+            _state.gameObject.SetActive(false);
         }
     }
 

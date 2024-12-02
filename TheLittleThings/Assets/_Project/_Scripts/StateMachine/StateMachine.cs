@@ -23,8 +23,10 @@ public class StateMachine
         {
             //Debug.Log("Changing State to " + _newState);
             currentState?.DoExitLogic();
+            currentState?.gameObject.SetActive(false);
             previousState = currentState;
             currentState = _newState;
+            currentState.gameObject.SetActive(true);
             currentState.DoEnterLogic();
         }
 
