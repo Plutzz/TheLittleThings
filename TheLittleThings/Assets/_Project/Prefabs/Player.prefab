@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0509153c5ec867443bd9ffaf747cb720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayLength: 0.2
+  rayLength: 0.4
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -722,11 +722,11 @@ GameObject:
   - component: {fileID: 3666055917276726836}
   - component: {fileID: 25349042078243649}
   - component: {fileID: 1455932459555731382}
+  - component: {fileID: 3024338523508986514}
   - component: {fileID: 4565016102555785429}
   - component: {fileID: 6091064853541078864}
   - component: {fileID: 3255713826382201420}
   - component: {fileID: 3225745101551408764}
-  - component: {fileID: 3024338523508986514}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -765,6 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3255713826382201420}
+  statesParent: {fileID: 298531351914580678}
   animator: {fileID: 2631342346178947296}
   <idle>k__BackingField: {fileID: 8812925399064479836}
   <move>k__BackingField: {fileID: 2633695728506890234}
@@ -772,14 +773,13 @@ MonoBehaviour:
   <airborne>k__BackingField: {fileID: 9219111477414494804}
   <attack>k__BackingField: {fileID: 2806229862035841856}
   groundSensor: {fileID: 6944144178948029153}
-  wallSensor: {fileID: 0}
   graphics: {fileID: 5876813793830749314}
   stats: {fileID: 11400000, guid: 375090d2f820b7d4cae7fc60435feb89, type: 2}
   playerInput: {fileID: 1455932459555731382}
-  playerHP: {fileID: 4565016102555785429}
   cameraFollowObject: {fileID: 0}
   isFacingRight: 1
   attackManager: {fileID: 3024338523508986514}
+  spawnPos: {x: 52.14, y: 11.03, z: 16.71}
 --- !u!114 &1455932459555731382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -792,6 +792,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d78fb38e611e140b4d4af2681350dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3024338523508986514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156240462189662132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8736d6e97dd94904cb0369e96aa85b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combo:
+  - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
+  - {fileID: 11400000, guid: e65adf44c55ea8245aedeab8d6bfe7c6, type: 2}
+  continueComboTimer: 0.2
+  timeBetweenCombos: 0.5
+  attackBufferWindow: 0.5
+  normalizedTime: 0.9
+  AttackPoint: {fileID: 8702829282570861430}
+  FinalAttack: 0
+  player: {fileID: 25349042078243649}
+  attackHitbox: {fileID: 7988927078789230300}
+  inputManager: {fileID: 1455932459555731382}
+  anim: {fileID: 2631342346178947296}
 --- !u!114 &4565016102555785429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,31 +898,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &3024338523508986514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7156240462189662132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8736d6e97dd94904cb0369e96aa85b3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combo:
-  - {fileID: 11400000, guid: 32ed06b23ab23b5439cf75b6167a9544, type: 2}
-  - {fileID: 11400000, guid: e65adf44c55ea8245aedeab8d6bfe7c6, type: 2}
-  continueComboTimer: 0.2
-  timeBetweenCombos: 1
-  attackBufferWindow: 0.5
-  normalizedTime: 0.9
-  AttackPoint: {fileID: 8702829282570861430}
-  FinalAttack: 0
-  player: {fileID: 25349042078243649}
-  attackHitbox: {fileID: 7988927078789230300}
-  inputManager: {fileID: 1455932459555731382}
-  anim: {fileID: 2631342346178947296}
 --- !u!1 &7202999613738118910
 GameObject:
   m_ObjectHideFlags: 0
