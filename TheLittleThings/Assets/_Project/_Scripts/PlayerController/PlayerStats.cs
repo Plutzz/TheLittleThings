@@ -18,6 +18,7 @@ public class PlayerStats : ScriptableObject
     [field:Header("Gravity")]
     [field:SerializeField] public float AirAcceleration {get; private set;}
     [field:SerializeField] public float NormalGravity {get; private set;}
+    [field:SerializeField] public float GroundGravity {get; private set;}
     
     [field:ReadOnly, SerializeField] public float CurrentGravity {get; set;}
     

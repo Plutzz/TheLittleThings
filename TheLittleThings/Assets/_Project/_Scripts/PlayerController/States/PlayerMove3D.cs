@@ -40,8 +40,13 @@ public class PlayerMove3D : State
     public override void DoFixedUpdateState()
     {
         base.DoFixedUpdateState();
+        RaycastHit hit;
+        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
+
+        Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
+        Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
         // Adds a force to the player in the direction they are pressing relative to the camera
-        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * stats.GroundAcceleration * 100f);
+        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * (acceleration * 100f));
         LimitVelocity();
     }
 
@@ -82,12 +87,6 @@ public class PlayerMove3D : State
             rb.velocity = limitedVel + verticalVel;
         }
         
-        RaycastHit hit;
-        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
-
-        Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
-        Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
-
         
     }
 
