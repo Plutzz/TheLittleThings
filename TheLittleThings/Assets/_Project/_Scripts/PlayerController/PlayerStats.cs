@@ -11,6 +11,7 @@ public class PlayerStats : ScriptableObject
     public float AirAcceleration;
     public float CurrentGravity;
     public float NormalGravity;
+    public float GroundGravity;
     public float WallGravity;
     public float NoInputDeceleration;
 
