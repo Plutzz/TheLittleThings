@@ -27,13 +27,7 @@ public class Player : StateMachineCore
     [Expandable]
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] public HealthTracker playerHP {get; private set;}
-    
-    // Variables pertaining to player camera
-    [Header("Camera")] 
-    [SerializeField] private CameraFollowObject cameraFollowObject;
-    public bool isFacingRight = true;
-
+    [SerializeField] public HealthTracker playerHP {get; private set;} 
     
     // Variables pertaining to player attacks
     [HorizontalLine(color: EColor.Gray)]
@@ -109,6 +103,8 @@ public class Player : StateMachineCore
             return;
         }
         
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        
         // Transition to move
         if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
@@ -117,7 +113,7 @@ public class Player : StateMachineCore
         }
         
         // Transition to idle
-        if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        if (flatVel.magnitude < 1f && (xInput == 0 && yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
             return;
@@ -183,7 +179,8 @@ public class Player : StateMachineCore
             GUIStyle style = new GUIStyle();
             style.alignment = TextAnchor.MiddleCenter;
             style.normal.textColor = Color.white;
-            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.25f, rb.velocity.ToString(), style);
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.25f, rb.velocity + "\n" + flatVel.magnitude, style);
         
         }
 #endif

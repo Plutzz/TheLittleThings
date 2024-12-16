@@ -13,16 +13,16 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   <maxSpeed>k__BackingField: 5
-  <MaxSprintSpeed>k__BackingField: 10
-  <GroundAcceleration>k__BackingField: 2
-  <GroundDrag>k__BackingField: 4
-  <NoInputDeceleration>k__BackingField: 1
-  <AirAcceleration>k__BackingField: 4
-  <NormalGravity>k__BackingField: 10
-  <CurrentGravity>k__BackingField: 0
-  <JumpForce>k__BackingField: 10
-  <JumpFrameBufferAmount>k__BackingField: 0
-  <FallSpeedLimit>k__BackingField: 20
+  <MaxSprintSpeed>k__BackingField: 15
+  <GroundAcceleration>k__BackingField: 1
+  <GroundDrag>k__BackingField: 6
+  <NoInputDeceleration>k__BackingField: 10
+  <AirAcceleration>k__BackingField: 40
+  <NormalGravity>k__BackingField: 25
+  <CurrentGravity>k__BackingField: 25
+  <JumpForce>k__BackingField: 15
+  <JumpFrameBufferAmount>k__BackingField: 7
+  <FallSpeedLimit>k__BackingField: 50
   <RollSpeed>k__BackingField: 15
-  <RollDuration>k__BackingField: 1
-  <RollDrag>k__BackingField: 10
+  <RollDuration>k__BackingField: 0.5
+  <RollDrag>k__BackingField: 0
