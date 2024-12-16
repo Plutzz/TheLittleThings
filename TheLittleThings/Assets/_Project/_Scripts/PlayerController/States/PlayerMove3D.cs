@@ -19,9 +19,8 @@ public class PlayerMove3D : State
     {
         base.DoEnterLogic();
         player.SetTrigger("Walk");
-
-        // 
         rb.drag = stats.GroundDrag;
+        player.ChangeGravity(stats.GroundGravity);
     }
 
     public override void DoExitLogic()
@@ -29,6 +28,7 @@ public class PlayerMove3D : State
         base.DoExitLogic();
         player.animator.SetBool("Sprint", false);
         animator.Play("Walk");
+        player.ChangeGravity(stats.NormalGravity);
     }
 
     public override void DoUpdateState()
@@ -41,7 +41,7 @@ public class PlayerMove3D : State
     {
         base.DoFixedUpdateState();
         // Adds a force to the player in the direction they are pressing relative to the camera
-        rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * acceleration * 100f);
+        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * stats.GroundAcceleration * 100f);
         LimitVelocity();
     }
 
@@ -70,12 +70,25 @@ public class PlayerMove3D : State
     /// </summary>
     private void LimitVelocity()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        
+        RaycastHit hit;
+        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
+        Vector3 flatVel = Vector3.ProjectOnPlane(rb.velocity, hit.normal);
+        
         if (flatVel.magnitude > maxSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * maxSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            Vector3 verticalVel = rb.velocity - flatVel;
+            rb.velocity = limitedVel + verticalVel;
         }
+        
+        RaycastHit hit;
+        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
+
+        Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
+        Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
+
+        
     }
 
 }
