@@ -19,6 +19,7 @@ public class PlayerMove3D : State
         player.SetTrigger("Walk");
         //animator.Play("Walk");
         rb.drag = 4;
+        player.ChangeGravity(stats.GroundGravity);
     }
 
     public override void DoExitLogic()
@@ -26,6 +27,7 @@ public class PlayerMove3D : State
         base.DoExitLogic();
         player.animator.SetBool("Sprint", false);
         animator.Play("Walk");
+        player.ChangeGravity(stats.NormalGravity);
     }
 
     public override void DoUpdateState()
