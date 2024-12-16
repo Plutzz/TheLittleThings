@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerIdle : State
 {
     [SerializeField] private Player player;
+    private Vector3 lastPos;
     private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
@@ -12,7 +13,8 @@ public class PlayerIdle : State
         player.SetTrigger("Idle");
         player.SetTrigger("Idle");
         //animator.Play("Idle");
-        rb.drag = 4;
+        rb.drag = 24;
+        lastPos = player.rb.position;
     }
 
     public override void CheckTransitions()
@@ -22,5 +24,7 @@ public class PlayerIdle : State
 
     public override void DoUpdateState()
     {
+        player.rb.position = lastPos;
+        lastPos = player.rb.position;
     }
 }

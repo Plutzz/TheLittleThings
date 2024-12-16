@@ -31,15 +31,24 @@ public class PlayerMove3D : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+
+        RaycastHit hit;
+        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
+
+        
+
+        Vector3 flatVel = Vector3.ProjectOnPlane(rb.velocity, hit.normal);
+        
         if (flatVel.magnitude > maxSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * maxSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            Vector3 verticalVel = rb.velocity - flatVel;
+            rb.velocity = limitedVel + verticalVel;
         }
     }
     public override void DoFixedUpdateState()
     {
+        
         if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = stats.SprintSpeed;
@@ -50,7 +59,14 @@ public class PlayerMove3D : State
             maxSpeed = stats.MaxSpeed;
             player.animator.SetBool("Sprint", false);
         }
-        rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * stats.GroundAcceleration);        
+
+        RaycastHit hit;
+        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
+
+        Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
+        Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
+
+        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * stats.GroundAcceleration);
     }
 
 }
