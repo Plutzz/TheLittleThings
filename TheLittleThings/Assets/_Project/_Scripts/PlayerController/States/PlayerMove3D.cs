@@ -13,6 +13,7 @@ public class PlayerMove3D : State
 
     
     private float maxSpeed;
+    private float acceleration;
     private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
@@ -40,7 +41,7 @@ public class PlayerMove3D : State
     {
         base.DoFixedUpdateState();
         // Adds a force to the player in the direction they are pressing relative to the camera
-        rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * stats.GroundAcceleration * 100f);
+        rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * acceleration * 100f);
         LimitVelocity();
     }
 
@@ -49,14 +50,17 @@ public class PlayerMove3D : State
     /// </summary>
     private void CheckForSprint()
     {
+        // TODO: Create sprint input and replace if condition
         if (Input.GetKey(KeyCode.LeftShift))
         {
             maxSpeed = stats.MaxSprintSpeed;
+            acceleration = stats.SprintAcceleration;
             player.animator.SetBool("Sprint", true);
         }
         else
         {
-            maxSpeed = stats.maxSpeed;
+            maxSpeed = stats.MaxSpeed;
+            acceleration = stats.WalkAcceleration;
             player.animator.SetBool("Sprint", false);
         }
     }

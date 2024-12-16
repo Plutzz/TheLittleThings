@@ -8,9 +8,10 @@ using UnityEngine.Serialization;
 public class PlayerStats : ScriptableObject
 {
     [field:Header("Ground Movement")]
-    [field:SerializeField] public float maxSpeed {get; private set;}
+    [field:SerializeField] public float MaxSpeed {get; private set;}
     [field:SerializeField] public float MaxSprintSpeed {get; private set;}
-    [field:SerializeField] public float GroundAcceleration {get; private set;}
+    [field:SerializeField] public float WalkAcceleration {get; private set;}
+    [field:SerializeField] public float SprintAcceleration {get; private set;}
     [field:SerializeField] public float GroundDrag {get; private set;}
     [field:SerializeField] public float NoInputDeceleration {get; private set;}
     

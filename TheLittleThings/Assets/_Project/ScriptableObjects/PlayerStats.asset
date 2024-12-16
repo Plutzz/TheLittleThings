@@ -15,7 +15,7 @@ MonoBehaviour:
   <maxSpeed>k__BackingField: 5
   <MaxSprintSpeed>k__BackingField: 15
   <GroundAcceleration>k__BackingField: 1
-  <GroundDrag>k__BackingField: 6
+  <GroundDrag>k__BackingField: 10
   <NoInputDeceleration>k__BackingField: 10
   <AirAcceleration>k__BackingField: 40
   <NormalGravity>k__BackingField: 25
