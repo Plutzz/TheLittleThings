@@ -12,19 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776ca0e117f443146a8bc385816f1597, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  MaxSpeed: 5
-  SprintSpeed: 10
-  GroundAcceleration: 100
-  AirAcceleration: 40
-  CurrentGravity: 25
-  NormalGravity: 25
-  WallGravity: 0
-  NoInputDeceleration: 10
-  JumpForce: 15
-  JumpFrameBufferAmount: 7
-  FallSpeedLimit: 50
-  RollSpeed: 15
-  RollDuration: 0.5
-  RollDrag: 0
-  Damage: 1
-  AttackSpeedMult: 4
+  <maxSpeed>k__BackingField: 5
+  <MaxSprintSpeed>k__BackingField: 10
+  <GroundAcceleration>k__BackingField: 2
+  <GroundDrag>k__BackingField: 4
+  <NoInputDeceleration>k__BackingField: 1
+  <AirAcceleration>k__BackingField: 4
+  <NormalGravity>k__BackingField: 10
+  <CurrentGravity>k__BackingField: 0
+  <JumpForce>k__BackingField: 10
+  <JumpFrameBufferAmount>k__BackingField: 0
+  <FallSpeedLimit>k__BackingField: 20
+  <RollSpeed>k__BackingField: 15
+  <RollDuration>k__BackingField: 1
+  <RollDrag>k__BackingField: 10

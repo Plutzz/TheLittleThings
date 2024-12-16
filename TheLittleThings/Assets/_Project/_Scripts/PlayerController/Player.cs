@@ -94,25 +94,33 @@ public class Player : StateMachineCore
         // Cache xInput and yInput from playerInput script
         float xInput = playerInput.xInput;
         float yInput = playerInput.yInput;
+        
+        // Transition to roll
+        if (stateMachine.currentState != attack && playerInput.ctrlPressedThisFrame)
+        {
+            stateMachine.SetState(roll);
+            return;
+        }
+        
         // Transition to airborne
         if (!groundSensor.grounded && stateMachine.currentState != roll)
         {
             stateMachine.SetState(airborne);
-
+            return;
         }
+        
         // Transition to move
-        else if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
+            return;
         }
+        
         // Transition to idle
-        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
-        }
-        else if (stateMachine.currentState != attack && playerInput.ctrlPressedThisFrame)
-        {
-            stateMachine.SetState(roll);
+            return;
         }
     }
     
@@ -176,7 +184,7 @@ public class Player : StateMachineCore
             style.alignment = TextAnchor.MiddleCenter;
             style.normal.textColor = Color.white;
             UnityEditor.Handles.Label(transform.position + Vector3.up * 2.25f, rb.velocity.ToString(), style);
-
+        
         }
 #endif
     }

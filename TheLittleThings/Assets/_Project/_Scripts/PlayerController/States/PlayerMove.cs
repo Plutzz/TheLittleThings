@@ -22,19 +22,19 @@ public class PlayerMove : State
     public override void DoFixedUpdateState()
     {
         //if velocity is less than maxspeed
-        if (Mathf.Abs(rb.velocity.x) < stats.MaxSpeed)
+        if (Mathf.Abs(rb.velocity.x) < stats.maxSpeed)
         {
             rb.AddForce(Vector2.right * playerInput.xInput * stats.GroundAcceleration);
         }
         else //if at max speed, set velocity to max speed for consistent movement
         {
-            if (rb.velocity.x < -stats.MaxSpeed)
+            if (rb.velocity.x < -stats.maxSpeed)
             {
-                rb.velocity = new Vector2(Mathf.Clamp(-stats.MaxSpeed, -stats.MaxSpeed, 0), rb.velocity.y);
+                rb.velocity = new Vector2(Mathf.Clamp(-stats.maxSpeed, -stats.maxSpeed, 0), rb.velocity.y);
             }
-            else if (rb.velocity.x > stats.MaxSpeed)
+            else if (rb.velocity.x > stats.maxSpeed)
             {
-                rb.velocity = new Vector2(Mathf.Clamp(stats.MaxSpeed, 0, stats.MaxSpeed), rb.velocity.y);
+                rb.velocity = new Vector2(Mathf.Clamp(stats.maxSpeed, 0, stats.maxSpeed), rb.velocity.y);
             }
         }
     }
