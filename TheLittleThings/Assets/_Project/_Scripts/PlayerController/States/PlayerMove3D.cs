@@ -10,8 +10,6 @@ public class PlayerMove3D : State
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
     [SerializeField] private Transform orientation;
-
-    
     private float maxSpeed;
     private float acceleration;
     private PlayerStats stats => player.stats;
@@ -20,7 +18,7 @@ public class PlayerMove3D : State
         base.DoEnterLogic();
         player.SetTrigger("Walk");
         rb.drag = stats.GroundDrag;
-        player.ChangeGravity(stats.GroundGravity);
+        // player.ChangeGravity(stats.GroundGravity);
     }
 
     public override void DoExitLogic()
@@ -28,7 +26,7 @@ public class PlayerMove3D : State
         base.DoExitLogic();
         player.animator.SetBool("Sprint", false);
         animator.Play("Walk");
-        player.ChangeGravity(stats.NormalGravity);
+        // player.ChangeGravity(stats.NormalGravity);
     }
 
     public override void DoUpdateState()
@@ -40,14 +38,13 @@ public class PlayerMove3D : State
     public override void DoFixedUpdateState()
     {
         base.DoFixedUpdateState();
-        RaycastHit hit;
-        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
-
+        RaycastHit hit = player.slopeSensor.hit;
         Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
         Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
         // Adds a force to the player in the direction they are pressing relative to the camera
         rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * (acceleration * 100f));
         LimitVelocity();
+        StickToSlope();
     }
 
     /// <summary>
@@ -75,9 +72,7 @@ public class PlayerMove3D : State
     /// </summary>
     private void LimitVelocity()
     {
-        
-        RaycastHit hit;
-        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
+        RaycastHit hit = player.slopeSensor.hit;
         Vector3 flatVel = Vector3.ProjectOnPlane(rb.velocity, hit.normal);
         
         if (flatVel.magnitude > maxSpeed)
@@ -86,8 +81,17 @@ public class PlayerMove3D : State
             Vector3 verticalVel = rb.velocity - flatVel;
             rb.velocity = limitedVel + verticalVel;
         }
-        
-        
+    }
+
+    /// <summary>
+    /// If the player's ground check is not on the ground but the slope cast is on the ground, apply a downward force to stick the player to the slope
+    /// </summary>
+    private void StickToSlope()
+    {
+        if (!player.groundSensor.grounded)
+        {
+            rb.AddForce(Vector3.down * stats.GroundGravity);
+        }
     }
 
 }

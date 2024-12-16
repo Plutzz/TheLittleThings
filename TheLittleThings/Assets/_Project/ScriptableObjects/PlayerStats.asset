@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776ca0e117f443146a8bc385816f1597, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  <maxSpeed>k__BackingField: 5
-  <MaxSprintSpeed>k__BackingField: 15
-  <GroundAcceleration>k__BackingField: 1
+  <MaxSpeed>k__BackingField: 5
+  <MaxSprintSpeed>k__BackingField: 10
+  <WalkAcceleration>k__BackingField: 1
+  <SprintAcceleration>k__BackingField: 1.5
   <GroundDrag>k__BackingField: 10
   <NoInputDeceleration>k__BackingField: 10
   <AirAcceleration>k__BackingField: 40
   <NormalGravity>k__BackingField: 25
+  <GroundGravity>k__BackingField: 100
   <CurrentGravity>k__BackingField: 25
   <JumpForce>k__BackingField: 15
   <JumpFrameBufferAmount>k__BackingField: 7

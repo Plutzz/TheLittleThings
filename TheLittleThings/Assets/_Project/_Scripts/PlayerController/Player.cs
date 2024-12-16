@@ -16,9 +16,11 @@ public class Player : StateMachineCore
     [field: SerializeField] public PlayerChooseAttack attack { get; private set; }
     
     // Sensor scripts used for ground checks and wall checks
-    [HorizontalLine(color: EColor.Gray)]
-    [Header("Sensors")]
-    [SerializeField] private GroundSensor groundSensor;
+    [field:HorizontalLine(color: EColor.Gray)]
+    [field:Header("Sensors")]
+    [field:SerializeField] public GroundSensor groundSensor {get; private set;}
+    [field:SerializeField] public SlopeSensor slopeSensor {get; private set;}
+
     
     // References to other components on the player
     [HorizontalLine(color: EColor.Gray)]
@@ -97,13 +99,11 @@ public class Player : StateMachineCore
         }
         
         // Transition to airborne
-        if (!groundSensor.grounded && stateMachine.currentState != roll)
+        if (!groundSensor.grounded && !slopeSensor.isOnSlope && stateMachine.currentState != roll)
         {
             stateMachine.SetState(airborne);
             return;
         }
-        
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         
         // Transition to move
         if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
@@ -111,9 +111,11 @@ public class Player : StateMachineCore
             stateMachine.SetState(move);
             return;
         }
+
+        float timeSinceLastMove = Time.time - playerInput.timeOfLastMoveInput;
         
         // Transition to idle
-        if (flatVel.magnitude < 1f && (xInput == 0 && yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        if (timeSinceLastMove >= 0.1f && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
             return;

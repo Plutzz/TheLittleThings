@@ -11,9 +11,7 @@ public class PlayerIdle : State
     {
         base.DoEnterLogic();
         player.SetTrigger("Idle");
-        player.SetTrigger("Idle");
-        //animator.Play("Idle");
-        rb.drag = 24;
+        rb.drag = 100;
         lastPos = player.rb.position;
     }
 
