@@ -8,15 +8,18 @@ using UnityEngine.Serialization;
 public class PlayerStats : ScriptableObject
 {
     [field:Header("Ground Movement")]
-    [field:SerializeField] public float MaxSpeed {get; private set;}
+    [field:SerializeField] public float MaxWalkSpeed {get; private set;}
     [field:SerializeField] public float MaxSprintSpeed {get; private set;}
     [field:SerializeField] public float WalkAcceleration {get; private set;}
     [field:SerializeField] public float SprintAcceleration {get; private set;}
     [field:SerializeField] public float GroundDrag {get; private set;}
     [field:SerializeField] public float NoInputDeceleration {get; private set;}
     
+    [field:Header("Air Movement")]
+    [field:SerializeField] public float AirAccelerationMultiplier {get; private set;}
+    [field:SerializeField] public float AirDrag {get; private set;}
+    
     [field:Header("Gravity")]
-    [field:SerializeField] public float AirAcceleration {get; private set;}
     [field:SerializeField] public float NormalGravity {get; private set;}
     [field:SerializeField] public float GroundGravity {get; private set;}
     
@@ -24,6 +27,7 @@ public class PlayerStats : ScriptableObject
     
     [field:Header("Jumping")]
     [field:SerializeField] public float JumpForce {get; private set;}
+    [field:SerializeField] public float EndJumpEarlyForce {get; private set;}
     [field:SerializeField] public uint JumpFrameBufferAmount {get; private set;}
     [field:SerializeField] public float FallSpeedLimit {get; private set;}
 

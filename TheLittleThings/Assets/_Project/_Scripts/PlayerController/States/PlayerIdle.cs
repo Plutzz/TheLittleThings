@@ -14,15 +14,9 @@ public class PlayerIdle : State
         rb.drag = 100;
         lastPos = player.rb.position;
     }
-
-    public override void CheckTransitions()
-    {
-        base.CheckTransitions();
-    }
-
     public override void DoUpdateState()
     {
-        player.rb.position = lastPos;
-        lastPos = player.rb.position;
+        // player.rb.position = lastPos;
+        // lastPos = player.rb.position;
     }
 }

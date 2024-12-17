@@ -22,7 +22,7 @@ public class JumpToPoint : State
         base.DoEnterLogic();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         rb.useGravity = false;
-        Vector3 distanceVector = target.position + (Vector3.ClampMagnitude(target.velocity, playerStats.MaxSpeed) * predictionAmount) - transform.position;
+        Vector3 distanceVector = target.position + (Vector3.ClampMagnitude(target.velocity, playerStats.MaxWalkSpeed) * predictionAmount) - transform.position;
         float displacement = Vector3.ProjectOnPlane(distanceVector, Vector3.up).magnitude - displacementOffset;
         v0 = Mathf.Sqrt(Mathf.Abs(displacement) * gravity * 2);
         Debug.Log("Displacement " + displacement + " V0 " + v0);

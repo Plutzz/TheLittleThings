@@ -29,6 +29,7 @@ public class Player : StateMachineCore
     [Expandable]
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private PlayerJumpManager jumpManager;
     [SerializeField] public HealthTracker playerHP {get; private set;} 
     
     // Variables pertaining to player attacks
@@ -92,7 +93,7 @@ public class Player : StateMachineCore
         float yInput = playerInput.yInput;
         
         // Transition to roll
-        if (stateMachine.currentState != attack && playerInput.ctrlPressedThisFrame)
+        if (stateMachine.currentState != attack && stateMachine.currentState != airborne && playerInput.rollPressedThisFrame)
         {
             stateMachine.SetState(roll);
             return;
@@ -105,8 +106,14 @@ public class Player : StateMachineCore
             return;
         }
         
+        // condition for transitioning to a "grounded" state (move or idle) when transitioning from airborne
+        bool airborneGroundCheck = stateMachine.currentState == airborne && rb.velocity.y < 0;
+        
+        // condition for transitioning to a "grounded" state (move or idle) when transitioning from any state besides airborne
+        bool nonAirborneGroundCheck = stateMachine.currentState != roll && stateMachine.currentState != attack && stateMachine.currentState != airborne;
+        
         // Transition to move
-        if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        if (groundSensor.grounded && (xInput != 0 || yInput != 0) && (nonAirborneGroundCheck || airborneGroundCheck || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(move);
             return;
@@ -115,7 +122,7 @@ public class Player : StateMachineCore
         float timeSinceLastMove = Time.time - playerInput.timeOfLastMoveInput;
         
         // Transition to idle
-        if (timeSinceLastMove >= 0.1f && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
+        if (groundSensor.grounded && timeSinceLastMove >= 0.1f && (nonAirborneGroundCheck || airborneGroundCheck || stateMachine.currentState.isComplete))
         {
             stateMachine.SetState(idle);
             return;
