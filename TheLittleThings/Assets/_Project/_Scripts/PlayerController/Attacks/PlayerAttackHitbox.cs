@@ -8,6 +8,8 @@ public class PlayerAttackHitbox : MonoBehaviour
     private Collider hitbox;
     [SerializeField] private GameObject hitEffectPrefab;
     [SerializeField] private Transform player;
+    [SerializeField] private PlayerTimeStopManager timeStopManager;
+    [SerializeField] private float timeStopDuration, timeBeforeTimeStop;
     [HideInInspector] public int damage;
     [HideInInspector] public float knockback;
 
@@ -33,14 +35,15 @@ public class PlayerAttackHitbox : MonoBehaviour
             previousHits.Add(collision);
             //collision.GetComponent<IDamageable>().TakeDamage(damage, knockback, transform.parent.position.x);
             collision.GetComponent<IDamageable>().TakeDamage(damage);
-            Instantiate(hitEffectPrefab, collision.ClosestPointOnBounds(player.position + Vector3.up), Quaternion.identity);
-
+            Instantiate(hitEffectPrefab, collision.ClosestPointOnBounds(player.position + Vector3.up),
+                Quaternion.identity);
+            StartCoroutine(StartHitStop());
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    IEnumerator StartHitStop()
     {
-        
+        yield return new WaitForSeconds(timeBeforeTimeStop);
+        timeStopManager.HitStop(timeStopDuration);
     }
-
 }
