@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerTimeStopManager : MonoBehaviour
 {
+    [SerializeField] private float pauseTimeScale = 0.1f;
     public void HitStop(float time)
     {
-        Time.timeScale = 0;
+        Time.timeScale = pauseTimeScale;
         StartCoroutine(ResumeTime(time));
     }
     IEnumerator ResumeTime(float time)

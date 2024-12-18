@@ -15,7 +15,8 @@ MonoBehaviour:
   animatorOV: {fileID: 22100000, guid: 81e38df75cdd60147b7d17c2d866ea03, type: 2}
   damage: 2
   knockback: 1
-  timeBeforeHitboxActive: 0.3
+  timeBeforeHitboxActive: 0.15
   attackLength: 0.5
   cooldownAfterAttack: 0.5
   moveAmount: 15
+  timeStopDuration: 0.1
