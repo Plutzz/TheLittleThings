@@ -10,16 +10,15 @@ public class PlayerMove3D : State
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Player player;
     [SerializeField] private Transform orientation;
-
     private float maxSpeed;
+    private float acceleration;
     private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
         player.SetTrigger("Walk");
-        //animator.Play("Walk");
-        rb.drag = 4;
-        player.ChangeGravity(stats.GroundGravity);
+        rb.drag = stats.GroundDrag;
+        // player.ChangeGravity(stats.GroundGravity);
     }
 
     public override void DoExitLogic()
@@ -27,18 +26,54 @@ public class PlayerMove3D : State
         base.DoExitLogic();
         player.animator.SetBool("Sprint", false);
         animator.Play("Walk");
-        player.ChangeGravity(stats.NormalGravity);
+        // player.ChangeGravity(stats.NormalGravity);
     }
 
     public override void DoUpdateState()
     {
         base.DoUpdateState();
+        CheckForSprint();
+        LimitVelocity();
+    }
+    public override void DoFixedUpdateState()
+    {
+        base.DoFixedUpdateState();
+        RaycastHit hit = player.slopeSensor.hit;
+        Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
+        Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
+        // Adds a force to the player in the direction they are pressing relative to the camera
+        Debug.Log("MOVE FIXED UPDATE");
+        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * (acceleration * 100f));
+        LimitVelocity();
+        StickToSlope();
+    }
 
-        RaycastHit hit;
-        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
-
-        
-
+    /// <summary>
+    /// Check if player is sprinting
+    /// </summary>
+    private void CheckForSprint()
+    {
+        // TODO: Create sprint input and replace if condition
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            maxSpeed = stats.MaxSprintSpeed;
+            acceleration = stats.SprintAcceleration;
+            player.animator.SetBool("Sprint", true);
+        }
+        else
+        {
+            maxSpeed = stats.MaxWalkSpeed;
+            acceleration = stats.WalkAcceleration;
+            player.animator.SetBool("Sprint", false);
+        }
+    }
+    
+    /// <summary>
+    /// Limits the player's horizontal/flat velocity (velocity in x and z axis)
+    /// </summary>
+    private void LimitVelocity()
+    {
+        RaycastHit hit = player.slopeSensor.hit;
         Vector3 flatVel = Vector3.ProjectOnPlane(rb.velocity, hit.normal);
         
         if (flatVel.magnitude > maxSpeed)
@@ -48,27 +83,16 @@ public class PlayerMove3D : State
             rb.velocity = limitedVel + verticalVel;
         }
     }
-    public override void DoFixedUpdateState()
+
+    /// <summary>
+    /// If the player's ground check is not on the ground but the slope cast is on the ground, apply a downward force to stick the player to the slope
+    /// </summary>
+    private void StickToSlope()
     {
-        
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (!player.groundSensor.grounded)
         {
-            maxSpeed = stats.SprintSpeed;
-            player.animator.SetBool("Sprint", true);
+            rb.AddForce(Vector3.down * stats.GroundGravity);
         }
-        else
-        {
-            maxSpeed = stats.MaxSpeed;
-            player.animator.SetBool("Sprint", false);
-        }
-
-        RaycastHit hit;
-        Physics.Raycast(orientation.position, Vector3.down, out hit, 1);
-
-        Vector3 forwardOriented = Vector3.Cross(orientation.right, hit.normal).normalized;
-        Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
-
-        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * stats.GroundAcceleration);
     }
 
 }

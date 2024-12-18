@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Player : StateMachineCore
 {
+    
+    // Variables that hold what states the player can be in
     [field: HorizontalLine(color: EColor.Gray)]
     [field: Header("States")]
     [field: SerializeField] public PlayerIdle idle { get; private set; }
@@ -12,116 +14,162 @@ public class Player : StateMachineCore
     [field: SerializeField] public PlayerRoll roll { get; private set; }
     [field: SerializeField] public PlayerAirborne3D airborne { get; private set; }
     [field: SerializeField] public PlayerChooseAttack attack { get; private set; }
-    [HorizontalLine(color: EColor.Gray)]
-    [Header("Sensors")]
-    [SerializeField] private GroundSensor groundSensor;
-    [SerializeField] private WallSensor wallSensor;
-    [SerializeField] private Transform graphics;
+    
+    // Sensor scripts used for ground checks and wall checks
+    [field:HorizontalLine(color: EColor.Gray)]
+    [field:Header("Sensors")]
+    [field:SerializeField] public GroundSensor groundSensor {get; private set;}
+    [field:SerializeField] public SlopeSensor slopeSensor {get; private set;}
+
+    
+    // References to other components on the player
     [HorizontalLine(color: EColor.Gray)]
     [Header("Player Components")]
+    [SerializeField] private Transform graphics;
     [Expandable]
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;
-    public HealthTracker playerHP;
-    [Header("Camera")] 
-    [SerializeField] private CameraFollowObject cameraFollowObject;
-    public bool isFacingRight = true;
-
+    [SerializeField] private PlayerJumpManager jumpManager;
+    [SerializeField] public HealthTracker playerHP {get; private set;} 
+    
+    // Variables pertaining to player attacks
+    [HorizontalLine(color: EColor.Gray)]
+    [Header("Attacks")]
     [SerializeField] private PlayerAttackManager attackManager;
+    
+    // Variables used for debugging
     [Header("Debug")] 
     [SerializeField] private Vector3 spawnPos;
 
-    // Start is called before the first frame update
+    #region Unity Methods
     void Awake()
     {
         SetupInstances();
         ResetPlayer();
+        
+        // Disable gravity and simulate gravity manually (to allow for different gravity scales)
         rb.useGravity = false;
         ChangeGravity(stats.NormalGravity);
+        
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
+        // Calls update logic in the currently active state
         stateMachine.currentState.DoUpdateBranch();
-        float xInput = playerInput.xInput;
-        float yInput = playerInput.yInput;
-
+        
+        // Debug reset player input
         if (playerInput.ResetInput)
         {
             ResetPlayer();
         }
 
 
-        // transitions
-        if (!groundSensor.grounded && stateMachine.currentState != roll)
-        {
-            stateMachine.SetState(airborne);
-
-        }
-        else if ((xInput != 0 || yInput != 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
-        {
-            stateMachine.SetState(move);
-        }
-        else if ((xInput == 0 || yInput == 0) && ((stateMachine.currentState != roll && stateMachine.currentState != attack) || stateMachine.currentState.isComplete))
-        {
-            stateMachine.SetState(idle);
-        }
-        if (xInput != 0 && yInput != 0 && (stateMachine.currentState == move || stateMachine.currentState == idle || stateMachine.currentState == airborne))
-        {
-            //TurnCheck(xInput);
-        }
-
-        //if (playerInput.attackPressedDownThisFrame && groundSensor.grounded)
-        //{
-        //    stateMachine.SetState(attack, true);
-        //}
+        // State transitions
+        HandleTransitions();
         
-        if (stateMachine.currentState != attack && playerInput.ctrlPressedThisFrame)
+    }
+    
+    void FixedUpdate() 
+    {
+        // Simulate custom gravity
+        rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
+        
+        // Call FixedUpdate logic
+        stateMachine.currentState.DoFixedUpdateBranch(); 
+    }
+
+    #endregion
+    
+    #region Helper (Private) Methods
+    /// <summary>
+    /// Handles transitions between states in player state machine
+    /// </summary>
+    private void HandleTransitions()
+    {
+        // Cache xInput and yInput from playerInput script
+        float xInput = playerInput.xInput;
+        float yInput = playerInput.yInput;
+        
+        // Transition to roll
+        if (stateMachine.currentState != attack && stateMachine.currentState != airborne && playerInput.rollPressedThisFrame)
         {
             stateMachine.SetState(roll);
+            return;
         }
-    }
+        
+        // Transition to airborne
+        if (!groundSensor.grounded && !slopeSensor.isOnSlope && stateMachine.currentState != roll)
+        {
+            stateMachine.SetState(airborne);
+            return;
+        }
+        
+        // condition for transitioning to a "grounded" state (move or idle) when transitioning from airborne
+        bool airborneGroundCheck = stateMachine.currentState == airborne && rb.velocity.y < 0;
+        
+        // condition for transitioning to a "grounded" state (move or idle) when transitioning from any state besides airborne
+        bool nonAirborneGroundCheck = stateMachine.currentState != roll && stateMachine.currentState != attack && stateMachine.currentState != airborne;
+        
+        // Transition to move
+        if (groundSensor.grounded && (xInput != 0 || yInput != 0) && (nonAirborneGroundCheck || airborneGroundCheck || stateMachine.currentState.isComplete))
+        {
+            stateMachine.SetState(move);
+            return;
+        }
 
-    private void TurnCheck(float xInput)
-    {
-        if (xInput < 0 && isFacingRight)
+        float timeSinceLastMove = Time.time - playerInput.timeOfLastMoveInput;
+        
+        // Transition to idle
+        if (groundSensor.grounded && timeSinceLastMove >= 0.1f && (nonAirborneGroundCheck || airborneGroundCheck || stateMachine.currentState.isComplete))
         {
-            Turn();
-        }
-        else if (xInput > 0 && !isFacingRight)
-        {
-            Turn();
+            stateMachine.SetState(idle);
+            return;
         }
     }
+    
+    #endregion
+    
+    #region Public Methods
     
     /// <summary>
-    /// Turns the player around by rotating the playerTransform instead of scaling.
+    /// Changes the custom gravity scale that the player is currently experiencing
     /// </summary>
-    private void Turn()
+    /// <param name="gravity"></param>
+    public void ChangeGravity(float gravity)
     {
-        float yRotation = isFacingRight ? 180f : 0f;
-        Vector3 rotator = new Vector3(transform.rotation.x, yRotation, transform.rotation.z);
-        transform.rotation = Quaternion.Euler(rotator);
-        isFacingRight = !isFacingRight;
-        
-        cameraFollowObject?.CallTurn();
-        RotateSensors();
-    }
-    /**
-     * Rotates the wall sensors so they don't get flipped when the player turns around.
-     */
-    private void RotateSensors()
-    {
-        wallSensor.transform.localScale = new Vector3(isFacingRight ? 1 : -1, 1, 1);
-    }
-    
-    private Vector2 GetDirection()
-    {
-        return isFacingRight ? Vector2.right : Vector2.left;
+        stats.CurrentGravity = gravity;
     }
 
+    /// <summary>
+    /// Reset all animation triggers. If a new trigger is added to the animator, it needs to be reset in this function.
+    /// </summary>
+    public void ResetAllTriggers()
+    {
+        animator.ResetTrigger("Jump");
+        animator.ResetTrigger("Walk");
+        animator.ResetTrigger("Roll");
+        animator.ResetTrigger("Attack");
+        animator.ResetTrigger("Idle");
+    }
+
+    /// <summary>
+    /// Set a trigger in the player's animator
+    /// </summary>
+    /// <param name="trigger"></param>
+    public void SetTrigger(string trigger)
+    {
+        ResetAllTriggers();
+        animator.SetTrigger(trigger);
+    }
+
+    #endregion
+    
+    #region Debug Methods
+    /// <summary>
+    /// DEBUG METHOD. Resets the player's position and health
+    /// </summary>
     private void ResetPlayer()
     {
         stateMachine.SetState(idle);
@@ -140,37 +188,12 @@ public class Player : StateMachineCore
             GUIStyle style = new GUIStyle();
             style.alignment = TextAnchor.MiddleCenter;
             style.normal.textColor = Color.white;
-            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.25f, rb.velocity.ToString(), style);
-
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            UnityEditor.Handles.Label(transform.position + Vector3.up * 2.25f, rb.velocity + "\n" + flatVel.magnitude, style);
+        
         }
 #endif
     }
-
-    public void ChangeGravity(float _gravity)
-    {
-        stats.CurrentGravity = _gravity;
-    }
-
-    void FixedUpdate() 
-    {
-        //Debug.Log("Gravity");
-        rb.AddForce(Vector3.down * stats.CurrentGravity, ForceMode.Force);
-        stateMachine.currentState.DoFixedUpdateBranch(); 
-    }
-
-    public void ResetAllTriggers()
-    {
-        animator.ResetTrigger("Jump");
-        animator.ResetTrigger("Walk");
-        animator.ResetTrigger("Roll");
-        animator.ResetTrigger("Attack");
-        animator.ResetTrigger("Idle");
-    }
-
-    public void SetTrigger(string _trigger)
-    {
-        ResetAllTriggers();
-        animator.SetTrigger(_trigger);
-    }
-
+    #endregion
+    
 }

@@ -1,30 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(menuName = "Player Stats�")]
 public class PlayerStats : ScriptableObject
 {
-    public float MaxSpeed;
-    public float SprintSpeed;
-    public float GroundAcceleration;
-    public float AirAcceleration;
-    public float CurrentGravity;
-    public float NormalGravity;
-    public float GroundGravity;
-    public float WallGravity;
-    public float NoInputDeceleration;
+    [field:Header("Ground Movement")]
+    [field:SerializeField] public float MaxWalkSpeed {get; private set;}
+    [field:SerializeField] public float MaxSprintSpeed {get; private set;}
+    [field:SerializeField] public float WalkAcceleration {get; private set;}
+    [field:SerializeField] public float SprintAcceleration {get; private set;}
+    [field:SerializeField] public float GroundDrag {get; private set;}
+    [field:SerializeField] public float NoInputDeceleration {get; private set;}
+    
+    [field:Header("Air Movement")]
+    [field:SerializeField] public float AirAccelerationMultiplier {get; private set;}
+    [field:SerializeField] public float AirDrag {get; private set;}
+    
+    [field:Header("Gravity")]
+    [field:SerializeField] public float NormalGravity {get; private set;}
+    [field:SerializeField] public float GroundGravity {get; private set;}
+    
+    [field:ReadOnly, SerializeField] public float CurrentGravity {get; set;}
+    
+    [field:Header("Jumping")]
+    [field:SerializeField] public float JumpForce {get; private set;}
+    [field:SerializeField] public float EndJumpEarlyForce {get; private set;}
+    [field:SerializeField] public uint JumpFrameBufferAmount {get; private set;}
+    [field:SerializeField] public float FallSpeedLimit {get; private set;}
 
-    public float JumpForce;
-    public uint JumpFrameBufferAmount;
-    public float FallSpeedLimit;
-
-    public float RollSpeed;
-    public float RollDuration;
-    public float RollDrag;
-
-
-    public float Damage;
-    public float AttackSpeedMult;
+    [field:Header("Rolling")]
+    [field:SerializeField] public float RollSpeed {get; private set;}
+    [field:SerializeField] public float RollDuration {get; private set;}
+    [field:SerializeField] public float RollDrag {get; private set;}
+    
+    [field:Header("Attack")]
+    public float Damage {get; private set;}
+    public float AttackSpeedMult {get; private set;}
     
 }
