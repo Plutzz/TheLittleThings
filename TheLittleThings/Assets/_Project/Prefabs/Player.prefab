@@ -715,6 +715,10 @@ MonoBehaviour:
   hitEffectPrefab: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   player: {fileID: 8676626723179518780}
   timeStopManager: {fileID: 3756902689936133480}
+  hitTransforms:
+  - {fileID: 3370537162552219412}
+  - {fileID: 2683213645004660506}
+  hitTransformIndex: 0
   timeStopDuration: 0.05
   damage: 1
   knockback: 1
