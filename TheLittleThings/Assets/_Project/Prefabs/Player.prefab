@@ -917,6 +917,7 @@ GameObject:
   - component: {fileID: 3255713826382201420}
   - component: {fileID: 3225745101551408764}
   - component: {fileID: 3756902689936133480}
+  - component: {fileID: 2887137848080652396}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1101,6 +1102,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseTimeScale: 0.025
+--- !u!114 &2887137848080652396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156240462189662132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cec42d5323b42344b2c7a31a7447a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockOnCamera: {fileID: 0}
+  thirdPersonCamera: {fileID: 0}
+  playerLookAt: {fileID: 4731435597245008049}
+  thirdPersonResetOffset: 90
 --- !u!1 &7202999613738118910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4731435597245008049}
+  - component: {fileID: 615444749186071634}
   m_Layer: 7
   m_Name: LookAt
   m_TagString: Untagged
@@ -1177,6 +1195,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3666055917276726836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &615444749186071634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7454424481482236264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40cd161b5a3c81143aca70384017285c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
 --- !u!1 &7882636032633543523
 GameObject:
   m_ObjectHideFlags: 0

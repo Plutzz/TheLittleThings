@@ -32,7 +32,7 @@ public class PlayerComboAttack : State
         animator.StartPlayback();
         animator.speed = 0;
         
-        rb.AddForce(playerObj.forward * attackMoveAmount, ForceMode.Impulse);
+        
     }
 
     public override void DoExitLogic()
@@ -47,13 +47,14 @@ public class PlayerComboAttack : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        if (stateUptime > timeBeforeHitboxActive)
+        if (stateUptime > timeBeforeHitboxActive && !attackManager.AttackPoint.activeInHierarchy)
         {
             attackManager.AttackPoint.SetActive(true);
+            rb.AddForce(playerObj.forward * attackMoveAmount, ForceMode.Impulse);
         }
-        else 
+        else if(stateUptime <= timeBeforeHitboxActive)
         {
-            Vector2 _inputVector = new Vector2(playerInput.xInput, playerInput.yInput);
+            Vector2 _inputVector = playerInput.moveVector;
             Vector3 _inputDir = orientation.forward * _inputVector.y + orientation.right * _inputVector.x;
             playerObj.transform.forward = Vector3.Slerp(playerObj.forward, _inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
