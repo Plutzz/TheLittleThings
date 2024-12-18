@@ -536,8 +536,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayLength: 1
-  maxSlopeAngle: 0
-  minSlopeAngle: 0
+  maxSlopeAngle: 60
+  minSlopeAngle: 10
+  <currentSlopeAngle>k__BackingField: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -713,8 +714,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffectPrefab: {fileID: 5024009746357069194, guid: ec3f674830402cc45bce805cf6493db7, type: 3}
   player: {fileID: 8676626723179518780}
-  damage: 0
-  knockback: 0
+  timeStopManager: {fileID: 3756902689936133480}
+  timeStopDuration: 0.05
+  damage: 1
+  knockback: 1
 --- !u!1 &5867501284426466747
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5316392012647450235
 Transform:
   m_ObjectHideFlags: 0
@@ -909,6 +912,7 @@ GameObject:
   - component: {fileID: 6091064853541078864}
   - component: {fileID: 3255713826382201420}
   - component: {fileID: 3225745101551408764}
+  - component: {fileID: 3756902689936133480}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -961,7 +965,7 @@ MonoBehaviour:
   playerInput: {fileID: 1455932459555731382}
   jumpManager: {fileID: 6091064853541078864}
   attackManager: {fileID: 3024338523508986514}
-  spawnPos: {x: 52.14, y: 11.03, z: 16.71}
+  spawnPos: {x: 51.7, y: 6.4, z: 58.02}
 --- !u!114 &1455932459555731382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,6 +1084,19 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &3756902689936133480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156240462189662132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d46b295ffd5691d4f956e9eecd49fecc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseTimeScale: 0.025
 --- !u!1 &7202999613738118910
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,6 +1362,22 @@ PrefabInstance:
     - target: {fileID: -9201232328585762813, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -175.3091
+      objectReference: {fileID: 0}
+    - target: {fileID: -9165797768001435688, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.0002808347
+      objectReference: {fileID: 0}
+    - target: {fileID: -9165797768001435688, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.01710015
+      objectReference: {fileID: 0}
+    - target: {fileID: -9165797768001435688, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.006150883
+      objectReference: {fileID: 0}
+    - target: {fileID: -9165797768001435688, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.003914676
       objectReference: {fileID: 0}
     - target: {fileID: -9165797768001435688, guid: 51e4cd7da7f2c1c40a774cf411c7f52d, type: 3}
       propertyPath: m_Bones.Array.data[7]
@@ -9307,7 +9340,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7082148116685708563}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
   m_Name: 
