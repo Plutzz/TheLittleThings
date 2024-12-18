@@ -9,6 +9,8 @@ public class PlayerAttackHitbox : MonoBehaviour
     [SerializeField] private GameObject hitEffectPrefab;
     [SerializeField] private Transform player;
     [SerializeField] private PlayerTimeStopManager timeStopManager;
+    [SerializeField] private List<Transform> hitTransforms; // Holds a list of transforms that can be used for effects
+    [SerializeField] public int hitTransformIndex; // Index of transform to use
     [HideInInspector] public float timeStopDuration;
     [HideInInspector] public int damage;
     [HideInInspector] public float knockback;
@@ -33,10 +35,9 @@ public class PlayerAttackHitbox : MonoBehaviour
         if (collision.GetComponent<IDamageable>() != null && !previousHits.Contains(collision))
         {
             previousHits.Add(collision);
-            //collision.GetComponent<IDamageable>().TakeDamage(damage, knockback, transform.parent.position.x);
             collision.GetComponent<IDamageable>().TakeDamage(damage);
-            Instantiate(hitEffectPrefab, collision.ClosestPointOnBounds(player.position + Vector3.up),
-                Quaternion.identity);
+            //Instantiate(hitEffectPrefab, collision.ClosestPointOnBounds(player.position + Vector3.up), Quaternion.identity);
+            Instantiate(hitEffectPrefab, hitTransforms[hitTransformIndex].position, Quaternion.identity);
             timeStopManager.HitStop(timeStopDuration);
         }
     }

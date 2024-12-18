@@ -14,4 +14,5 @@ public class PlayerAttackSO : ScriptableObject
     public float cooldownAfterAttack = 1f;
     public float moveAmount = 0f;
     public float timeStopDuration;
+    public int hitTransformIndex;
 }

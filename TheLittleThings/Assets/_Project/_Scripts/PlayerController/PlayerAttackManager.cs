@@ -119,6 +119,7 @@ public class PlayerAttackManager : MonoBehaviour
         attackHitbox.damage = attackScriptableObject.damage;
         attackHitbox.knockback = attackScriptableObject.knockback;
         attackHitbox.timeStopDuration = attackScriptableObject.timeStopDuration;
+        attackHitbox.hitTransformIndex = attackScriptableObject.hitTransformIndex;
         player.attack.comboAttack.timeBeforeHitboxActive = attackScriptableObject.timeBeforeHitboxActive;
         player.attack.comboAttack.attackMoveAmount = attackScriptableObject.moveAmount;
         attackCooldown = attackScriptableObject.cooldownAfterAttack;

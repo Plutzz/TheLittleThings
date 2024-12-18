@@ -19,4 +19,5 @@ MonoBehaviour:
   attackLength: 0.5
   cooldownAfterAttack: 0.5
   moveAmount: 15
-  timeStopDuration: 0.1
+  timeStopDuration: 0.075
+  hitTransformIndex: 1
