@@ -305,7 +305,7 @@ MonoBehaviour:
   attackTime: 1
   attackMoveAmount: 0
   groundDrag: 10
-  rotationSpeed: 2
+  rotationSpeed: 15
   playerObj: {fileID: 8676626723179518780}
   orientation: {fileID: 1248634803902626960}
   player: {fileID: 25349042078243649}
