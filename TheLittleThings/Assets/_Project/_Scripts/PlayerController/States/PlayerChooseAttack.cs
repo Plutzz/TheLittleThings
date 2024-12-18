@@ -39,7 +39,7 @@ public class PlayerChooseAttack : State
         }
         
         // Player releases attack button
-        if (playerInput.attackReleasedThisFrame)
+        if (!playerInput.attackHeld)
         {
             // If the player has not held attack for long enough to perform a hold attack, perform the next combo attack
             if (minChargeupTime>stateUptime)
