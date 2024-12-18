@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerJumpManager : MonoBehaviour
@@ -13,10 +14,9 @@ public class PlayerJumpManager : MonoBehaviour
     [HorizontalLine]
     [Header("Sensors")]
     [SerializeField] private GroundSensor groundSensor;
-
     float FrameBufferNum => playerStats.JumpFrameBufferAmount;
     float JumpForce => playerStats.JumpForce;
-    float downwardForce = 5f;
+    private float downwardForce => playerStats.EndJumpEarlyForce;
 
     private int framesSinceLastSpacebar, framesSinceOnGround;
     private bool jumping;
@@ -34,16 +34,16 @@ public class PlayerJumpManager : MonoBehaviour
         {
             framesSinceLastSpacebar = 0;
         }
-
-        //creates variable jump, adds downward force if player lets go of space making character fall faster leading to smaler jump
-        if (jumping && !playerInput.jumpHeld)
-        {
-            rb.AddForce(-Vector2.up * downwardForce);
-        }
-
+        
         if((groundSensor.grounded && rb.velocity.y < 0))
         {
             jumping = false;
+        }
+        
+        //creates variable jump, adds downward force if player lets go of space making character fall faster leading to smaller jump
+        if (jumping && playerInput.jumpReleasedThisFrame && rb.velocity.y > 0)
+        {
+            rb.AddForce(Vector3.down * downwardForce, ForceMode.Impulse);
         }
 
     }
@@ -63,16 +63,19 @@ public class PlayerJumpManager : MonoBehaviour
             framesSinceOnGround++;
         }
         framesSinceLastSpacebar++;
-
         if (framesSinceLastSpacebar < FrameBufferNum)
         {
             AttemptJump();
         }
+        
+        
     }
 
     void AttemptJump()
     {
         Debug.Log("Attempt Jump");
+        
+        // Only allow the player to jump in move and idle state
         if (!(player.stateMachine.currentState is PlayerMove3D || player.stateMachine.currentState is PlayerIdle)) return;
 
         if (framesSinceOnGround < FrameBufferNum)
@@ -80,13 +83,14 @@ public class PlayerJumpManager : MonoBehaviour
             if(groundSensor.grounded)
             {
                 Debug.Log("Jump");
+                player.stateMachine.SetState(player.airborne);
                 rb.AddForce(Vector3.up * playerStats.JumpForce, ForceMode.Impulse);
             }
 
             jumping = true;
 
             framesSinceLastSpacebar = (int)FrameBufferNum; // ensure two jumps don't happen off one input
-            framesSinceOnGround = -1; // magic™ (look at fixed update)
+            framesSinceOnGround = -1; // magicï¿½ (look at fixed update)
         }
     }
 
@@ -99,7 +103,6 @@ public class PlayerJumpManager : MonoBehaviour
             style.alignment = TextAnchor.MiddleCenter;
             style.normal.textColor = Color.white;
             UnityEditor.Handles.Label(transform.position + Vector3.up * 2.5f, $"Ticks since: Spacebar: {framesSinceLastSpacebar} Ground: {framesSinceOnGround}", style);
-
         }
         #endif
     }

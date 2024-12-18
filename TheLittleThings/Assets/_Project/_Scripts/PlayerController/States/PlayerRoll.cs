@@ -9,18 +9,21 @@ public class PlayerRoll : State
     [SerializeField] private Transform orientation;
     [SerializeField] private Transform playerObj;
     private PlayerStats stats => player.stats;
-    public AnimationClip rollAnimation;
     private float prevDrag;
     
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        Roll();
+        
         prevDrag = rb.drag;
         rb.drag = stats.RollDrag;
+        
+        // Make player roll in the direction that they are pressing relative to the camaera
         Vector2 _inputVector = new Vector2(playerInput.xInput, playerInput.yInput);
         Vector3 _inputDir = orientation.forward * _inputVector.y + orientation.right * _inputVector.x;
         playerObj.transform.forward = _inputDir;
+        
+        Roll();
     }
     
     public override void DoExitLogic()
@@ -35,6 +38,9 @@ public class PlayerRoll : State
         if(stateUptime > stats.RollDuration || rb.velocity.magnitude < 1) isComplete = true;
     }
 
+    /// <summary>
+    /// Adds an impulse force in the direction that the player is pressing and set roll animation
+    /// </summary>
     private void Roll()
     {
         Vector3 rollDirFor = Vector3.ProjectOnPlane(orientation.forward, Vector3.up).normalized * playerInput.yInput;
@@ -47,8 +53,6 @@ public class PlayerRoll : State
         }
 
         player.SetTrigger("Roll");
-        //animator.Play("Roll");
         rb.velocity = new Vector3(rollDir.x * stats.RollSpeed, rb.velocity.y, rollDir.z * stats.RollSpeed);
-        
     }
 }
