@@ -8,7 +8,8 @@ public class PlayerChooseAttack : State
     [SerializeField] public PlayerComboAttack comboAttack;
     [SerializeField] private PlayerHoldAttack holdAttack;
     [SerializeField] public float minChargeupTime, maxChargeupTime;
-    [FormerlySerializedAs("dummyState")] [SerializeField] private ChargeupAttackState chargeupAttackState;
+    [SerializeField] private ChargeupAttackState chargeupAttackState;
+    [SerializeField] private PlayerInput playerInput;
 
     public override void DoEnterLogic()
     {
@@ -23,29 +24,36 @@ public class PlayerChooseAttack : State
       
         base.DoUpdateState();
 
+        // When attack is complete, mark this state as complete
         if (currentState.isComplete)
         {
             isComplete = true;
         }
-
+        
         if (currentState != chargeupAttackState) return;
         
-        if (!Input.GetMouseButton(0))
+        // If the player has been charging up the attack for long, force the player to do a holdAttack even if they haven't let go of attack
+        if (maxChargeupTime < stateUptime)
         {
-            //this code is ran the first time the mouse button is up
+            stateMachine.SetState(holdAttack);
+        }
+        
+        // Player releases attack button
+        if (playerInput.attackReleasedThisFrame)
+        {
+            // If the player has not held attack for long enough to perform a hold attack, perform the next combo attack
             if (minChargeupTime>stateUptime)
             {
                 stateMachine.SetState(comboAttack);
             }
+            // If the player has performed a hold attack for long enough, commit to the holdAttack
             else
             {
                 stateMachine.SetState(holdAttack);
             }
         }
-        if (maxChargeupTime < stateUptime)
-        {
-            stateMachine.SetState(holdAttack);
-        }
+        
+        
     }
     
 }

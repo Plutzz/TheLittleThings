@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour
     public bool jumpReleasedThisFrame { get; private set; }
     public bool jumpHeld { get; private set; }
     public bool attackPressedDownThisFrame { get; private set; }
-    public bool attackPressedUpThisFrame { get; private set; }
+    public bool attackReleasedThisFrame { get; private set; }
     public bool rollPressedThisFrame { get; private set; }
     public bool sprintHeld { get; private set; }
     
@@ -42,7 +42,7 @@ public class PlayerInput : MonoBehaviour
         rollPressedThisFrame = Input.GetKeyDown(KeyCode.LeftControl);
         jumpHeld = Input.GetKey(KeyCode.Space);
         attackPressedDownThisFrame = Input.GetMouseButtonDown(0);
-        attackPressedUpThisFrame = Input.GetMouseButtonUp(0);
+        attackReleasedThisFrame = Input.GetMouseButtonUp(0);
         ResetInput = Input.GetKeyDown(R);
         sprintHeld = Input.GetKey(LeftShift);
     }
