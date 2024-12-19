@@ -23,10 +23,10 @@ MonoBehaviour:
   <NormalGravity>k__BackingField: 40
   <GroundGravity>k__BackingField: 100
   <CurrentGravity>k__BackingField: 40
-  <JumpForce>k__BackingField: 16
+  <JumpForce>k__BackingField: 14
   <EndJumpEarlyForce>k__BackingField: 0
   <JumpFrameBufferAmount>k__BackingField: 60
   <FallSpeedLimit>k__BackingField: 50
-  <RollSpeed>k__BackingField: 15
+  <RollSpeed>k__BackingField: 12
   <RollDuration>k__BackingField: 0.5
   <RollDrag>k__BackingField: 0
