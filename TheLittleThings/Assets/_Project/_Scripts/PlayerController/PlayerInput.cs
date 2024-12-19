@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private InputActionAsset playerInputAction;
     public Vector2 moveVector { get; private set; }
+    public Vector2 lookVector { get; private set; }
     public float timeOfLastMoveInput { get; private set; }
     public bool jumpPressedThisFrame { get; private set; }
     public bool jumpReleasedThisFrame { get; private set; }
@@ -19,6 +20,10 @@ public class PlayerInput : MonoBehaviour
     public bool attackReleasedThisFrame { get; private set; }
     public bool rollPressedThisFrame { get; private set; }
     public bool sprintHeld { get; private set; }
+    public bool sprintPressedThisFrame { get; private set; }
+    public bool toggleCameraPressedDownThisFrame { get; private set; }
+    public bool toggleCameraHeld { get; private set; }
+    public bool toggleCameraReleasedThisFrame { get; private set; }
     public bool ResetInput { get; private set;}
 
     private void OnEnable()
@@ -37,20 +42,36 @@ public class PlayerInput : MonoBehaviour
         InputActionMap playerActionMap = playerInputAction.actionMaps[0];
         moveVector = playerActionMap.FindAction("Move").ReadValue<Vector2>();
         
+        
         if (moveVector.magnitude > 0)
         {
             timeOfLastMoveInput = Time.time;
         }
         
         
-        jumpPressedThisFrame = Input.GetKeyDown(KeyCode.Space);
-        jumpReleasedThisFrame = Input.GetKeyUp(KeyCode.Space);
-        rollPressedThisFrame = Input.GetKeyDown(KeyCode.LeftControl);
-        jumpHeld = Input.GetKey(KeyCode.Space);
-        attackPressedDownThisFrame = Input.GetMouseButtonDown(0);
-        attackHeld = Input.GetMouseButton(0);
-        attackReleasedThisFrame = Input.GetMouseButtonUp(0);
+        // Jump
+        jumpPressedThisFrame = playerActionMap.FindAction("Jump").WasPerformedThisFrame();
+        jumpReleasedThisFrame = playerActionMap.FindAction("Jump").WasReleasedThisFrame();
+        jumpHeld = playerActionMap.FindAction("Jump").ReadValue<float>() > 0;
+
+        // Roll
+        rollPressedThisFrame = playerActionMap.FindAction("Roll").WasPerformedThisFrame();
+        
+        // Attack
+        attackPressedDownThisFrame = playerActionMap.FindAction("Attack").WasPerformedThisFrame();
+        attackHeld = playerActionMap.FindAction("Attack").ReadValue<float>() > 0;
+        attackReleasedThisFrame = playerActionMap.FindAction("Attack").WasReleasedThisFrame();
+        
+        // Sprint
+        sprintHeld = playerActionMap.FindAction("Sprint").ReadValue<float>() > 0;
+        sprintPressedThisFrame = playerActionMap.FindAction("Attack").WasPerformedThisFrame();
+        
+        // Toggle Camera
+        toggleCameraPressedDownThisFrame = playerActionMap.FindAction("Toggle Camera").WasPerformedThisFrame();
+        toggleCameraHeld = playerActionMap.FindAction("Toggle Camera").ReadValue<float>() > 0;
+        toggleCameraReleasedThisFrame = playerActionMap.FindAction("Toggle Camera").WasReleasedThisFrame();
+        
+        // DEBUG INPUTS
         ResetInput = Input.GetKeyDown(R);
-        sprintHeld = Input.GetKey(LeftShift);
     }
 }

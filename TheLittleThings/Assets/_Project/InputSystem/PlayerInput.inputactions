@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Look",
+                    "type": "Button",
+                    "id": "75b308ac-b227-48a3-9bf6-c64118868270",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -78,7 +87,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -89,7 +98,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -100,7 +109,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -111,10 +120,21 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "92c8bfc0-3cf9-461d-a6a5-38aee9ea7b98",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "Controller",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -122,7 +142,18 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9ecdded7-c3b8-4a93-9fc3-5d8769157732",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -133,7 +164,18 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c5c636c6-8c2c-4df2-b24b-a8b68431451f",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -144,7 +186,18 @@
                     "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
+                    "action": "Toggle Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92e0467b-c174-4c1f-b6c2-92ab928f7f13",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "Toggle Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -155,7 +208,18 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
+                    "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "35a86297-f6d6-4d36-bafc-a3ccbe815c03",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -166,13 +230,52 @@
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard",
                     "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ad02320-b8d7-47ef-bb47-5c4215df4b04",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30e32cbc-9322-4388-ac56-321486a5675e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
+            "devices": []
+        },
+        {
+            "name": "Controller",
+            "bindingGroup": "Controller",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

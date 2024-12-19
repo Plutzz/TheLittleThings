@@ -53,8 +53,7 @@ public class PlayerMove3D : State
     /// </summary>
     private void CheckForSprint()
     {
-        // TODO: Create sprint input and replace if condition
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (playerInput.sprintHeld)
         {
             maxSpeed = stats.MaxSprintSpeed;
             acceleration = stats.SprintAcceleration;
