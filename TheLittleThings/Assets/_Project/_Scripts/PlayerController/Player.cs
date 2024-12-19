@@ -89,8 +89,8 @@ public class Player : StateMachineCore
     private void HandleTransitions()
     {
         // Cache xInput and yInput from playerInput script
-        float xInput = playerInput.xInput;
-        float yInput = playerInput.yInput;
+        float xInput = playerInput.moveVector.x;
+        float yInput = playerInput.moveVector.y;
         
         // Transition to roll
         if (stateMachine.currentState != attack && stateMachine.currentState != airborne && playerInput.rollPressedThisFrame)

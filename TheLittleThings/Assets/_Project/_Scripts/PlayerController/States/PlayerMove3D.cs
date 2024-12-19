@@ -43,7 +43,7 @@ public class PlayerMove3D : State
         Vector3 rightOriented = Vector3.Cross(hit.normal, forwardOriented).normalized;
         // Adds a force to the player in the direction they are pressing relative to the camera
         Debug.Log("MOVE FIXED UPDATE");
-        rb.AddForce((forwardOriented * playerInput.yInput + rightOriented * playerInput.xInput).normalized * (acceleration * 100f));
+        rb.AddForce((forwardOriented * playerInput.moveVector.y + rightOriented * playerInput.moveVector.x).normalized * (acceleration * 100f));
         LimitVelocity();
         StickToSlope();
     }
@@ -53,8 +53,7 @@ public class PlayerMove3D : State
     /// </summary>
     private void CheckForSprint()
     {
-        // TODO: Create sprint input and replace if condition
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (playerInput.sprintHeld)
         {
             maxSpeed = stats.MaxSprintSpeed;
             acceleration = stats.SprintAcceleration;
