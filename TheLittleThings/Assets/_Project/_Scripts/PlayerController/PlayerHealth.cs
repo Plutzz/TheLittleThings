@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxHealth;
+    [SerializeField] public PlayerHurt ouch;
+    [SerializeField] public Player player;
     private int currentHealth;
 
     void Start() {
@@ -12,6 +14,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     public void TakeDamage(int damage) {
+        player.stateMachine.SetState(ouch);
         currentHealth -= damage;
         if (currentHealth <= 0) {
             Die();
