@@ -5,23 +5,18 @@ using UnityEngine;
 
 public class PlayerHurt : State
 {
-    public GameObject enemy;
-    public Collider eCollider;
+    [SerializeField] private float hurtDuration = 0.5f;
     public override void DoEnterLogic()
     {
-        eCollider = enemy.GetComponent<Collider>();
-        //player gets hit by enemy hitbox
-        if (eCollider.bounds.Contains(transform.position)){
-            Debug.Log("test");
-            base.DoEnterLogic();
-        }
+        base.DoEnterLogic();
     }
 
     public override void DoExitLogic()
     {
+        base.DoExitLogic();
         //state is active for a set number of frames
-        if (stateUptime >= 0.5f) {
-            base.DoExitLogic();
+        if (stateUptime >= hurtDuration) {
+            isComplete = true;
         }
     }
 }
