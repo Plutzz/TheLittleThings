@@ -29,13 +29,14 @@ public class PlayerAttackManager : MonoBehaviour
     [SerializeField] private Player player; 
     [SerializeField] private PlayerAttackHitbox attackHitbox;
     [SerializeField] private PlayerInput inputManager;
-    [SerializeField] private Animator anim;
+    private Animator anim;
 
 
 
     private void Awake()
     {
         attackHitbox = GetComponentInChildren<PlayerAttackHitbox>(true);
+        anim = player.animator;
     }
 
     public void Update()
