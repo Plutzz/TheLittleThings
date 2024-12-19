@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using static UnityEngine.KeyCode;
 
 public class PlayerInput : MonoBehaviour
 {
-    public float xInput { get;  private set; }
-    public float yInput { get; private set; }
+    [SerializeField] private InputActionAsset playerInputAction;
     public Vector2 moveVector { get; private set; }
     public float timeOfLastMoveInput { get; private set; }
     public bool jumpPressedThisFrame { get; private set; }
@@ -17,20 +19,23 @@ public class PlayerInput : MonoBehaviour
     public bool attackReleasedThisFrame { get; private set; }
     public bool rollPressedThisFrame { get; private set; }
     public bool sprintHeld { get; private set; }
-    
-    
+    public bool ResetInput { get; private set;}
 
-    public bool ResetInput
+    private void OnEnable()
     {
-        get; private set;
+        playerInputAction.Enable();
     }
-    // Update is called once per frame
+
+    private void OnDisable()
+    {
+        playerInputAction.Disable();
+    }
+
+
     void Update()
     {
-        // Handle move inputs
-        xInput = Input.GetAxisRaw("Horizontal");
-        yInput = Input.GetAxisRaw("Vertical");
-        moveVector = new Vector2(xInput, yInput);
+        InputActionMap playerActionMap = playerInputAction.actionMaps[0];
+        moveVector = playerActionMap.FindAction("Move").ReadValue<Vector2>();
         
         if (moveVector.magnitude > 0)
         {

@@ -54,7 +54,7 @@ public class PlayerJumpManager : MonoBehaviour
         {
             framesSinceOnGround = (int)FrameBufferNum;
         }
-        else if (player.stateMachine.currentState is not PlayerAirborne && (groundSensor.grounded))
+        else if (player.stateMachine.currentState is not PlayerAirborne3D && (groundSensor.grounded))
         {
             framesSinceOnGround = 0;
         }
