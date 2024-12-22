@@ -14,12 +14,8 @@ public class PlayerHurt : State
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        //state is active for a set number of frames
         if (stateUptime >= hurtDuration) {
             isComplete = true;
         }
     }
 }
-
-//reference player script and use statemachine 
-//In hurt state use the stateUptime variable to check for how long the player has been in the hurt state for
