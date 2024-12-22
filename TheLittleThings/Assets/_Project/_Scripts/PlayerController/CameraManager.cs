@@ -8,10 +8,11 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera lockOnCamera;
     [SerializeField] private CinemachineFreeLook thirdPersonCamera;
     [SerializeField] private Transform playerLookAt;
+    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private float thirdPersonResetOffset;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (playerInput.toggleCameraReleasedThisFrame)
         {
             ToggleCameraMode();
         }

@@ -19,7 +19,7 @@ public class PlayerRoll : State
         rb.drag = stats.RollDrag;
         
         // Make player roll in the direction that they are pressing relative to the camaera
-        Vector2 _inputVector = new Vector2(playerInput.xInput, playerInput.yInput);
+        Vector2 _inputVector = playerInput.moveVector;
         Vector3 _inputDir = orientation.forward * _inputVector.y + orientation.right * _inputVector.x;
         playerObj.transform.forward = _inputDir;
         
@@ -43,11 +43,11 @@ public class PlayerRoll : State
     /// </summary>
     private void Roll()
     {
-        Vector3 rollDirFor = Vector3.ProjectOnPlane(orientation.forward, Vector3.up).normalized * playerInput.yInput;
-        Vector3 rollDirRight = Vector3.ProjectOnPlane(orientation.right, Vector3.up).normalized * playerInput.xInput;
+        Vector3 rollDirFor = Vector3.ProjectOnPlane(orientation.forward, Vector3.up).normalized * playerInput.moveVector.y;
+        Vector3 rollDirRight = Vector3.ProjectOnPlane(orientation.right, Vector3.up).normalized * playerInput.moveVector.x;
         Vector3 rollDir = (rollDirFor + rollDirRight).normalized;
 
-        if (playerInput.yInput == 0 && playerInput.xInput == 0)
+        if (playerInput.moveVector.y == 0 && playerInput.moveVector.x == 0)
         {
             rollDir = Vector3.ProjectOnPlane(playerObj.transform.forward, Vector3.up).normalized;
         }

@@ -33,7 +33,7 @@ public class ThirdPersonCam : MonoBehaviour
         orientation.forward = _viewDir.normalized;
 
         // rotate player object
-        Vector2 _inputVector = new Vector2(playerInput.xInput, playerInput.yInput);
+        Vector2 _inputVector = playerInput.moveVector;
         Vector3 _inputDir = orientation.forward * _inputVector.y + orientation.right * _inputVector.x;
 
         if (_inputDir != Vector3.zero && Player.stateMachine.currentState is not PlayerChooseAttack && Player.stateMachine.currentState is not PlayerRoll)

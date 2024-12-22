@@ -21,7 +21,7 @@ public class PlayerAirborne3D : State
     public override void DoFixedUpdateState()
     {
         base.DoFixedUpdateState();
-        rb.AddForce((orientation.forward * playerInput.yInput + orientation.right * playerInput.xInput).normalized * acceleration * 100f);
+        rb.AddForce((orientation.forward * playerInput.moveVector.y + orientation.right * playerInput.moveVector.x).normalized * acceleration * 100f);
         NoInputDeceleration();
         LimitVelocity();
     }
