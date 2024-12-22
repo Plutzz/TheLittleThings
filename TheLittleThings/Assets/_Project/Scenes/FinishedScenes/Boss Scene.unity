@@ -731,7 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f88cb67afd53e24caabcc2c68285cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtDuration: 0.5
+  hurtDuration: 3
 --- !u!4 &193078667
 Transform:
   m_ObjectHideFlags: 0
@@ -15342,6 +15342,18 @@ PrefabInstance:
     - target: {fileID: 755650061613064578, guid: c553a4741b0eb8a42ab7d72cba28928f, type: 3}
       propertyPath: m_Rigs.Array.data[2]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734232669302786482, guid: c553a4741b0eb8a42ab7d72cba28928f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7375066
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734232669302786482, guid: c553a4741b0eb8a42ab7d72cba28928f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00306581
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734232669302786482, guid: c553a4741b0eb8a42ab7d72cba28928f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.002854554
       objectReference: {fileID: 0}
     - target: {fileID: 2484639814839268308, guid: c553a4741b0eb8a42ab7d72cba28928f, type: 3}
       propertyPath: enemy

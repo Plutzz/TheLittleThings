@@ -9,13 +9,14 @@ public class PlayerHurt : State
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        isComplete = false;
     }
 
-    public override void DoExitLogic()
+    public override void DoUpdateState()
     {
-        base.DoExitLogic();
+        base.DoUpdateState();
         if (stateUptime >= hurtDuration) {
             isComplete = true;
-        }
+        }  
     }
 }
