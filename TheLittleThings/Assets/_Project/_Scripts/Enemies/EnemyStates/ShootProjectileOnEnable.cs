@@ -8,7 +8,6 @@ public class ShootProjectileOnEnable : MonoBehaviour
     [SerializeField] private Transform muzzleLocation;
     private void OnEnable()
     {
-        Debug.Log("SHOOT");
         GameObject _proj = Instantiate(projectilePrefab, muzzleLocation.position, Quaternion.identity);
         _proj.transform.forward = transform.forward;
     }

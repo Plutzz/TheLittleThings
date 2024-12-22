@@ -14,6 +14,7 @@ public class Player : StateMachineCore
     [field: SerializeField] public PlayerRoll roll { get; private set; }
     [field: SerializeField] public PlayerAirborne3D airborne { get; private set; }
     [field: SerializeField] public PlayerChooseAttack attack { get; private set; }
+    [field: SerializeField] public PlayerHurt hurt { get; private set; }
     
     // Sensor scripts used for ground checks and wall checks
     [field:HorizontalLine(color: EColor.Gray)]
@@ -32,7 +33,7 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerJumpManager jumpManager;
     [SerializeField] public HealthTracker playerHP {get; private set;} 
     
-    // Variables pertaining to player attacks
+    // Variables pertaining to  tacks
     [HorizontalLine(color: EColor.Gray)]
     [Header("Attacks")]
     [SerializeField] private PlayerAttackManager attackManager;
@@ -88,6 +89,10 @@ public class Player : StateMachineCore
     /// </summary>
     private void HandleTransitions()
     {
+        // If the player is currently in hurt state and the state isn't done yet, ignore all transitions
+        // Makes it so that the player can't get out of the hurt state early
+        if (stateMachine.currentState == hurt && !stateMachine.currentState.isComplete) return;
+        
         // Cache xInput and yInput from playerInput script
         float xInput = playerInput.moveVector.x;
         float yInput = playerInput.moveVector.y;
