@@ -90,6 +90,7 @@ public class Player : StateMachineCore
     private void HandleTransitions()
     {
         // If the player is currently in hurt state and the state isn't done yet, ignore all transitions
+        // Makes it so that the player can't get out of the hurt state early
         if (stateMachine.currentState == hurt && !stateMachine.currentState.isComplete) return;
         
         // Cache xInput and yInput from playerInput script

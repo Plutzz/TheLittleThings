@@ -67,6 +67,8 @@ public class PlayerAttackManager : MonoBehaviour
     /// </summary>
     void Attack()
     {
+        if (player.stateMachine.currentState == player.hurt) return;
+        
         // Attack is inputted before combo cooldown or combo is not complete
         if (Time.time - lastComboEnd <= timeBetweenCombos || comboCounter > combo.Count)
         {

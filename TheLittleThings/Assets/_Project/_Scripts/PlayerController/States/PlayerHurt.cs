@@ -6,9 +6,11 @@ using UnityEngine;
 public class PlayerHurt : State
 {
     [SerializeField] private float hurtDuration = 0.5f;
+    [SerializeField] private AnimationClip animClip;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
+        animator.Play(animClip.name);
         isComplete = false;
     }
 
