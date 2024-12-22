@@ -33,7 +33,7 @@ public class NavigateState : State
     public override void DoUpdateState()
     {
         base.DoUpdateState();
-        Debug.Log((core.transform.position - destination.position).sqrMagnitude);
+        // Debug.Log((core.transform.position - destination.position).sqrMagnitude);
 
         if(stateUptime > minTime && (core.transform.position - destination.position).sqrMagnitude < threshold * threshold)
         {
