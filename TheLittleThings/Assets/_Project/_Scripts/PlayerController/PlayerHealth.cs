@@ -13,7 +13,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
 
     public void TakeDamage(int damage) {
-        player.stateMachine.SetState(player.hurt); 
+        player.stateMachine.SetState(player.hurt);
         currentHealth -= damage;
         if (currentHealth <= 0) {
             Die();
