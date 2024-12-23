@@ -32,10 +32,11 @@ public class PlayerAttackHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.GetComponent<IDamageable>() != null && !previousHits.Contains(collision))
+        IDamageable damageable = collision.GetComponentInParent<IDamageable>();
+        if (damageable != null && !previousHits.Contains(collision))
         {
             previousHits.Add(collision);
-            collision.GetComponent<IDamageable>().TakeDamage(damage);
+            damageable.TakeDamage(damage);
             //Instantiate(hitEffectPrefab, collision.ClosestPointOnBounds(player.position + Vector3.up), Quaternion.identity);
             Instantiate(hitEffectPrefab, hitTransforms[hitTransformIndex].position, Quaternion.identity);
             timeStopManager.HitStop(timeStopDuration);
