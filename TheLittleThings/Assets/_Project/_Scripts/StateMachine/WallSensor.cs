@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// 3D wall sensor
+/// </summary>
 public class WallSensor : MonoBehaviour
 {
-    public bool wallLeft { get; private set; }
-    public bool wallRight { get; private set; }
+    public bool OnWall { get; private set; }
     [SerializeField] private float rayLength;
-    public LayerMask groundLayer;
+    public LayerMask wallLayer;
 
     private void Update()
     {
@@ -16,9 +19,12 @@ public class WallSensor : MonoBehaviour
 
     private void CheckGround()
     {
-        wallLeft = Physics.Raycast(transform.position, Vector3.left, rayLength, groundLayer);
-        wallRight = Physics.Raycast(transform.position, Vector3.right, rayLength, groundLayer);
-        Debug.DrawRay(transform.position, transform.right * rayLength);
-        Debug.DrawRay(transform.position, -transform.right * rayLength);
+        OnWall = Physics.Raycast(transform.position, transform.forward, rayLength, wallLayer);
+        Debug.DrawRay(transform.position, transform.forward * rayLength);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(transform.position, transform.forward * rayLength);
     }
 }

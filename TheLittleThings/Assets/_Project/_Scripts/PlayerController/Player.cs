@@ -12,6 +12,7 @@ public class Player : StateMachineCore
     [field: SerializeField] public PlayerIdle idle { get; private set; }
     [field: SerializeField] public PlayerMove3D move { get; private set; }
     [field: SerializeField] public PlayerRoll roll { get; private set; }
+    [field: SerializeField] public PlayerVault vault { get; private set; }
     [field: SerializeField] public PlayerAirborne3D airborne { get; private set; }
     [field: SerializeField] public PlayerChooseAttack attack { get; private set; }
     [field: SerializeField] public PlayerHurt hurt { get; private set; }
@@ -20,6 +21,7 @@ public class Player : StateMachineCore
     [field:HorizontalLine(color: EColor.Gray)]
     [field:Header("Sensors")]
     [field:SerializeField] public GroundSensor groundSensor {get; private set;}
+    [field:SerializeField] public WallSensor wallSensor {get; private set;}
     [field:SerializeField] public SlopeSensor slopeSensor {get; private set;}
 
     
@@ -104,6 +106,12 @@ public class Player : StateMachineCore
             return;
         }
         
+        // Transition to vault when vault cooldown is off and player is either on the ground or in the air
+        if (wallSensor.OnWall && ((stateMachine.currentState == move || stateMachine.currentState == idle) || (stateMachine.currentState == airborne && rb.velocity.y > 0)))
+        {
+            stateMachine.SetState();
+        }
+            
         // Transition to airborne
         if (!groundSensor.grounded && !slopeSensor.isOnSlope && stateMachine.currentState != roll)
         {
