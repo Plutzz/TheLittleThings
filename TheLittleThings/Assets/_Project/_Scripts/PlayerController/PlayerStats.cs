@@ -18,8 +18,9 @@ public class PlayerStats : ScriptableObject
     [field:Header("Air Movement")]
     [field:SerializeField] public float AirAccelerationMultiplier {get; private set;}
     [field:SerializeField] public float AirDrag {get; private set;}
-    
-    [field:Header("Gravity")]
+
+    [field: Header("Gravity")] [field: SerializeField]
+    public bool gravityEnabled;
     [field:SerializeField] public float NormalGravity {get; private set;}
     [field:SerializeField] public float GroundGravity {get; private set;}
     
@@ -35,6 +36,10 @@ public class PlayerStats : ScriptableObject
     [field:SerializeField] public float RollSpeed {get; private set;}
     [field:SerializeField] public float RollDuration {get; private set;}
     [field:SerializeField] public float RollDrag {get; private set;}
+    
+    [field:Header("Climbing")]
+    
+    [field:SerializeField] public float ClimbingRiseSpeed {get; private set;}
     
     [field:Header("Attack")]
     public float Damage {get; private set;}
