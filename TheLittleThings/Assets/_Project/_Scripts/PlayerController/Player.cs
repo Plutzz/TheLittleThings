@@ -29,6 +29,7 @@ public class Player : StateMachineCore
     [HorizontalLine(color: EColor.Gray)]
     [Header("Player Components")]
     [SerializeField] private Transform graphics;
+    [field:SerializeField] public Transform playerObj { get; private set; }
     [Expandable]
     [SerializeField] public PlayerStats stats;
     [SerializeField] private PlayerInput playerInput;

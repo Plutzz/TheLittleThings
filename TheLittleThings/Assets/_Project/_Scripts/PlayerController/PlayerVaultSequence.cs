@@ -7,14 +7,20 @@ public class PlayerVaultSequence : StateSequence
     [SerializeField] private Player player;
     public override void DoEnterLogic()
     {
-        base.DoEnterLogic();
+        player.playerObj.transform.forward = -player.wallSensor.wallHit.normal;
         player.stats.gravityEnabled = false;
-        player.transform.forward = -player.wallSensor.wallHit.normal;
+        base.DoEnterLogic();
+    }
+
+    public override void DoUpdateState()
+    {
+        base.DoUpdateState();
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+        
         player.stats.gravityEnabled = true;
     }
 }
