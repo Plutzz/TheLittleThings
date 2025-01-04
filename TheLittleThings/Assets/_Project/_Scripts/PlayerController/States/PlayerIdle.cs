@@ -11,8 +11,8 @@ public class PlayerIdle : State
     {
         base.DoEnterLogic();
         player.SetTrigger("Idle");
-        rb.drag = 100;
-        lastPos = player.rb.position;
+        // rb.drag = 100;
+        // lastPos = player.rb.position;
     }
     public override void DoUpdateState()
     {

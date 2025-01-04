@@ -20,6 +20,7 @@ MonoBehaviour:
   <NoInputDeceleration>k__BackingField: 25
   <AirAccelerationMultiplier>k__BackingField: 0.2
   <AirDrag>k__BackingField: 0
+  gravityEnabled: 1
   <NormalGravity>k__BackingField: 40
   <GroundGravity>k__BackingField: 100
   <CurrentGravity>k__BackingField: 40
@@ -30,3 +31,4 @@ MonoBehaviour:
   <RollSpeed>k__BackingField: 12
   <RollDuration>k__BackingField: 0.5
   <RollDrag>k__BackingField: 0
+  <ClimbingRiseSpeed>k__BackingField: 15

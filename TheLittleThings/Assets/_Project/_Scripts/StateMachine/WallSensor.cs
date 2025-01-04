@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class WallSensor : MonoBehaviour
 {
     public bool OnWall { get; private set; }
+    public RaycastHit wallHit { get; private set; }
     [SerializeField] private float rayLength;
     public LayerMask wallLayer;
 
@@ -19,7 +20,8 @@ public class WallSensor : MonoBehaviour
 
     private void CheckGround()
     {
-        OnWall = Physics.Raycast(transform.position, transform.forward, rayLength, wallLayer);
+        OnWall = Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, rayLength, wallLayer);
+        wallHit = hit;
         Debug.DrawRay(transform.position, transform.forward * rayLength);
     }
 

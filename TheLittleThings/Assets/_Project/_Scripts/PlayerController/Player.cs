@@ -12,7 +12,7 @@ public class Player : StateMachineCore
     [field: SerializeField] public PlayerIdle idle { get; private set; }
     [field: SerializeField] public PlayerMove3D move { get; private set; }
     [field: SerializeField] public PlayerRoll roll { get; private set; }
-    [field: SerializeField] public PlayerVault vault { get; private set; }
+    [field: SerializeField] public State vault { get; private set; }
     [field: SerializeField] public PlayerAirborne3D airborne { get; private set; }
     [field: SerializeField] public PlayerChooseAttack attack { get; private set; }
     [field: SerializeField] public PlayerHurt hurt { get; private set; }
@@ -35,7 +35,7 @@ public class Player : StateMachineCore
     [SerializeField] private PlayerJumpManager jumpManager;
     [SerializeField] public HealthTracker playerHP {get; private set;} 
     
-    // Variables pertaining to  tacks
+    // Variables pertaining to atacks
     [HorizontalLine(color: EColor.Gray)]
     [Header("Attacks")]
     [SerializeField] private PlayerAttackManager attackManager;
@@ -52,6 +52,7 @@ public class Player : StateMachineCore
         
         // Disable gravity and simulate gravity manually (to allow for different gravity scales)
         rb.useGravity = false;
+        stats.gravityEnabled = true;
         ChangeGravity(stats.NormalGravity);
         
         Cursor.lockState = CursorLockMode.Locked;
@@ -107,23 +108,23 @@ public class Player : StateMachineCore
         }
         
         // Transition to vault when vault cooldown is off and player is either on the ground or in the air
-        if (wallSensor.OnWall && ((stateMachine.currentState == move || stateMachine.currentState == idle) || (stateMachine.currentState == airborne && rb.velocity.y > 0)))
+        if (wallSensor.OnWall && ((stateMachine.currentState == move || stateMachine.currentState == idle) || stateMachine.currentState == airborne))
         {
-            stateMachine.SetState();
+            stateMachine.SetState(vault);
         }
             
         // Transition to airborne
-        if (!groundSensor.grounded && !slopeSensor.isOnSlope && stateMachine.currentState != roll)
+        if (!groundSensor.grounded && !slopeSensor.isOnSlope && stateMachine.currentState != roll && stateMachine.currentState != vault)
         {
             stateMachine.SetState(airborne);
             return;
         }
         
         // condition for transitioning to a "grounded" state (move or idle) when transitioning from airborne
-        bool airborneGroundCheck = stateMachine.currentState == airborne && rb.velocity.y < 0;
+        bool airborneGroundCheck = stateMachine.currentState == airborne && rb.velocity.y <= 0;
         
         // condition for transitioning to a "grounded" state (move or idle) when transitioning from any state besides airborne
-        bool nonAirborneGroundCheck = stateMachine.currentState != roll && stateMachine.currentState != attack && stateMachine.currentState != airborne;
+        bool nonAirborneGroundCheck = stateMachine.currentState == idle || stateMachine.currentState == move;
         
         // Transition to move
         if (groundSensor.grounded && (xInput != 0 || yInput != 0) && (nonAirborneGroundCheck || airborneGroundCheck || stateMachine.currentState.isComplete))
