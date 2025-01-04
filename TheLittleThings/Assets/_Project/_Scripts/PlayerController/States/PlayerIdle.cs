@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,12 +12,20 @@ public class PlayerIdle : State
     {
         base.DoEnterLogic();
         player.SetTrigger("Idle");
-        // rb.drag = 100;
-        // lastPos = player.rb.position;
     }
-    public override void DoUpdateState()
+
+    public override void DoExitLogic()
     {
-        // player.rb.position = lastPos;
-        // lastPos = player.rb.position;
+        base.DoExitLogic();
+        rb.drag = stats.GroundDrag;
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            rb.drag = 100;
+        }
+    }
+    
 }
