@@ -33,6 +33,17 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     }
 
     public void Die() {
+        
+        PlayerUIManager.Instance?.SetInGameUI(false);
+        PlayerUIManager.Instance?.SetResultsUI(true);
+        
+        
+        if (healthBarFill != null)
+        {
+            healthBarFill.transform.localScale = new Vector3(0, healthBarFill.transform.localScale.y, healthBarFill.transform.localScale.z);
+        }
+        
+        // Destroy enemy game object
         if (gameObjectToDestroy != null)
         {
             Destroy(gameObjectToDestroy);
@@ -41,11 +52,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         {
             Destroy(gameObject);
         }
-
-        if (healthBarFill != null)
-        {
-            healthBarFill.transform.localScale = new Vector3(0, healthBarFill.transform.localScale.y, healthBarFill.transform.localScale.z);
-        }
+        
     }
 
     private void UpdateHealthBar()
