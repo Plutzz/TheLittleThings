@@ -8,6 +8,7 @@ public class PlayerVaultSequence : StateSequence
     public override void DoEnterLogic()
     {
         player.playerObj.transform.forward = -player.wallSensor.wallHit.normal;
+        player.playerObj.eulerAngles = new Vector3(0, player.playerObj.transform.eulerAngles.y, 0);
         player.stats.gravityEnabled = false;
         base.DoEnterLogic();
     }

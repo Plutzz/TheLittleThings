@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         // Ignore getting hurt if the player is in roll state or hurt state
         if (player.stateMachine.currentState == player.roll || player.stateMachine.currentState == player.hurt) return;
-
+    
         if (healthBarFill != null)
         {
             UpdateHealthBar();
