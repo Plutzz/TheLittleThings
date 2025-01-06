@@ -40,7 +40,7 @@ public class CinematicBars : MonoBehaviour
         barsActive = true;
         topBar.DOAnchorPosY(topBarActivePos, tweenTime).SetEase(ease);
         bottomBar.DOAnchorPosY(bottomBarActivePos, tweenTime).SetEase(ease);
-        PlayerUIManager.Instance?.DisableUI();
+        PlayerUIManager.Instance?.SetInGameUI(false);
     }
 
     public void DeactivateBars()
@@ -48,7 +48,7 @@ public class CinematicBars : MonoBehaviour
         barsActive = false;
         topBar.DOAnchorPosY(topBarInactivePos, tweenTime).SetEase(ease);
         bottomBar.DOAnchorPosY(bottomBarInactivePos, tweenTime).SetEase(ease);
-        PlayerUIManager.Instance?.EnableUI();
+        PlayerUIManager.Instance?.SetInGameUI(true);
     }
     
     

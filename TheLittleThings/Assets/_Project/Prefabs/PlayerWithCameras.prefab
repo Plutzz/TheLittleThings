@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6796947811136536170}
   - component: {fileID: 7649040555050591358}
   m_Layer: 5
-  m_Name: Text (TMP) (3)
+  m_Name: Quest Name Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,7 +160,7 @@ Transform:
   m_GameObject: {fileID: 102179131686582890}
   serializedVersion: 2
   m_LocalRotation: {x: -0.002091496, y: 0.06758553, z: 0.000406415, w: 0.9977112}
-  m_LocalPosition: {x: 0, y: 7.63, z: 0}
+  m_LocalPosition: {x: 49.998, y: 10.45, z: 21.282}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 2693704662839463486}
   - component: {fileID: 6598798055850678600}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Return Timer Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,7 +347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374687446289992971}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07113264, y: -0.6721781, z: 0.06513425, w: 0.7340807}
+  m_LocalRotation: {x: 0.07113265, y: -0.67217803, z: 0.065134265, w: 0.7340807}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 2987419365685050045}
   - component: {fileID: 3590846391740106887}
   m_Layer: 5
-  m_Name: Text (TMP) (4)
+  m_Name: Quest Info Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,12 +707,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1152314340026429036}
   m_Layer: 5
-  m_Name: Combat HUD
+  m_Name: In Game UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1152314340026429036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1501,7 +1501,7 @@ GameObject:
   - component: {fileID: 6115545388479648536}
   - component: {fileID: 4240220250456962374}
   m_Layer: 5
-  m_Name: Text (TMP) (2)
+  m_Name: Quest Rewards Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2350,10 +2350,10 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4353182490520777082}
-  - {fileID: 4750613619508933286}
-  - {fileID: 1542184878399306524}
   - {fileID: 939873734415939729}
   - {fileID: 5685566217247412915}
+  - {fileID: 1542184878399306524}
+  - {fileID: 4750613619508933286}
   m_Father: {fileID: 4318559894181136997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2503,7 +2503,7 @@ Transform:
   m_GameObject: {fileID: 6751431280380172064}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.984535, y: 10.13, z: -0.35140443}
+  m_LocalPosition: {x: 53.982536, y: 12.95, z: 20.930595}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2751,7 +2751,7 @@ GameObject:
   - component: {fileID: 4385984216463098869}
   - component: {fileID: 6681821018131257628}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Quest Complete Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3021,7 +3021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7887979717148554935}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10136517, y: -0.6689176, z: 0.09281738, w: 0.73051995}
+  m_LocalRotation: {x: 0.10136512, y: -0.66891754, z: 0.09281732, w: 0.73051995}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3100,7 +3100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7911550122236471841}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1318448, y: -0.6644478, z: 0.12072676, w: 0.7256385}
+  m_LocalRotation: {x: 0.13184474, y: -0.6644477, z: 0.1207267, w: 0.7256385}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3385,6 +3385,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 369c5266bf4973c4b86a57ea0ab62c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inGameUI: {fileID: 1087838930334493046}
+  resultsUI: {fileID: 9199304148757078469}
+  resultsTimerText: {fileID: 6598798055850678600}
+  returnTime: 10
 --- !u!1 &9199304148757078469
 GameObject:
   m_ObjectHideFlags: 0
@@ -3395,7 +3399,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4318559894181136997}
   m_Layer: 5
-  m_Name: ResultsUI
+  m_Name: Results UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3435,15 +3439,15 @@ PrefabInstance:
       objectReference: {fileID: 9111075477645331391}
     - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: spawnPos.x
-      value: 0
+      value: 49.998
       objectReference: {fileID: 0}
     - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: spawnPos.y
-      value: 2
+      value: 10.45
       objectReference: {fileID: 0}
     - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: spawnPos.z
-      value: 0
+      value: 21.282
       objectReference: {fileID: 0}
     - target: {fileID: 25349042078243649, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: <hurt>k__BackingField
@@ -3927,15 +3931,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3666055917276726836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 49.998
       objectReference: {fileID: 0}
     - target: {fileID: 3666055917276726836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.63
+      value: 10.45
       objectReference: {fileID: 0}
     - target: {fileID: 3666055917276726836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 21.282
       objectReference: {fileID: 0}
     - target: {fileID: 3666055917276726836, guid: cc017152a28179a4a8a4914fbf759744, type: 3}
       propertyPath: m_LocalRotation.w
