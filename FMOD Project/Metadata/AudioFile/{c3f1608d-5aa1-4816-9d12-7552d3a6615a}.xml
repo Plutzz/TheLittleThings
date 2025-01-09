@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{99deb375-4420-44ca-b299-3ba1c350ef91}">
+	<object class="AudioFile" id="{c3f1608d-5aa1-4816-9d12-7552d3a6615a}">
 		<property name="assetPath">
-			<value>270428__littlerobotsoundfactory__footstep_water_05.wav</value>
+			<value>SFX/Footsteps/384864__ali_6868__right-grassgrassy-footstep-1.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.645827664399093</value>
+			<value>0.71873015873015877</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{7459a809-20b2-4629-9a92-4af8a32e7bd4}</destination>

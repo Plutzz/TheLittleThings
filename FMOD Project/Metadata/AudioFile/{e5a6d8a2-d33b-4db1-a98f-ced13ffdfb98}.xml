@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{83f35c35-5ea6-4d5a-bca8-5761baf82b9e}">
+	<object class="AudioFile" id="{e5a6d8a2-d33b-4db1-a98f-ced13ffdfb98}">
 		<property name="assetPath">
-			<value>751711__el_boss__tree-hit-skier-tree-impact-variation-3-of-3.wav</value>
+			<value>SFX/270428__littlerobotsoundfactory__footstep_water_05.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>1.1746485260770976</value>
+			<value>0.645827664399093</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{7459a809-20b2-4629-9a92-4af8a32e7bd4}</destination>

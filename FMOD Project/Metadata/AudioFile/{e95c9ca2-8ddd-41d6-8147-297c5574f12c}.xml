@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{c8753d03-7389-4d03-bcd8-1b536b4c5b09}">
+	<object class="AudioFile" id="{e95c9ca2-8ddd-41d6-8147-297c5574f12c}">
 		<property name="assetPath">
-			<value>265391__b_lamerichs__sound-effects-01-03-2015-5-footsteps-1.wav</value>
+			<value>SFX/751711__el_boss__tree-hit-skier-tree-impact-variation-3-of-3.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.18614512471655328</value>
+			<value>1.1746485260770976</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{7459a809-20b2-4629-9a92-4af8a32e7bd4}</destination>

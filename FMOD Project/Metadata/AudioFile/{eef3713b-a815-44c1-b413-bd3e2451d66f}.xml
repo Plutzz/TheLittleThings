@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{04fcb2a0-faf6-4aee-81a6-33f1b0c6633d}">
+	<object class="AudioFile" id="{eef3713b-a815-44c1-b413-bd3e2451d66f}">
 		<property name="assetPath">
-			<value>751707__el_boss__tree-hit-skier-tree-impact-variation-1-of-3.wav</value>
+			<value>SFX/751707__el_boss__tree-hit-skier-tree-impact-variation-1-of-3.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
