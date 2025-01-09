@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{70eb578a-cd47-4a9a-b7a9-a34edfd991f6}">
+		<property name="assetPath">
+			<value>751710__el_boss__tree-hit-skier-tree-impact-variation-2-of-3.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.97825396825396826</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{7459a809-20b2-4629-9a92-4af8a32e7bd4}</destination>
+		</relationship>
+	</object>
+</objects>
