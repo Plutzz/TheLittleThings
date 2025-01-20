@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor;
 using UnityEngine;
+using FMODUnity;
 
 public class PlayerMove3D : State
 {
@@ -12,12 +13,16 @@ public class PlayerMove3D : State
     [SerializeField] private Transform orientation;
     private float maxSpeed;
     private float acceleration;
+
+    private StudioEventEmitter footstepEmitter;
     private PlayerStats stats => player.stats;
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
         player.SetTrigger("Walk");
         rb.drag = stats.GroundDrag;
+        footstepEmitter = AudioManager.Instance.InitializeEventEmitter(FMODEvents.Sounds.PlayerFootsteps_Grass, player.playerObj.gameObject);
+        footstepEmitter.Play();
         // player.ChangeGravity(stats.GroundGravity);
     }
 
@@ -26,6 +31,8 @@ public class PlayerMove3D : State
         base.DoExitLogic();
         player.animator.SetBool("Sprint", false);
         animator.Play("Walk");
+        footstepEmitter.Stop();
+        
         // player.ChangeGravity(stats.NormalGravity);
     }
 
