@@ -65,12 +65,16 @@ public class PlayerMove3D : State
             maxSpeed = stats.MaxSprintSpeed;
             acceleration = stats.SprintAcceleration;
             player.animator.SetBool("Sprint", true);
+            
+            footstepEmitter.EventInstance.setParameterByName("Sprinting", 1.0f);
         }
         else
         {
             maxSpeed = stats.MaxWalkSpeed;
             acceleration = stats.WalkAcceleration;
             player.animator.SetBool("Sprint", false);
+            
+            footstepEmitter.EventInstance.setParameterByName("Sprinting", 0.0f);
         }
     }
     

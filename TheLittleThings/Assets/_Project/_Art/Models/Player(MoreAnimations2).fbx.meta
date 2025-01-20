@@ -124,7 +124,7 @@ ModelImporter:
       takeName: rig|Run
       internalID: -5480419611278045171
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -153,7 +153,7 @@ ModelImporter:
       takeName: rig|RunWeapon
       internalID: 8316296311850928660
       firstFrame: 0
-      lastFrame: 18
+      lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
